@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.siweb.controller.StudentDashboardController">
+   <children>
+      <Label layoutX="27.0" layoutY="35.0" prefHeight="30.0" prefWidth="162.0" text="Account">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <GridPane gridLinesVisible="true" layoutX="27.0" layoutY="116.0" prefHeight="239.0" prefWidth="294.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="68.57142857142858" minHeight="10.0" prefHeight="34.14286150251116" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="41.142852783203125" minHeight="10.0" prefHeight="38.28570992606028" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="41.142852783203125" minHeight="0.0" prefHeight="38.28570992606028" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="41.142852783203125" minHeight="10.0" prefHeight="38.28570992606028" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="41.142852783203125" minHeight="10.0" prefHeight="38.28570992606028" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="41.142852783203125" minHeight="10.0" prefHeight="38.28570992606028" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="38.0" prefWidth="103.0" text="Father Name" />
+            <Label id="fatherNameData" prefHeight="11.0" prefWidth="133.0" text="be replace" GridPane.columnIndex="1" />
+            <Label prefHeight="21.0" prefWidth="135.0" text="Mother Name" GridPane.rowIndex="1" />
+            <Label id="motherNameData" prefHeight="26.0" prefWidth="143.0" text="be replace" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label prefHeight="27.0" prefWidth="141.0" text="address" GridPane.rowIndex="2" />
+            <Label id="addressData" prefHeight="25.0" prefWidth="134.0" text="be replace" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label prefHeight="27.0" prefWidth="141.0" text="tel" GridPane.rowIndex="3" />
+            <Label id="telData" prefHeight="27.0" prefWidth="137.0" text="be replace" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label prefHeight="22.0" prefWidth="138.0" text="username" GridPane.rowIndex="4" />
+            <Label id="usernameData" prefHeight="30.0" prefWidth="143.0" text="be replace" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label prefHeight="27.0" prefWidth="143.0" text="email" GridPane.rowIndex="5" />
+            <Label id="emailData" prefHeight="27.0" prefWidth="132.0" text="be replace" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label prefHeight="25.0" prefWidth="141.0" text="url" GridPane.rowIndex="6" />
+            <Label id="urlData" prefHeight="26.0" prefWidth="144.0" text="be replace" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+         </children>
+      </GridPane>
+      <Button layoutX="644.0" layoutY="39.0" mnemonicParsing="false" text="dashboard" onAction="#backToDashboard"/>
+   </children>
+</Pane>
