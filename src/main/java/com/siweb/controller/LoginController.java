@@ -16,6 +16,8 @@ public class LoginController {
 
     private final HttpController http = HttpController.getInstance();
     @FXML
+    private Button registerButton;
+    @FXML
     private Label welcomeText;
 
     @FXML
@@ -59,6 +61,15 @@ public class LoginController {
     }
 
     @FXML
+    public void register(){
+
+        // just for testing
+        this.usernameTextField.setText("admin_demo");
+        this.passwordTextField.setText("admin_demo");
+
+    }
+
+    @FXML
     public void login(){
         try {
 
@@ -74,7 +85,14 @@ public class LoginController {
                         System.err.println();
 
                         com.siweb.App.setRoot("student-dashboard");
+                    }else if (resGroup.getString("name").equals("admin")){
+
+                        System.err.println("Welcome Back, Admin!");
+                        System.err.println();
+
+                        com.siweb.App.setRoot("admin-dashboard");
                     }
+
                     else {
 
                         // WIP, redirect admins / lecturers to different views

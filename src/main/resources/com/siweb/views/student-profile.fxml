@@ -12,28 +12,28 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.siweb.controller.StudentProfileController">
    <left>
-      <Pane prefHeight="884.0" prefWidth="354.0" style="-fx-background-color: lightgreen;" BorderPane.alignment="CENTER">
+      <Pane prefHeight="884.0" prefWidth="354.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutY="179.0" mnemonicParsing="false" onAction="#toStudentProfile" prefHeight="170.0" prefWidth="352.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 5px 0px;" text="Account" textFill="WHITE">
+            <Button layoutY="170.0" mnemonicParsing="false" onAction="#toStudentProfile" prefHeight="170.0" prefWidth="352.0" stylesheets="@../css/Dashboard.css" text="Account" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font></Button>
-            <Button layoutY="359.0" mnemonicParsing="false" prefHeight="169.0" prefWidth="352.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 5px 0px;" text="Grade" textFill="WHITE">
+            <Button layoutY="341.0" mnemonicParsing="false" prefHeight="169.0" prefWidth="352.0" stylesheets="@../css/button.css" text="Grade" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>
             </Button>
-            <Button layoutY="548.0" mnemonicParsing="false" prefHeight="166.0" prefWidth="352.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 5px 0px;" text="Classtime" textFill="WHITE">
+            <Button layoutY="511.0" mnemonicParsing="false" prefHeight="166.0" prefWidth="352.0" stylesheets="@../css/button.css" text="Classtime" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>
             </Button>
-            <Button layoutY="709.0" mnemonicParsing="false" onAction="#logout" prefHeight="190.0" prefWidth="350.0" style="-fx-background-color: transparent;" text="Logout" textFill="WHITE">
+            <Button layoutX="2.0" layoutY="677.0" mnemonicParsing="false" onAction="#logout" prefHeight="223.0" prefWidth="350.0" stylesheets="@../css/button.css" text="Logout" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>
             </Button>
-            <Button layoutY="14.0" mnemonicParsing="false" onAction="#toStudentDashboard" prefHeight="169.0" prefWidth="352.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 5px 0px;" text="Dashboard" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#toStudentDashboard" prefHeight="169.0" prefWidth="352.0" stylesheets="@../css/button.css" text="Dashboard" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>
@@ -75,15 +75,15 @@
                         <Label prefHeight="38.0" prefWidth="103.0" text="Father Name" />
                         <Label fx:id="fatherNameData" prefHeight="11.0" prefWidth="133.0" text="be replace" GridPane.columnIndex="1" />
                         <Label prefHeight="21.0" prefWidth="135.0" text="Mother Name" GridPane.rowIndex="1" />
-                        <Label fx:id="motherNameData" id="motherNameData" prefHeight="26.0" prefWidth="143.0" text="be replace" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label id="motherNameData" fx:id="motherNameData" prefHeight="26.0" prefWidth="143.0" text="be replace" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label prefHeight="27.0" prefWidth="141.0" text="address" GridPane.rowIndex="2" />
-                        <Label fx:id="addressData" id="addressData" prefHeight="25.0" prefWidth="134.0" text="be replace" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label id="addressData" fx:id="addressData" prefHeight="25.0" prefWidth="134.0" text="be replace" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label prefHeight="27.0" prefWidth="141.0" text="tel" GridPane.rowIndex="3" />
-                        <Label fx:id="telData" id="telData" prefHeight="27.0" prefWidth="137.0" text="be replace" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label id="telData" fx:id="telData" prefHeight="27.0" prefWidth="137.0" text="be replace" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label prefHeight="22.0" prefWidth="138.0" text="username" GridPane.rowIndex="4" />
-                        <Label fx:id="usernameData" id="usernameData" prefHeight="30.0" prefWidth="143.0" text="be replace" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label id="usernameData" fx:id="usernameData" prefHeight="30.0" prefWidth="143.0" text="be replace" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label prefHeight="27.0" prefWidth="143.0" text="email" GridPane.rowIndex="5" />
-                        <Label fx:id="emailData" id="emailData" prefHeight="27.0" prefWidth="132.0" text="be replace" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label id="emailData" fx:id="emailData" prefHeight="27.0" prefWidth="132.0" text="be replace" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
                </children>
