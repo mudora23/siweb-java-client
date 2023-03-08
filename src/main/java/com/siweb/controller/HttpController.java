@@ -61,7 +61,15 @@ public class HttpController {
             try
             {
                 // check if it's a JSON with the structure "{...}"
-                JSONObject resJSON = new JSONObject(res.body().toString());
+
+                JSONObject resJSON;
+
+                if(reqMethod.equals("DELETE")) { // this appears to be returning empty body from the API, we expect a JSON
+                    resJSON = new JSONObject("{}");
+                } else {
+                    resJSON = new JSONObject(res.body().toString());
+                }
+
                 if(actionName.equals("login")) {
                     // login success, save the tokens locally for authentication
                     setTokens(resJSON.getString( "access" ), resJSON.getString( "refresh" ));
@@ -119,6 +127,28 @@ public class HttpController {
 
     }
 
+
+    public void put(String uri, Map<?, ?> data, Consumer<?> listener) {
+        put(uri, data, listener, "");
+    }
+    // Sender for all put requests
+    public void put(String uri, Map<?, ?> data, Consumer<?> listener, String actionName) {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(App.API_URI + uri))
+                .timeout(Duration.ofSeconds(20))
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .header("Cache-Control", "no-cache")
+                .header("Authorization", "Bearer " + accessToken)
+                .PUT(BodyPublishers.ofString(new JSONObject(data).toString()))
+                .build();
+        client.sendAsync(request, BodyHandlers.ofString())
+                .thenAccept(res -> response_handler(res, "PUT", uri, data, listener, actionName));
+
+    }
+
+
     // Sender for all get requests
     public void get(String uri, Consumer<?> listener) {
         get(uri, listener, "");
@@ -137,6 +167,26 @@ public class HttpController {
                 .thenAccept(res -> response_handler(res, "GET", uri, Map.of(), listener, actionName));
 
     }
+
+
+    public void delete(String uri, Consumer<?> listener) {
+        delete(uri, listener, "");
+    }
+    public void delete(String uri, Consumer<?> listener, String actionName) {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(App.API_URI + uri))
+                .timeout(Duration.ofSeconds(20))
+                .header("Accept", "application/json")
+                .header("Cache-Control", "no-cache")
+                .header("Authorization", "Bearer " + accessToken)
+                .DELETE()
+                .build();
+        client.sendAsync(request, BodyHandlers.ofString())
+                .thenAccept(res -> response_handler(res, "DELETE", uri, Map.of(), listener, actionName));
+
+    }
+
 
     // refresh tokens and retry the failed request again
     private void refresh_token_and_retry(String reqMethod, String uri, Map<?, ?> data, Consumer<?> listener, String actionName) {
@@ -171,6 +221,12 @@ public class HttpController {
                         }
                         else if(reqMethod.equals("POST")){
                             post(uri, data, listener, actionName);
+                        }
+                        else if(reqMethod.equals("PUT")){
+                            put(uri, data, listener, actionName);
+                        }
+                        else if(reqMethod.equals("DELETE")){
+                            delete(uri, listener, actionName);
                         }
 
                     }
