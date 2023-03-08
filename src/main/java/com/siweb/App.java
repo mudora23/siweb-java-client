@@ -35,6 +35,7 @@ public class App extends Application {
         scene = new Scene(loadFXML("login"), 1600, 900, true, SceneAntialiasing.BALANCED);
         stage.setTitle(String.format("%s (Ver. %s) - %s", APP_NAME, APP_VERSION, APP_DESC));
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
