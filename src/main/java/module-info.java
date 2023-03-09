@@ -6,6 +6,9 @@ module com.siweb.client {
     requires org.json;
     requires java.net.http;
 
+    requires de.jensd.fx.glyphs.commons;
+    requires de.jensd.fx.glyphs.fontawesome;
+
     opens com.siweb to javafx.fxml;
     exports com.siweb;
     exports com.siweb.model;
