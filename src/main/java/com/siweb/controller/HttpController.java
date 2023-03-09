@@ -73,7 +73,7 @@ public class HttpController {
 
 
     /***
-     * Handles all authenticated POST requests, other than login / logout
+     * Handles all authenticated POST requests (for login and logout, use login() and logout() instead)
      * @param uri relative URI of the request
      * @param data body of the request
      * @param listener callback consumer if getting a 2XX response
