@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.siweb.controller.AdminDashboardController">
    <left>
@@ -35,6 +36,8 @@
                   <Font size="25.0" />
                </font>
             </Button>
+            <FontIcon iconLiteral="fab-apper" iconSize="50" layoutX="35.0" layoutY="110.0" />
+            <FontIcon iconLiteral="eli-adult" iconSize="50" layoutX="35.0" layoutY="285.0" />
          </children>
       </Pane>
    </left>
