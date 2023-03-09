@@ -17,7 +17,7 @@ import java.time.Duration;
 import java.util.Map;
 import java.util.function.*;
 
-/**
+/***
  * HttpController is a singleton to handle all http requests
  * All Http requests are asynchronous
  * Implemented with JSON Web Token (JWT) authentication:
@@ -25,18 +25,151 @@ import java.util.function.*;
  *   - When both tokens are expired, redirect to login page
  */
 public class HttpController {
+
+    // Declares variables
     private static final HttpController instance = new HttpController();
     private final HttpClient client = HttpClient.newHttpClient();
     private String accessToken = "";
     private String refreshToken = "";
     private HttpController(){}
+
+    // Returns the instance of the controller
     public static HttpController getInstance(){
         return instance;
     }
 
 
-    // set tokens locally
-    private void setTokens(String accessToken, String refreshToken){
+    /***
+     * Handles log in attempts with username and password from the user.
+     * @param username username of a user
+     * @param password password of a user
+     * @param listener callback consumer if logged in successfully
+     */
+    public void login(String username, String password, Consumer<JSONObject> listener) {
+        post("/auth/login/", Map.of("username", username, "password", password), (JSONObject res) -> {
+
+            // login success, save the tokens locally for authentication
+            _setTokens(res.getString( "access" ), res.getString( "refresh" ));
+
+            // Wait for the main thread before logging in
+            Platform.runLater(()-> {
+                listener.accept(res);
+            });
+        });
+    }
+
+    /***
+     * Handles log out attempts from the user.
+     * @param listener callback consumer if logged out successfully
+     */
+    public void logout(Consumer<JSONObject> listener) {
+        post("/auth/logout/", Map.of("refresh", refreshToken), (JSONObject res) -> {
+
+            // Remove tokens
+            _setTokens("", "");
+
+            // It's important to wait for the main thread before logging out
+            Platform.runLater(()-> {
+                listener.accept(res);
+            });
+        });
+    }
+
+
+    /***
+     * Handles all authenticated POST requests, other than login / logout
+     * @param uri relative URI of the request
+     * @param data body of the request
+     * @param listener callback consumer if getting a 2XX response
+     */
+    // Sender for all post requests
+    public void post(String uri, Map<?, ?> data, Consumer<?> listener) {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(App.API_URI + uri))
+                .timeout(Duration.ofSeconds(20))
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .header("Cache-Control", "no-cache")
+                .header("Authorization", "Bearer " + accessToken)
+                .POST(BodyPublishers.ofString(new JSONObject(data).toString()))
+                .build();
+        client.sendAsync(request, BodyHandlers.ofString())
+                .thenAccept(res -> _responseHandler(res, "POST", uri, data, listener));
+
+    }
+
+    /***
+     * Handles all authenticated PUT requests
+     * @param uri relative URI of the request
+     * @param data body of the request
+     * @param listener callback consumer if getting a 2XX response
+     */
+    // Sender for all put requests
+    public void put(String uri, Map<?, ?> data, Consumer<?> listener) {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(App.API_URI + uri))
+                .timeout(Duration.ofSeconds(20))
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .header("Cache-Control", "no-cache")
+                .header("Authorization", "Bearer " + accessToken)
+                .PUT(BodyPublishers.ofString(new JSONObject(data).toString()))
+                .build();
+        client.sendAsync(request, BodyHandlers.ofString())
+                .thenAccept(res -> _responseHandler(res, "PUT", uri, data, listener));
+
+    }
+
+
+    /***
+     * Handles all authenticated GET requests
+     * @param uri relative URI of the request
+     * @param listener callback consumer if getting a 2XX response
+     */
+    public void get(String uri, Consumer<?> listener) {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(App.API_URI + uri))
+                .timeout(Duration.ofSeconds(20))
+                .header("Accept", "application/json")
+                .header("Cache-Control", "no-cache")
+                .header("Authorization", "Bearer " + accessToken)
+                .GET()
+                .build();
+        client.sendAsync(request, BodyHandlers.ofString())
+                .thenAccept(res -> _responseHandler(res, "GET", uri, Map.of(), listener));
+
+    }
+
+    /***
+     * Handles all authenticated DELETE requests
+     * @param uri relative URI of the request
+     * @param listener callback consumer if getting a 2XX response
+     */
+    public void delete(String uri, Consumer<?> listener) {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(App.API_URI + uri))
+                .timeout(Duration.ofSeconds(20))
+                .header("Accept", "application/json")
+                .header("Cache-Control", "no-cache")
+                .header("Authorization", "Bearer " + accessToken)
+                .DELETE()
+                .build();
+        client.sendAsync(request, BodyHandlers.ofString())
+                .thenAccept(res -> _responseHandler(res, "DELETE", uri, Map.of(), listener));
+
+    }
+
+
+    /***
+     * set tokens locally
+     * @param accessToken access token
+     * @param refreshToken refresh token
+     */
+    private void _setTokens(String accessToken, String refreshToken){
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         System.err.println("accessToken updated");
@@ -44,13 +177,17 @@ public class HttpController {
         System.err.println();
     }
 
-    // response handler for all http requests, except for refreshing token which is handled in refresh_token_and_retry()
-    private void response_handler(HttpResponse<?> res, String reqMethod, String uri, Map<?, ?> data, Consumer<?> listener) {
-        response_handler(res, reqMethod, uri, data, listener, "");
-    }
-    private void response_handler(HttpResponse<?> res, String reqMethod, String uri, Map<?, ?> data, Consumer<?> listener, String actionName) {
+    /***
+     * response handler for all http requests, except for refreshing token which is handled in refresh_token_and_retry()
+     * @param res http response of the request
+     * @param reqMethod the request method, e.x. GET, POST
+     * @param uri relative URI of the request
+     * @param data body of the request
+     * @param listener callback consumer if getting a 2XX response
+     */
+    private void _responseHandler(HttpResponse<?> res, String reqMethod, String uri, Map<?, ?> data, Consumer<?> listener) {
 
-        // printing response for testing
+        // printing response in the console
         System.err.println(res);
         System.err.println(res.body());
         System.err.println();
@@ -61,22 +198,13 @@ public class HttpController {
             try
             {
                 // check if it's a JSON with the structure "{...}"
-
                 JSONObject resJSON;
-
-                if(reqMethod.equals("DELETE")) { // this appears to be returning empty body from the API, we expect a JSON
+                if(reqMethod.equals("DELETE")) { // this appears to be returning empty body from the API, let's keep it consistent and return an empty JSON
                     resJSON = new JSONObject("{}");
                 } else {
                     resJSON = new JSONObject(res.body().toString());
                 }
 
-                if(actionName.equals("login")) {
-                    // login success, save the tokens locally for authentication
-                    setTokens(resJSON.getString( "access" ), resJSON.getString( "refresh" ));
-                } else if(actionName.equals("logout")) {
-                    // logout success, remove the tokens locally
-                    setTokens("", "");
-                }
                 ((Consumer<JSONObject>) listener).accept(resJSON);
             }
             catch (Exception e)
@@ -96,100 +224,21 @@ public class HttpController {
         else if(res.statusCode() == 401 && !refreshToken.equals(""))
         {
             // access token not valid, automatically refresh the token and retry the request
-            refresh_token_and_retry(reqMethod, uri, data, listener, actionName);
+            _refreshTokenAndRetry(reqMethod, uri, data, listener);
         }
         else {
             // error, show popup notifications
-
         }
-
-
-
     }
 
-    public void post(String uri, Map<?, ?> data, Consumer<?> listener) {
-        post(uri, data, listener, "");
-    }
-    // Sender for all post requests
-    public void post(String uri, Map<?, ?> data, Consumer<?> listener, String actionName) {
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(App.API_URI + uri))
-                .timeout(Duration.ofSeconds(20))
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
-                .header("Cache-Control", "no-cache")
-                .header("Authorization", "Bearer " + accessToken)
-                .POST(BodyPublishers.ofString(new JSONObject(data).toString()))
-                .build();
-        client.sendAsync(request, BodyHandlers.ofString())
-                .thenAccept(res -> response_handler(res, "POST", uri, data, listener, actionName));
-
-    }
-
-
-    public void put(String uri, Map<?, ?> data, Consumer<?> listener) {
-        put(uri, data, listener, "");
-    }
-    // Sender for all put requests
-    public void put(String uri, Map<?, ?> data, Consumer<?> listener, String actionName) {
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(App.API_URI + uri))
-                .timeout(Duration.ofSeconds(20))
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
-                .header("Cache-Control", "no-cache")
-                .header("Authorization", "Bearer " + accessToken)
-                .PUT(BodyPublishers.ofString(new JSONObject(data).toString()))
-                .build();
-        client.sendAsync(request, BodyHandlers.ofString())
-                .thenAccept(res -> response_handler(res, "PUT", uri, data, listener, actionName));
-
-    }
-
-
-    // Sender for all get requests
-    public void get(String uri, Consumer<?> listener) {
-        get(uri, listener, "");
-    }
-    public void get(String uri, Consumer<?> listener, String actionName) {
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(App.API_URI + uri))
-                .timeout(Duration.ofSeconds(20))
-                .header("Accept", "application/json")
-                .header("Cache-Control", "no-cache")
-                .header("Authorization", "Bearer " + accessToken)
-                .GET()
-                .build();
-        client.sendAsync(request, BodyHandlers.ofString())
-                .thenAccept(res -> response_handler(res, "GET", uri, Map.of(), listener, actionName));
-
-    }
-
-
-    public void delete(String uri, Consumer<?> listener) {
-        delete(uri, listener, "");
-    }
-    public void delete(String uri, Consumer<?> listener, String actionName) {
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(App.API_URI + uri))
-                .timeout(Duration.ofSeconds(20))
-                .header("Accept", "application/json")
-                .header("Cache-Control", "no-cache")
-                .header("Authorization", "Bearer " + accessToken)
-                .DELETE()
-                .build();
-        client.sendAsync(request, BodyHandlers.ofString())
-                .thenAccept(res -> response_handler(res, "DELETE", uri, Map.of(), listener, actionName));
-
-    }
-
-
-    // refresh tokens and retry the failed request again
-    private void refresh_token_and_retry(String reqMethod, String uri, Map<?, ?> data, Consumer<?> listener, String actionName) {
+    /***
+     * refreshing tokens and retry the failed request again
+     * @param reqMethod the original request method, e.x. GET, POST
+     * @param uri relative URI of the original request
+     * @param data body of the original request
+     * @param listener callback consumer of the original request if getting a 2XX response
+     */
+    private void _refreshTokenAndRetry(String reqMethod, String uri, Map<?, ?> data, Consumer<?> listener) {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(App.API_URI + "/auth/token_refresh/"))
@@ -209,24 +258,17 @@ public class HttpController {
                         JSONObject resJSON = new JSONObject(res.body().toString());
 
                         // set it locally
-                        setTokens(resJSON.getString("access"), resJSON.getString("refresh"));
+                        _setTokens(resJSON.getString("access"), resJSON.getString("refresh"));
 
                         System.err.println("Tokens refreshed. Retrying the request...");
                         System.err.println();
 
                         // retry the previous failed request
-                        if(reqMethod.equals("GET"))
-                        {
-                            get(uri, listener, actionName);
-                        }
-                        else if(reqMethod.equals("POST")){
-                            post(uri, data, listener, actionName);
-                        }
-                        else if(reqMethod.equals("PUT")){
-                            put(uri, data, listener, actionName);
-                        }
-                        else if(reqMethod.equals("DELETE")){
-                            delete(uri, listener, actionName);
+                        switch (reqMethod) {
+                            case "GET" -> get(uri, listener);
+                            case "POST" -> post(uri, data, listener);
+                            case "PUT" -> put(uri, data, listener);
+                            case "DELETE" -> delete(uri, listener);
                         }
 
                     }
@@ -251,37 +293,7 @@ public class HttpController {
                     else {
                         // Other http errors
                     }
-
                 });
-
-    }
-
-    public void logout() {
-
-        post("/auth/logout/", Map.of("refresh", refreshToken), (JSONObject res) -> {
-
-            // It's important to wait for the main thread before logging out
-            Platform.runLater(()-> {
-
-                try {
-
-                    // logout successfully, returning to login page...
-
-                    accessToken = "";
-                    refreshToken = "";
-
-                    System.err.println("logout successfully, tokens cleared, returning to login page...");
-                    System.err.println();
-
-                    com.siweb.App.setRoot("login");
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            });
-
-        }, "logout");
     }
 
 

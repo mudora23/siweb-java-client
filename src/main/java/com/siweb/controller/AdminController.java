@@ -1,6 +1,7 @@
 package com.siweb.controller;
 
 import javafx.fxml.FXML;
+import org.json.JSONObject;
 
 public abstract class AdminController {
     protected final HttpController http = HttpController.getInstance();
@@ -23,7 +24,14 @@ public abstract class AdminController {
     }
 
     public void logout(){
-        http.logout();
+        http.logout((JSONObject res) -> {
+            try{
+                System.err.println("returning to login page...");
+                com.siweb.App.setRoot("login");
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        });
     }
 
 }

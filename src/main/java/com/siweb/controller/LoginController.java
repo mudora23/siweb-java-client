@@ -73,7 +73,7 @@ public class LoginController {
     public void login(){
         try {
 
-            http.post("/auth/login/", Map.of("username", this.usernameTextField.getText(), "password", this.passwordTextField.getText()), (JSONObject resLogin) -> {
+            http.login(this.usernameTextField.getText(), this.passwordTextField.getText(), (JSONObject resLogin) -> {
 
                 // check the role of the user
                 http.get("/group/current/", (JSONObject resGroup) -> {
@@ -85,14 +85,13 @@ public class LoginController {
                         System.err.println();
 
                         com.siweb.App.setRoot("student-dashboard");
-                    }else if (resGroup.getString("name").equals("admin")){
+                    } else if (resGroup.getString("name").equals("admin")){
 
                         System.err.println("Welcome Back, Admin!");
                         System.err.println();
 
                         com.siweb.App.setRoot("admin-dashboard");
                     }
-
                     else {
 
                         // WIP, redirect admins / lecturers to different views
@@ -100,7 +99,7 @@ public class LoginController {
                     }
                 });
 
-            }, "login");
+            });
 
         } catch (Exception e) {
             e.printStackTrace();

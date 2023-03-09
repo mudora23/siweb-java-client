@@ -27,7 +27,14 @@ public abstract class StudentController {
     }
 
     public void logout(){
-        http.logout();
+        http.logout((JSONObject res) -> {
+            try{
+                System.err.println("returning to login page...");
+                com.siweb.App.setRoot("login");
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        });
     }
 
 }
