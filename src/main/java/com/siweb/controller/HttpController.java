@@ -52,9 +52,7 @@ public class HttpController {
             _setTokens(res.getString( "access" ), res.getString( "refresh" ));
 
             // Wait for the main thread before logging in
-            Platform.runLater(()-> {
-                listener.accept(res);
-            });
+            Platform.runLater(()-> listener.accept(res));
         });
     }
 
@@ -69,9 +67,7 @@ public class HttpController {
             _setTokens("", "");
 
             // It's important to wait for the main thread before logging out
-            Platform.runLater(()-> {
-                listener.accept(res);
-            });
+            Platform.runLater(()-> listener.accept(res));
         });
     }
 
@@ -279,8 +275,7 @@ public class HttpController {
                         {
                             System.err.println("refresh token expired, returning to login page...");
                             System.err.println();
-                            accessToken = "";
-                            refreshToken = "";
+                            _setTokens("", "");
                             com.siweb.App.setRoot("login");
 
                         } catch (Exception e) {
