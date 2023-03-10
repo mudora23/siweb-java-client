@@ -36,5 +36,21 @@ public abstract class StudentController {
             }
         });
     }
+    @FXML
+    public void toStudentClasstime(){
+        try{
+            com.siweb.App.setRoot("student-classtime");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
+    @FXML
+    public void toStudentGrade(){
+        try{
+            com.siweb.App.setRoot("student-grade");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

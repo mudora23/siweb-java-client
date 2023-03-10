@@ -18,12 +18,12 @@
                <font>
                   <Font size="25.0" />
                </font></Button>
-            <Button layoutY="341.0" mnemonicParsing="false" prefHeight="169.0" prefWidth="352.0" stylesheets="@../css/button.css" text="Grade" textFill="WHITE">
+            <Button layoutY="341.0" mnemonicParsing="false" onAction="#toStudentGrade"  prefHeight="169.0" prefWidth="352.0" stylesheets="@../css/button.css" text="Grade" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>
             </Button>
-            <Button layoutY="511.0" mnemonicParsing="false" prefHeight="166.0" prefWidth="352.0" stylesheets="@../css/button.css" text="Classtime" textFill="WHITE">
+            <Button layoutY="511.0" mnemonicParsing="false" onAction="#toStudentClasstime" prefHeight="166.0" prefWidth="352.0" stylesheets="@../css/button.css" text="Classtime" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>
