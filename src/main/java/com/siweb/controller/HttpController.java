@@ -174,7 +174,7 @@ public class HttpController {
     }
 
     /***
-     * response handler for all http requests, except for refreshing token which is handled in refresh_token_and_retry()
+     * response handler for all http requests, except for refreshing token which is handled in _refreshTokenAndRetry()
      * @param res http response of the request
      * @param reqMethod the request method, e.x. GET, POST
      * @param uri relative URI of the request
