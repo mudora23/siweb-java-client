@@ -10,8 +10,8 @@ import org.json.JSONArray;
 import javafx.scene.control.Button;
 
 public class AdminStudentListController extends AdminController {
+    // for the admin profile controller initialize student data
     public static String studentURL;
-
     @FXML
     public ListView<String> studentListView;
 
@@ -19,12 +19,14 @@ public class AdminStudentListController extends AdminController {
     public ListView<Button> modifyListView;
 
     public void initialize() {
-
+        // get all the student data
         http.get("/student/", (JSONArray res) -> {
 
             Platform.runLater(() -> {
+                // refresh the list view while load the account page
                 studentListView.getItems().clear();
                 modifyListView.getItems().clear();
+
                 for (Object student : res) {
                     // add the student name to the list
                     JSONObject user = ((JSONObject) student).getJSONObject("user");
@@ -37,8 +39,9 @@ public class AdminStudentListController extends AdminController {
                     // add the modify button to the list
                     Button modifyButton = new Button("Modify");
 
-                    // cut the prefix
+
                     String url = "/student/" + studentId + "/";
+                    // bind the url to the button
                     modifyButton.setOnAction(modifyButtonHandler(url));
                     modifyListView.getItems().add(modifyButton);
                 }
@@ -49,6 +52,7 @@ public class AdminStudentListController extends AdminController {
     public EventHandler<ActionEvent> modifyButtonHandler(String url) {
         return (ActionEvent ae) -> {
             Platform.runLater(() -> {
+                // dynamically change the url
                 AdminStudentListController.studentURL = url;
                 com.siweb.App.setRoot("admin-profile");
             });
