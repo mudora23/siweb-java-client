@@ -8,8 +8,6 @@ module com.siweb.client {
     requires org.kordamp.ikonli.javafx;
     requires org.json;
     requires java.net.http;
-    requires de.jensd.fx.glyphs.commons;
-    requires de.jensd.fx.glyphs.fontawesome;
     //img pack of ikonli
     requires org.kordamp.ikonli.fontawesome5;
     requires org.kordamp.ikonli.elusive;
