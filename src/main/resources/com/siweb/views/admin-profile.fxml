@@ -88,10 +88,11 @@
                         <TextField id="email" fx:id="emailData" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <Label prefHeight="35.0" prefWidth="139.0" text="First Name" />
                         <Label prefHeight="37.0" prefWidth="175.0" text="Last Name" GridPane.rowIndex="1" />
-                        <TextField GridPane.columnIndex="1" fx:id="firstNameData"/>
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="lastNameData" />
+                        <TextField fx:id="firstNameData" GridPane.columnIndex="1" />
+                        <TextField fx:id="lastNameData" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
+                  <Button id="saveButton" layoutX="1112.0" layoutY="710.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="102.0" text="Save" onAction="#updateStudentData" />
                </children>
             </Pane>
          </center>
