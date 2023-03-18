@@ -2,7 +2,6 @@ package com.siweb.controller;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.json.JSONObject;
 
@@ -19,6 +18,12 @@ public class AdminProfileController extends AdminController {
     private TextField usernameData;
     @FXML
     private TextField emailData;
+
+    @FXML
+    private TextField firstNameData;
+
+    @FXML
+    private TextField lastNameData;
 
     public void initialize() {
         String url = AdminStudentListController.studentURL;
@@ -59,6 +64,16 @@ public class AdminProfileController extends AdminController {
     }
 
 
+    @FXML
+    private void setFirstNameData(String FirstNameData) {
+        this.firstNameData.setText(FirstNameData);
+    }
+
+    @FXML
+    private void setLastNameData(String LastNameData) {
+        this.lastNameData.setText(LastNameData);
+    }
+
     public void setStudentData(JSONObject res) {
         Platform.runLater(() -> {
             System.out.println(res);
@@ -68,8 +83,17 @@ public class AdminProfileController extends AdminController {
             setTelData(res.getString("tel"));
             setUsernameData(res.getJSONObject("user").getString("username"));
             setEmailData(res.getJSONObject("user").getString("email"));
+            setFirstNameData(res.getJSONObject("user").getString("first_name"));
+            setLastNameData(res.getJSONObject("user").getString("last_name"));
         });
     }
 
+    public void updateStudentData(){
+        String url = AdminStudentListController.studentURL;
+
+    }
+
+
+    
 
 }

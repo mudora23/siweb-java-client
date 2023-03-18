@@ -58,33 +58,38 @@
          <center>
             <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="1248.0" BorderPane.alignment="CENTER">
                <children>
-                  <GridPane gridLinesVisible="true" layoutX="169.0" layoutY="37.0" prefHeight="725.0" prefWidth="924.0" style="-fx-background-color: white;">
+                  <GridPane gridLinesVisible="true" layoutX="169.0" layoutY="46.0" prefHeight="725.0" prefWidth="924.0" style="-fx-background-color: white;">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="544.3333129882812" minWidth="10.0" prefWidth="544.3333129882812" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="542.0" minWidth="10.0" prefWidth="540.6666870117188" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints maxHeight="433.33331298828125" minHeight="10.0" prefHeight="92.66664123535156" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="433.33331298828125" minHeight="10.0" prefHeight="92.66664123535156" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="433.33331298828125" minHeight="10.0" prefHeight="92.66664123535156" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="234.0" minHeight="10.0" prefHeight="112.66669209798177" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="225.33331298828125" minHeight="10.0" prefHeight="109.66665649414062" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="232.33334350585938" minHeight="0.0" prefHeight="146.000010172526" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="183.33332316080725" minHeight="10.0" prefHeight="116.66664632161462" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="117.33335367838538" minHeight="10.0" prefHeight="77.66668701171875" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="76.99997965494788" minHeight="10.0" prefHeight="76.99997965494788" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="232.33334350585938" minHeight="0.0" prefHeight="73.66666666666663" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="187.66666666666663" minHeight="10.0" prefHeight="84.99996948242188" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="207.00003051757812" minHeight="10.0" prefHeight="87.00002034505206" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label prefHeight="38.0" prefWidth="103.0" text="Father Name" />
-                        <Label prefHeight="21.0" prefWidth="135.0" text="Mother Name" GridPane.rowIndex="1" />
-                        <Label prefHeight="27.0" prefWidth="141.0" text="address" GridPane.rowIndex="2" />
-                        <Label prefHeight="27.0" prefWidth="141.0" text="tel" GridPane.rowIndex="3" />
-                        <Label prefHeight="22.0" prefWidth="138.0" text="username" GridPane.rowIndex="4" />
-                        <Label prefHeight="27.0" prefWidth="143.0" text="email" GridPane.rowIndex="5" />
-                        <TextField id="fatherName" fx:id = "fatherNameData" GridPane.columnIndex="1" />
-                        <TextField id="motherName" fx:id = "motherNameData" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField id="address" fx:id= "addressData" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField id="tel" fx:id = "telData" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField id="username" fx:id = "usernameData" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField id="email" fx:id ="emailData" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label prefHeight="38.0" prefWidth="103.0" text="Father Name" GridPane.rowIndex="2" />
+                        <Label prefHeight="21.0" prefWidth="135.0" text="Mother Name" GridPane.rowIndex="3" />
+                        <Label prefHeight="27.0" prefWidth="141.0" text="address" GridPane.rowIndex="4" />
+                        <Label prefHeight="27.0" prefWidth="141.0" text="tel" GridPane.rowIndex="5" />
+                        <Label prefHeight="22.0" prefWidth="138.0" text="username" GridPane.rowIndex="6" />
+                        <Label prefHeight="27.0" prefWidth="143.0" text="email" GridPane.rowIndex="7" />
+                        <TextField id="fatherName" fx:id="fatherNameData" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField id="motherName" fx:id="motherNameData" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField id="address" fx:id="addressData" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField id="tel" fx:id="telData" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField id="username" fx:id="usernameData" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField id="email" fx:id="emailData" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Label prefHeight="35.0" prefWidth="139.0" text="First Name" />
+                        <Label prefHeight="37.0" prefWidth="175.0" text="Last Name" GridPane.rowIndex="1" />
+                        <TextField GridPane.columnIndex="1" fx:id="firstNameData"/>
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="lastNameData" />
                      </children>
                   </GridPane>
                </children>
