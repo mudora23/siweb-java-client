@@ -1,59 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.siweb.controller.StudentDashboardController">
-   <left>
-      <Pane prefHeight="884.0" prefWidth="354.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button layoutY="170.0" mnemonicParsing="false" onAction="#toStudentProfile" prefHeight="170.0" prefWidth="352.0" stylesheets="@../css/button.css" text="Account" textFill="WHITE">
-               <font>
-                  <Font size="25.0" />
-               </font></Button>
-            <Button layoutY="341.0" mnemonicParsing="false" onAction="#toStudentGrade" prefHeight="169.0" prefWidth="352.0" stylesheets="@../css/button.css" text="Grade" textFill="WHITE">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Button>
-            <Button layoutY="511.0" mnemonicParsing="false" onAction="#toStudentClasstime" prefHeight="166.0" prefWidth="352.0" stylesheets="@../css/button.css" text="Classtime" textFill="WHITE">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Button>
-            <Button layoutX="2.0" layoutY="677.0" mnemonicParsing="false" onAction="#logout" prefHeight="223.0" prefWidth="350.0" stylesheets="@../css/button.css" text="Logout" textFill="WHITE">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#toStudentDashboard" prefHeight="169.0" prefWidth="352.0" stylesheets="@../css/Dashboard.css" text="Dashboard" textFill="WHITE">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Button>
-         </children>
-      </Pane>
-   </left>
-   <right>
-      <BorderPane prefHeight="900.0" prefWidth="1165.0" style="-fx-background-color: #142428;" BorderPane.alignment="CENTER">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@../css/button.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.siweb.controller.StudentDashboardController">
+   <children>
+      <BorderPane layoutX="114.0" layoutY="54.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <AnchorPane prefHeight="114.0" prefWidth="848.0" BorderPane.alignment="CENTER" />
-         </top>
-         <center>
-            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="790.0" prefWidth="1248.0" BorderPane.alignment="CENTER">
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="1604.0" style="-fx-background-color: lightblue;" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="74.0" layoutY="34.0" prefHeight="634.0" prefWidth="1134.0" text="Welcome to Dashboard!" textFill="WHITE">
+                  <Label fx:id="MenuClose" layoutX="12.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="67.0" prefWidth="987.0" textFill="#b7b7b7" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="614.0" AnchorPane.topAnchor="5.0">
                      <font>
-                        <Font size="90.0" />
+                        <Font name="System Bold Italic" size="25.0" />
                      </font>
+                     <graphic>
+                        <ImageView fitHeight="48.0" fitWidth="51.0">
+                           <image>
+                              <Image url="@../images/menu1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Label>
+                  <Label fx:id="Menu" layoutX="12.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="67.0" prefWidth="987.0" textFill="#b7b7b7" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="614.0" AnchorPane.topAnchor="5.0">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="48.0" fitWidth="51.0">
+                           <image>
+                              <Image url="@../images/menu1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+                  <Text fill="#f29494" layoutX="707.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DashBoard" wrappingWidth="314.3912353515625">
+                     <font>
+                        <Font name="System Bold" size="50.0" />
+                     </font>
+                  </Text>
                </children>
-            </Pane>
-         </center>
+            </AnchorPane>
+         </top>
+         <left>
+            <AnchorPane fx:id="slider" prefHeight="770.0" prefWidth="181.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox layoutX="14.0" layoutY="84.0" prefHeight="642.0" prefWidth="181.0" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0">
+                     <children>
+                        <JFXButton alignment="BASELINE_LEFT" prefHeight="162.0" prefWidth="185.0" text="Dashboard" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton alignment="BASELINE_LEFT" onAction="#toStudentProfile" prefHeight="180.0" prefWidth="185.0" text="Profile" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton alignment="BASELINE_LEFT" prefHeight="183.0" prefWidth="264.0" styleClass="sidebarItem" text="Classtime" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton alignment="BASELINE_LEFT" prefHeight="218.0" prefWidth="185.0" text="Logout" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </left>
       </BorderPane>
-   </right>
-</BorderPane>
+   </children>
+</AnchorPane>
