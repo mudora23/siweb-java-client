@@ -1,20 +1,10 @@
 
 .menu:hover
 {
-    -fx-background-color: #A1C1F4;
+    -fx-background-color: #98c8ff;
 }
 .menu:pressed
 {
-    -fx-background-color: #73A3EF;
+    -fx-background-color: #3374df;
 }
 
-.side:hover{
-    -fx-background-color: #48cff8;
-    -fx-border-color: white;
-
-}
-.side:hover{
-    -fx-background-color: #73A3EF;
-    -fx-border-color: white;
-
-}
