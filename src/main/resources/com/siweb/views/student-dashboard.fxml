@@ -43,10 +43,13 @@
                   </Label>
                   <HBox layoutX="1464.0" layoutY="-5.0" prefHeight="102.0" prefWidth="143.0">
                      <children>
-                        <JFXButton fx:id="btn1" prefHeight="103.0" prefWidth="188.0">
+                        <JFXButton contentDisplay="RIGHT" onAction="#toStudentDashboard" prefHeight="103.0" prefWidth="188.0" text="Home">
                            <graphic>
-                              <FontIcon iconLiteral="anto-logout" />
+                              <FontIcon iconLiteral="eli-home" iconSize="40" />
                            </graphic>
+                           <font>
+                              <Font size="20.0" />
+                           </font>
                         </JFXButton>
                      </children>
                   </HBox>
