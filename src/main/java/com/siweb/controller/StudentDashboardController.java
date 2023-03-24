@@ -1,5 +1,6 @@
 package com.siweb.controller;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,11 +21,13 @@ public class StudentDashboardController extends StudentController {
     @FXML
     private AnchorPane slider;
 
+    @FXML
+    private JFXButton btn1;
+
 
 
 
     public void initialize() {
-
         slider.setTranslateX(-190);
         Menu.setOnMouseClicked(event -> {
             TranslateTransition slide = new TranslateTransition();

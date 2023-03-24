@@ -12,7 +12,7 @@ module com.siweb.client {
     //img pack of ikonli
     requires org.kordamp.ikonli.fontawesome5;
     requires org.kordamp.ikonli.elusive;
-
+    requires org.kordamp.ikonli.antdesignicons;
 
     opens com.siweb to javafx.fxml;
     exports com.siweb;
