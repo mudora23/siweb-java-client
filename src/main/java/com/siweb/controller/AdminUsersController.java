@@ -153,7 +153,7 @@ public class AdminUsersController extends BaseController {
                     "first_name",   ((MFXTextField) AppModel.scene.lookup("#first_name")).getText(),
                     "last_name",    ((MFXTextField) AppModel.scene.lookup("#last_name")).getText(),
                     "email",        ((MFXTextField) AppModel.scene.lookup("#email")).getText(),
-                    "role",         ((MFXComboBox<String>) AppModel.scene.lookup("#role")).getSelectedText(),
+                    "role",         ((MFXComboBox<String>) AppModel.scene.lookup("#role")).getText(),
                     "father_name",  ((MFXTextField) AppModel.scene.lookup("#father_name")).getText(),
                     "mother_name",  ((MFXTextField) AppModel.scene.lookup("#mother_name")).getText(),
                     "address_1",    ((MFXTextField) AppModel.scene.lookup("#address_1")).getText(),
