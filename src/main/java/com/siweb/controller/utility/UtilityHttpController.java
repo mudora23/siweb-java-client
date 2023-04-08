@@ -1,7 +1,8 @@
-package com.siweb.controller;
+package com.siweb.controller.utility;
 
 import com.siweb.App;
 
+import com.siweb.model.AppModel;
 import javafx.application.Platform;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,23 +19,23 @@ import java.util.Map;
 import java.util.function.*;
 
 /***
- * HttpController is a singleton to handle all http requests
+ * HttpController is a Singleton Utility to handle all http requests
  * All Http requests are asynchronous
  * Implemented with JSON Web Token (JWT) authentication:
  *   - Access token is automatically refreshed by using the Refresh token
  *   - When both tokens are expired, redirect to login page
  */
-public class HttpController {
+public class UtilityHttpController {
 
     // Declares variables
-    private static final HttpController instance = new HttpController();
+    private static final UtilityHttpController instance = new UtilityHttpController();
     private final HttpClient client = HttpClient.newHttpClient();
     private String accessToken = "";
     private String refreshToken = "";
-    private HttpController(){}
+    private UtilityHttpController(){}
 
     // Returns the instance of the controller
-    public static HttpController getInstance(){
+    public static UtilityHttpController getInstance(){
         return instance;
     }
 
@@ -82,7 +83,7 @@ public class HttpController {
     public void post(String uri, Map<?, ?> data, Consumer<?> listener) {
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(App.API_URI + uri))
+                .uri(URI.create(AppModel.API_URI + uri))
                 .timeout(Duration.ofSeconds(20))
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
@@ -105,7 +106,7 @@ public class HttpController {
     public void put(String uri, Map<?, ?> data, Consumer<?> listener) {
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(App.API_URI + uri))
+                .uri(URI.create(AppModel.API_URI + uri))
                 .timeout(Duration.ofSeconds(20))
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
@@ -127,7 +128,7 @@ public class HttpController {
     public void get(String uri, Consumer<?> listener) {
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(App.API_URI + uri))
+                .uri(URI.create(AppModel.API_URI + uri))
                 .timeout(Duration.ofSeconds(20))
                 .header("Accept", "application/json")
                 .header("Cache-Control", "no-cache")
@@ -147,7 +148,7 @@ public class HttpController {
     public void delete(String uri, Consumer<?> listener) {
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(App.API_URI + uri))
+                .uri(URI.create(AppModel.API_URI + uri))
                 .timeout(Duration.ofSeconds(20))
                 .header("Accept", "application/json")
                 .header("Cache-Control", "no-cache")
@@ -237,7 +238,7 @@ public class HttpController {
     private void _refreshTokenAndRetry(String reqMethod, String uri, Map<?, ?> data, Consumer<?> listener) {
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(App.API_URI + "/auth/token_refresh/"))
+                .uri(URI.create(AppModel.API_URI + "/auth/token_refresh/"))
                 .timeout(Duration.ofSeconds(20))
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")

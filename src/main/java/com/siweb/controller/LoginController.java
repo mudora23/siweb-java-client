@@ -1,72 +1,40 @@
 package com.siweb.controller;
 
-import com.siweb.model.StudentModel;
+import io.github.palexdev.materialfx.controls.MFXPasswordField;
+import io.github.palexdev.materialfx.controls.MFXTextField;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 
-import javafx.scene.control.TextField;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.Map;
-
-public class LoginController {
-
-    private final HttpController http = HttpController.getInstance();
-    @FXML
-    private Button registerButton;
-    @FXML
-    private Label welcomeText;
+public class LoginController extends BaseController {
 
     @FXML
-    private TextField usernameTextField;
+    private MFXTextField usernameTextField;
 
     @FXML
-    private TextField passwordTextField;
+    private MFXPasswordField passwordTextField;
 
     @FXML
-    private Button loginButton;
-
-    @FXML
-    private Button forgetPasswordButton;
-
-    private final StudentModel studentModel = new StudentModel();
-
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
-
-    @FXML
-    public void initialize(){
-
-        // simply use onAction in fxml
-        /*this.forgetPasswordButton.setOnAction(event -> {
-            this.forgetPassword();
-        });
-        this.loginButton.setOnAction(event -> {
-            this.login();
-        });*/
-    }
-
-    @FXML
-    public void forgetPassword(){
-
+    public void demoAdmin(){
         // just for testing
-        this.usernameTextField.setText("student_demo");
-        this.passwordTextField.setText("student_demo");
-
+        this.usernameTextField.setText("P15999999");
+        this.passwordTextField.setText("P15999999");
     }
 
     @FXML
-    public void register(){
-
+    public void demoLecturer(){
         // just for testing
-        this.usernameTextField.setText("admin_demo");
-        this.passwordTextField.setText("admin_demo");
+        this.usernameTextField.setText("P15888888");
+        this.passwordTextField.setText("P15888888");
+    }
 
+    @FXML
+    public void demoStudent(){
+        // just for testing
+        this.usernameTextField.setText("P21777777");
+        this.passwordTextField.setText("P21777777");
     }
 
     @FXML
@@ -76,27 +44,39 @@ public class LoginController {
             http.login(this.usernameTextField.getText(), this.passwordTextField.getText(), (JSONObject resLogin) -> {
 
                 // check the role of the user
-                http.get("/group/current/", (JSONObject resGroup) -> {
+                http.get("/user/current/", (JSONObject jsonUserCurrent) -> {
 
-                    // the user is a student
-                    if(resGroup.getString("name").equals("student")) {
+                    Platform.runLater(() -> {
 
-                        System.err.println("Welcome Back, Student!");
-                        System.err.println();
+                        userModel.setCurrentUser(jsonUserCurrent);
 
-                        com.siweb.App.setRoot("student-dashboard");
-                    } else if (resGroup.getString("name").equals("admin")){
+                        // the user is a student
+                        if (userModel.getCurrentUserProfileRole().equals("admin")) {
 
-                        System.err.println("Welcome Back, Admin!");
-                        System.err.println();
+                            System.err.println("Welcome Back, Admin!");
+                            System.err.println();
 
-                        com.siweb.App.setRoot("admin-dashboard");
-                    }
-                    else {
+                            com.siweb.App.setRoot("admin-base");
 
-                        // WIP, redirect admins / lecturers to different views
+                        } else if (userModel.getCurrentUserProfileRole().equals("lecturer")) {
 
-                    }
+                            /*System.err.println("Welcome Back, Lecturer!");
+                            System.err.println();
+
+                            com.siweb.App.setRoot("lecturer-dashboard");*/
+                        } else if (userModel.getCurrentUserProfileRole().equals("student")) {
+
+                            //System.err.println("Welcome Back, Student!");
+                            //System.err.println();
+
+                            com.siweb.App.setRoot("student-dashboard");
+                        } else {
+
+                            // WIP, redirect admins / lecturers to different views
+
+                        }
+                    });
+
                 });
 
             });
@@ -106,13 +86,4 @@ public class LoginController {
         }
     }
 
-    // testing only
-    @FXML
-    public void backToDashboard(){
-        try {
-            com.siweb.App.setRoot("student-dashboard");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

@@ -1,23 +1,23 @@
 module com.siweb.client {
-    requires javafx.controls;
-    requires javafx.fxml;
-    requires org.kordamp.bootstrapfx.core;
-    requires javafx.base;
-    requires javafx.graphics;
-    requires org.kordamp.ikonli.core;
-    requires org.kordamp.ikonli.javafx;
-    requires org.json;
-    requires java.net.http;
-    requires com.jfoenix;
-    //img pack of ikonli
-    requires org.kordamp.ikonli.fontawesome5;
-    requires org.kordamp.ikonli.elusive;
-    requires org.kordamp.ikonli.antdesignicons;
 
+    // for reading and writing JSON
+    requires org.json;
+
+    // for making http requests
+    requires java.net.http;
+
+    // for applying material design
+    requires MaterialFX;
+
+    // core
     opens com.siweb to javafx.fxml;
     exports com.siweb;
     exports com.siweb.model;
     opens com.siweb.model to javafx.fxml;
     exports com.siweb.controller;
     opens com.siweb.controller to javafx.fxml;
+    exports com.siweb.controller.utility;
+    opens com.siweb.controller.utility to javafx.fxml;
+    exports com.siweb.view.facade;
+    opens com.siweb.view.facade to javafx.fxml;
 }
