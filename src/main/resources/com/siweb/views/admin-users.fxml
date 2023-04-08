@@ -10,11 +10,11 @@
 
 <Pane prefHeight="850.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.siweb.controller.AdminUsersController">
    <children>
-      <TableView id="usersTable" fx:id="usersTable" layoutX="65.0" layoutY="81.0" prefHeight="677.0" prefWidth="755.0" />
-      <Pagination id="usersTablePagination" fx:id="usersTablePagination" layoutX="330.0" layoutY="759.0" prefHeight="26.0" prefWidth="225.0" />
-      <MFXButton id="userNewBtn" fx:id="userNewBtn" layoutX="65.0" layoutY="32.0" onAction="#userNew" prefHeight="41.0" prefWidth="214.0" text="Add new user" />
-      <MFXButton id="userDeleteBtn" fx:id="userDeleteBtn" disable="true" layoutX="854.0" layoutY="774.0" onAction="#userDelete" prefHeight="32.0" prefWidth="90.0" style="-fx-background-color: #f24e4e;" text="Delete" textFill="WHITE" />
-      <MFXButton id="userSaveBtn" fx:id="userSaveBtn" disable="true" layoutX="1195.0" layoutY="774.0" onAction="#userSave" prefHeight="32.0" prefWidth="90.0" style="-fx-background-color: #0cb352;" text="Save" />
+      <TableView id="usersTable" fx:id="usersTable" fixedCellSize="0.0" layoutX="65.0" layoutY="81.0" prefHeight="682.0" prefWidth="755.0" />
+      <Pagination id="usersTablePagination" fx:id="usersTablePagination" layoutX="330.0" layoutY="769.0" prefHeight="26.0" prefWidth="225.0" />
+      <MFXButton id="userNewBtn" fx:id="userNewBtn" buttonType="RAISED" depthLevel="LEVEL1" layoutX="65.0" layoutY="32.0" onAction="#userNew" prefHeight="41.0" prefWidth="169.0" text="Add new user" />
+      <MFXButton id="userDeleteBtn" fx:id="userDeleteBtn" buttonType="RAISED" depthLevel="LEVEL1" disable="true" layoutX="854.0" layoutY="774.0" onAction="#userDelete" prefHeight="32.0" prefWidth="90.0" styleClass="delete-button" text="Delete" textFill="WHITE" />
+      <MFXButton id="userSaveBtn" fx:id="userSaveBtn" buttonType="RAISED" depthLevel="LEVEL1" disable="true" layoutX="1195.0" layoutY="774.0" onAction="#userSave" prefHeight="32.0" prefWidth="90.0" styleClass="success-button" text="Save" />
       <MFXScrollPane id="userDetailPane" fx:id="userDetailPane" layoutX="854.0" layoutY="82.0" prefHeight="677.0" prefWidth="433.0">
          <content>
             <VBox id="userDetailVBox" fx:id="userDetailVBox" prefHeight="672.0" prefWidth="419.0" spacing="20.0">

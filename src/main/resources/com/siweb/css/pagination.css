@@ -9,7 +9,7 @@
 .pagination > .pagination-control > .control-box > .left-arrow-button,
 .pagination > .pagination-control > .control-box > .right-arrow-button {
     -fx-background-insets: 0, 1;
-    -fx-background-color: lightgray, #FAFAFA;
+    -fx-background-color: -disabled-color, #F5F5F5;
     -fx-min-width: 30;
     -fx-min-height: 30;
     -fx-font-size: 15px;
@@ -26,13 +26,13 @@
 .pagination > .pagination-control > .control-box > .left-arrow-button:hover,
 .pagination > .pagination-control > .control-box > .right-arrow-button:hover {
     -fx-background-insets: 0;
-    -fx-background-color: lightgray;
+    -fx-background-color: -disabled-color;
 }
 
 /* Selected toggle color */
 .pagination > .pagination-control > .control-box > .number-button:selected,
 .pagination > .pagination-control > .control-box > .bullet-button:selected{
     -fx-background-insets: 0;
-    -fx-background-color: #3F51B5;
+    -fx-background-color: -primary-color;
     -fx-text-fill: white;
 }

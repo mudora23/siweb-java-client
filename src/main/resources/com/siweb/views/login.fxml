@@ -8,7 +8,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -20,7 +19,7 @@
          <children>
             <Pane prefHeight="900.0" prefWidth="640.0">
                <children>
-                  <VBox id="login-side-panel" alignment="CENTER" prefHeight="898.0" prefWidth="637.0" spacing="20.0">
+                  <VBox id="login-side-panel" alignment="CENTER" prefHeight="898.0" prefWidth="637.0" spacing="20.0" style="-fx-background-color: white;">
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -41,7 +40,7 @@
                         </Label>
                         <MFXTextField fx:id="usernameTextField" floatMode="BORDER" floatingText="Username" prefHeight="40.0" prefWidth="255.0" style="-fx-font-size: 20;" />
                         <MFXPasswordField fx:id="passwordTextField" floatMode="BORDER" floatingText="Password" prefHeight="50.0" prefWidth="255.0" style="-fx-font-size: 20;" />
-                        <MFXButton fx:id="loginButton" buttonType="RAISED" onAction="#login" prefHeight="52.0" prefWidth="256.0" style="-fx-background-color: #146C94; -fx-font-size: 20;" text="Log in" textFill="WHITE" />
+                        <MFXButton fx:id="loginButton" buttonType="RAISED" onAction="#login" prefHeight="52.0" prefWidth="256.0" style="-fx-font-size: 20;" text="Log in" textFill="WHITE" />
                         <Label text="Demo users">
                            <padding>
                               <Insets top="80.0" />
@@ -52,9 +51,9 @@
                         </Label>
                         <HBox prefHeight="90.0" prefWidth="637.0" spacing="10.0">
                            <children>
-                              <MFXButton onAction="#demoAdmin" prefHeight="90.0" prefWidth="181.0" style="-fx-font-size: 20;" text="Demo&#10;Administrator&#10;" textAlignment="CENTER" />
-                              <MFXButton onAction="#demoLecturer" prefHeight="90.0" prefWidth="205.0" style="-fx-font-size: 20;" text="Demo&#10;Lecturer&#10;" textAlignment="CENTER" />
-                              <MFXButton onAction="#demoStudent" prefHeight="90.0" prefWidth="186.0" style="-fx-font-size: 20;" text="Demo&#10;Student" textAlignment="CENTER" />
+                              <MFXButton onAction="#demoAdmin" prefHeight="90.0" prefWidth="181.0" style="-fx-font-size: 20;" styleClass="light-button" text="Demo&#10;Administrator&#10;" textAlignment="CENTER" />
+                              <MFXButton onAction="#demoLecturer" prefHeight="90.0" prefWidth="205.0" style="-fx-font-size: 20;" styleClass="light-button" text="Demo&#10;Lecturer&#10;" textAlignment="CENTER" />
+                              <MFXButton onAction="#demoStudent" prefHeight="90.0" prefWidth="186.0" style="-fx-font-size: 20;" styleClass="light-button" text="Demo&#10;Student" textAlignment="CENTER" />
                            </children>
                            <padding>
                               <Insets left="50.0" right="50.0" />

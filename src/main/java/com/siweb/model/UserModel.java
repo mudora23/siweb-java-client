@@ -6,8 +6,8 @@ public class UserModel extends ObservableModel<User> {
     // Declares variables
     private static final UserModel instance = new UserModel();
 
-    private User currentUser;
-
+    private int currentUserID;
+    private String currentUserProfileRole;
 
     // Returns the instance of the controller
     public static UserModel getInstance(){
@@ -21,15 +21,16 @@ public class UserModel extends ObservableModel<User> {
     }
 
     public void setCurrentUser(JSONObject jsonUser) {
-        currentUser = new User(jsonUser);
+        currentUserID = jsonUser.getInt("id");
+        currentUserProfileRole = jsonUser.getJSONObject("profile").getString("role");
     }
 
     public int getCurrentUserID(){
-        return currentUser.id;
+        return currentUserID;
     }
 
     public String getCurrentUserProfileRole(){
-        return currentUser.profileRole;
+        return currentUserProfileRole;
     }
 
 }

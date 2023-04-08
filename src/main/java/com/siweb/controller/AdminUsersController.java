@@ -57,7 +57,7 @@ public class AdminUsersController extends BaseController {
                 .addColumn(new TableColumn<User, String>("Username"), "getUserName", 130)
                 .addColumn(new TableColumn<User, String>("First Name"), "getFirstName", 130)
                 .addColumn(new TableColumn<User, String>("Last Name"), "getLastName", 130)
-                .addColumn(new TableColumn<User, String>("Email"), "getEmail", 250)
+                .addColumn(new TableColumn<User, String>("Email"), "getEmail", 240)
                 .addColumn(new TableColumn<User, String>("Role"), "getProfileRole", 110)
                 .setPageSize(23)
                 .build();
@@ -81,13 +81,14 @@ public class AdminUsersController extends BaseController {
             if (newSelection != null) {
 
                 if(userModel.getCurrentUserID() != newSelection.id) {
+                    // disable deleting own admin account
                     userDeleteBtn.setDisable(false);
                 }
                 userSaveBtn.setDisable(false);
 
                 userDetailVBox.getChildren().add(new Label("Basic Information"));
                 userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setText(newSelection.getId() + "").setDisable(true).build().get());
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("username","Username").setText(newSelection.getUserName()).build().get());
+                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("username","Username *").setText(newSelection.getUserName()).build().get());
                 userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("first_name","First Name").setText(newSelection.getFirstName()).build().get());
                 userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("last_name","Last Name").setText(newSelection.getLastName()).build().get());
                 userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("email","Email").setText(newSelection.getEmail()).build().get());
@@ -96,7 +97,14 @@ public class AdminUsersController extends BaseController {
 
                 userDetailVBox.getChildren().add(new Label("Profile Details"));
                 userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("","Profile ID").setText(newSelection.getProfileId() + "").setDisable(true).build().get());
-                userDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder<>("role","Role", FXCollections.observableArrayList("admin", "lecturer", "student")).setText(newSelection.getProfileRole()).build().get());
+
+                if(userModel.getCurrentUserID() != newSelection.id) {
+                    userDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder<>("role", "Role *", FXCollections.observableArrayList("admin", "lecturer", "student")).setText(newSelection.getProfileRole()).build().get());
+                }
+                else {
+                    // disable changing "role" for own admin account
+                    userDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder<>("role", "Role *", FXCollections.observableArrayList("admin", "lecturer", "student")).setText(newSelection.getProfileRole()).setDisable(true).build().get());
+                }
                 userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("father_name","Father Name").setText(newSelection.getProfileFatherName()).build().get());
                 userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("mother_name","Mother Name").setText(newSelection.getProfileMotherName()).build().get());
                 userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("address_1","Address 1").setText(newSelection.getProfileAddress1()).build().get());
@@ -124,7 +132,7 @@ public class AdminUsersController extends BaseController {
 
         userDetailVBox.getChildren().add(new Label("Basic Information"));
         userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setDisable(true).build().get());
-        userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("username","Username").build().get());
+        userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("username","Username *").build().get());
         userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("first_name","First Name").build().get());
         userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("last_name","Last Name").build().get());
         userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("email","Email").build().get());
@@ -133,7 +141,7 @@ public class AdminUsersController extends BaseController {
 
         userDetailVBox.getChildren().add(new Label("Profile Details"));
         userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("","Profile ID").setDisable(true).build().get());
-        userDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder<>("role","Role", FXCollections.observableArrayList("admin", "lecturer", "student")).build().get());
+        userDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder<>("role","Role *", FXCollections.observableArrayList("admin", "lecturer", "student")).build().get());
         userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("father_name","Father Name").build().get());
         userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("mother_name","Mother Name").build().get());
         userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("address_1","Address 1").build().get());
@@ -189,6 +197,12 @@ public class AdminUsersController extends BaseController {
             ), (JSONObject jsonUser) -> {
 
                 Platform.runLater(() -> {
+
+                    userDetailVBox.getChildren().clear();
+                    userDetailPane.setVvalue(0.0);
+                    userDeleteBtn.setDisable(true);
+                    userSaveBtn.setDisable(true);
+
                     usersPaginatedTable.refresh();
                 });
 

@@ -21,7 +21,7 @@ public class BuilderMFXComboBoxController<T> {
 
         public Builder(String id, String floatingText, ObservableList<T> items) {
             this.id = id;
-            this.floatingText = id;
+            this.floatingText = floatingText;
             this.items = items;
         }
 

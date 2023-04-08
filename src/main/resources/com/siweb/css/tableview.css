@@ -1,9 +1,0 @@
-.table-view .column-header{
-    -fx-font-size: 15px;
-}
-
-.table-view .table-row-cell{
-    -fx-font-size: 15px;
-}
-
-.table-view:focused { -fx-background-color: transparent,-fx-box-border,-fx-control-inner-background; }
