@@ -1,48 +1,27 @@
 package com.siweb.controller;
 
-import com.siweb.model.AppModel;
-import com.siweb.view.SelectOption;
-import com.siweb.view.builder.BuilderMFXComboBoxController;
 import com.siweb.view.builder.BuilderMFXTextFieldController;
-import com.siweb.view.facade.FacadePaginatedTableController;
-import com.siweb.model.User;
-import com.siweb.model.UserModel;
-import io.github.palexdev.materialfx.controls.*;
-import io.github.palexdev.materialfx.enums.FloatMode;
-
-
+import io.github.palexdev.materialfx.controls.MFXScrollPane;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.*;
+import javafx.scene.layout.VBox;
+import org.json.JSONObject;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ResourceBundle;
 
-/***
- * AdminUsersController manages the users management page of admin
- */
-public class StudentProfilesController extends BaseController {
-
-    private FacadePaginatedTableController<User> usersPaginatedTable;
-    private final UserModel userModel = UserModel.getInstance();
+public class StudentProfilesController extends BaseController{
     @FXML
-    private TableView<User> usersTable;
+    private VBox leftUserDetailVBox;
     @FXML
-    private Pagination usersTablePagination;
-    @FXML
-    private VBox userDetailVBox;
-    @FXML
-    private MFXScrollPane userDetailPane;
+    private MFXScrollPane leftUserDetailPane;
 
     @FXML
-    private MFXButton userDeleteBtn;
-    @FXML
-    private MFXButton userSaveBtn;
+    private VBox rightUserDetailVBox;
 
     @FXML
-    private HBox tableHeaderHBox;
+    private MFXScrollPane rightUserDetailPane;
 
 
     /***
@@ -61,44 +40,36 @@ public class StudentProfilesController extends BaseController {
         String defaultOrdering = "-date_joined";
 
         // Create a new Facade class to easily manage the tableView with pagination
-        usersPaginatedTable = new FacadePaginatedTableController.Builder<User>(userModel, usersTable, usersTablePagination, "/user/", "#resultsCountLabel")
-                .addColumn(new TableColumn<User, String>("Username"), "getUserName", 130)
-                .addColumn(new TableColumn<User, String>("First Name"), "getFirstName", 130)
-                .addColumn(new TableColumn<User, String>("Last Name"), "getLastName", 130)
-                .addColumn(new TableColumn<User, String>("Email"), "getEmail", 240)
-                .addColumn(new TableColumn<User, String>("Role"), "getProfileRole", 110)
-                .setPageSize(23)
-                .setOrdering(defaultOrdering)
-                .build();
 
+        http.get("/user/current/",(JSONObject res) ->{
+            Platform.runLater(() ->{
+                leftUserDetailVBox.getChildren().add(new Label("Basic Information"));
+                leftUserDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setText(String.valueOf(res.getInt("id"))).setDisable(true).build().get());
+                leftUserDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("username","Username *").setText(res.getString("username")).setDisable(true).build().get());
+                leftUserDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("first_name","First Name").setText(res.getString("first_name")).setDisable(true).build().get());
+                leftUserDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("last_name","Last Name").setText(res.getString("last_name")).setDisable(true).build().get());
+                leftUserDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("email","Email").setText(res.getString("email")).setDisable(true).build().get());
 
+//                userDetailVBox.getChildren().add(new Separator());
+                JSONObject profile = res.getJSONObject("profile");
+                // show profile details
+                rightUserDetailVBox.getChildren().add(new Label("Profile Details"));
+                rightUserDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("","Profile ID").setText(String.valueOf(profile.getInt("id"))).setDisable(true).build().get());
 
+                // admin cannot change its own "role", otherwise the current admin will not have the permission to keep browsing on this page anymore.
+//
+//                rightUserDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("role", "Role *", List.of(new SelectOption("admin"), new SelectOption("lecturer"), new SelectOption("student"))).setValText(newSelection.getProfileRole()).build().get());
+//                rightUserDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("role", "Role *", List.of(new SelectOption("admin"), new SelectOption("lecturer"), new SelectOption("student"))).setValText(newSelection.getProfileRole()).setDisable(true).build().get());
+                rightUserDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("father_name","Father Name").setText(profile.getString("father_name")).setDisable(true).build().get());
+                rightUserDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("mother_name","Mother Name").setText(profile.getString("mother_name")).setDisable(true).build().get());
+                rightUserDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("address_1","Address 1").setText(profile.getString("address_1")).setDisable(true).build().get());
+                rightUserDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("address_2","Address 2").setText(profile.getString("address_2")).setDisable(true).build().get());
+                rightUserDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("tel","Tel.").setText(profile.getString("tel")).setDisable(true).build().get());
+            });
+        });
 
-        // "search" button creation and listen to "ENTER" presses
-        tableHeaderHBox.getChildren().add(new BuilderMFXTextFieldController.Builder("search", "Search").setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                usersPaginatedTable.setSearch(((MFXTextField) AppModel.scene.lookup("#search")).getText());
-                usersPaginatedTable.refresh(true);
-            }
-        }).setPrefWidth(230).setFloatMode(FloatMode.INLINE).setPadding(new Insets(4, 10, 4, 10)).build().get());
+        // show basic information
 
-
-        // "order by" select and listen to changes
-        tableHeaderHBox.getChildren().add(new BuilderMFXComboBoxController.Builder("order_by", "Order By", List.of(
-                new SelectOption("Date joined (ascending)", "date_joined"),
-                new SelectOption("Date joined (descending)", "-date_joined"),
-                new SelectOption("Username (ascending)", "username"),
-                new SelectOption("Username (descending)", "-username"),
-                new SelectOption("First Name (ascending)", "first_name"),
-                new SelectOption("First Name (descending)", "-first_name"),
-                new SelectOption("Last Name (ascending)", "last_name"),
-                new SelectOption("Last Name (descending)", "-last_name"),
-                new SelectOption("Email (ascending)", "email"),
-                new SelectOption("Email (descending)", "-email")
-        )).addSelectionListener((obs, oldSelection, newSelection) -> {
-            usersPaginatedTable.setOrdering(newSelection.getValText());
-            usersPaginatedTable.refresh(true);
-        }).setValText(defaultOrdering).setPrefWidth(230).setFloatMode(FloatMode.INLINE).setPadding(new Insets(4, 4, 4, 10)).build().get());
 
     }
 }
