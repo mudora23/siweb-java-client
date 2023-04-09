@@ -56,7 +56,7 @@ public class StudentBaseController extends BaseController
         ToggleButton tempToggle = null;
 
         tempToggle = createToggle("mfx-users", "Users");
-        tempToggle.setOnAction(event -> App.loadFXMLtoPane(this.contentArea, "student-users"));
+        tempToggle.setOnAction(event -> App.loadFXMLtoPane(this.contentArea, "student-profiles"));
         tempToggle.fire();
         tempToggle.setSelected(true);
         this.mainMenu.getChildren().add(tempToggle);

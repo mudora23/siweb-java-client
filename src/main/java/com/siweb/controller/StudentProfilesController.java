@@ -11,16 +11,11 @@ import io.github.palexdev.materialfx.controls.*;
 import io.github.palexdev.materialfx.enums.FloatMode;
 
 
-import javafx.animation.FadeTransition;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
-import javafx.util.Duration;
-import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.*;
@@ -28,7 +23,7 @@ import java.util.*;
 /***
  * AdminUsersController manages the users management page of admin
  */
-public class StudentUsersController extends BaseController {
+public class StudentProfilesController extends BaseController {
 
     private FacadePaginatedTableController<User> usersPaginatedTable;
     private final UserModel userModel = UserModel.getInstance();

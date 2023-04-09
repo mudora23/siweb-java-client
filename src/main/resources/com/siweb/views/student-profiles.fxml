@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane prefHeight="850.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.siweb.controller.StudentUsersController">
+<Pane prefHeight="850.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.siweb.controller.StudentProfilesController">
     <children>
         <TableView id="usersTable" fx:id="usersTable" fixedCellSize="0.0" layoutX="65.0" layoutY="81.0" prefHeight="682.0" prefWidth="755.0" />
         <Pagination id="usersTablePagination" fx:id="usersTablePagination" layoutX="330.0" layoutY="769.0" prefHeight="26.0" prefWidth="225.0" />
