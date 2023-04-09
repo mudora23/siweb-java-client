@@ -168,16 +168,8 @@ public class AdminSemesterController extends BaseController {
         semesterDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setDisable(true).build().get());
         semesterDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("year","Year").build().get());
         semesterDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("semester", "Semester", List.of(new SelectOption("1"), new SelectOption("2"))).build().get());
-        //semesterDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("date_start","Date Start").build().get());
+        semesterDetailVBox.getChildren().add(new BuilderMFXDatePickerController.Builder("date_start","Date Start").build().get());
         semesterDetailVBox.getChildren().add(new BuilderMFXDatePickerController.Builder("date_end","Date End").build().get());
-
-
-        semesterDetailVBox.getChildren().add(new BuilderMFXDatePickerController.Builder("date_start","Date Start").addSelectionListener((obs, oldSelection, newSelection)->{
-            //semestersPaginatedTable.setOrdering(newSelection.getValText());
-            //semestersPaginatedTable.refresh(true);
-            System.err.println(newSelection);
-        }).build().get());
-
     }
 
     /***
