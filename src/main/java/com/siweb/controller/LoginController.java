@@ -60,10 +60,10 @@ public class LoginController extends BaseController {
 
                         } else if (userModel.getCurrentUserProfileRole().equals("lecturer")) {
 
-                            /*System.err.println("Welcome Back, Lecturer!");
+                            System.err.println("Welcome Back, Lecturer!");
                             System.err.println();
 
-                            com.siweb.App.setRoot("lecturer-dashboard");*/
+                            com.siweb.App.setRoot("lecturer-base");
 
                         } else if (userModel.getCurrentUserProfileRole().equals("student")) {
 
