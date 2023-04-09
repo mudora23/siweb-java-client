@@ -1,33 +1,28 @@
 package com.siweb.controller;
 
-import com.siweb.App;
 import com.siweb.model.AppModel;
+import com.siweb.view.SelectOption;
 import com.siweb.view.builder.BuilderMFXComboBoxController;
 import com.siweb.view.builder.BuilderMFXTextFieldController;
 import com.siweb.view.facade.FacadePaginatedTableController;
 import com.siweb.model.User;
 import com.siweb.model.UserModel;
 import io.github.palexdev.materialfx.controls.*;
-import io.github.palexdev.materialfx.controls.cell.MFXNotificationCell;
-import io.github.palexdev.materialfx.notifications.MFXNotificationCenterSystem;
-import io.github.palexdev.materialfx.notifications.MFXNotificationSystem;
+import io.github.palexdev.materialfx.enums.FloatMode;
 
 
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.json.JSONObject;
 
 import java.net.URL;
-import java.util.Map;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class AdminUsersController extends BaseController {
 
@@ -38,6 +33,8 @@ public class AdminUsersController extends BaseController {
     @FXML
     private Pagination usersTablePagination;
     @FXML
+    private Label resultsCountLabel;
+    @FXML
     private VBox userDetailVBox;
     @FXML
     private MFXScrollPane userDetailPane;
@@ -47,19 +44,24 @@ public class AdminUsersController extends BaseController {
     @FXML
     private MFXButton userSaveBtn;
 
+    @FXML
+    private HBox tableHeaderHBox;
+
+
     public void initialize(URL location, ResourceBundle resources) {
 
         super.initialize(location, resources);
 
-        System.err.println("initialize()");
+        String defaultOrdering = "-date_joined";
 
-        usersPaginatedTable = new FacadePaginatedTableController.Builder<User>(userModel, usersTable, usersTablePagination, "/user/?limit={limit}&offset={offset}")
+        usersPaginatedTable = new FacadePaginatedTableController.Builder<User>(userModel, usersTable, usersTablePagination, "/user/", "#resultsCountLabel")
                 .addColumn(new TableColumn<User, String>("Username"), "getUserName", 130)
                 .addColumn(new TableColumn<User, String>("First Name"), "getFirstName", 130)
                 .addColumn(new TableColumn<User, String>("Last Name"), "getLastName", 130)
                 .addColumn(new TableColumn<User, String>("Email"), "getEmail", 240)
                 .addColumn(new TableColumn<User, String>("Role"), "getProfileRole", 110)
                 .setPageSize(23)
+                .setOrdering(defaultOrdering)
                 .build();
 
         usersPaginatedTable.addSelectionListener((obs, oldSelection, newSelection) -> {
@@ -99,11 +101,11 @@ public class AdminUsersController extends BaseController {
                 userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("","Profile ID").setText(newSelection.getProfileId() + "").setDisable(true).build().get());
 
                 if(userModel.getCurrentUserID() != newSelection.id) {
-                    userDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder<>("role", "Role *", FXCollections.observableArrayList("admin", "lecturer", "student")).setText(newSelection.getProfileRole()).build().get());
+                    userDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("role", "Role *", List.of(new SelectOption("admin"), new SelectOption("lecturer"), new SelectOption("student"))).setValText(newSelection.getProfileRole()).build().get());
                 }
                 else {
                     // disable changing "role" for own admin account
-                    userDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder<>("role", "Role *", FXCollections.observableArrayList("admin", "lecturer", "student")).setText(newSelection.getProfileRole()).setDisable(true).build().get());
+                    userDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("role", "Role *", List.of(new SelectOption("admin"), new SelectOption("lecturer"), new SelectOption("student"))).setValText(newSelection.getProfileRole()).setDisable(true).build().get());
                 }
                 userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("father_name","Father Name").setText(newSelection.getProfileFatherName()).build().get());
                 userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("mother_name","Mother Name").setText(newSelection.getProfileMotherName()).build().get());
@@ -113,6 +115,38 @@ public class AdminUsersController extends BaseController {
 
             }
         });
+
+
+        // search
+        tableHeaderHBox.getChildren().add(new BuilderMFXTextFieldController.Builder("search", "Search").setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                usersPaginatedTable.setSearch(((MFXTextField) AppModel.scene.lookup("#search")).getText());
+                usersPaginatedTable.refresh();
+            }
+        }).setPrefWidth(230).setFloatMode(FloatMode.INLINE).setPadding(new Insets(4,10,4,10)).build().get());
+
+
+
+        // order by
+        tableHeaderHBox.getChildren().add(new BuilderMFXComboBoxController.Builder("order_by", "Order By", List.of(
+                new SelectOption("Date joined (ascending)", "date_joined"),
+                new SelectOption("Date joined (descending)", "-date_joined"),
+                new SelectOption("Username (ascending)", "username"),
+                new SelectOption("Username (descending)", "-username"),
+                new SelectOption("First Name (ascending)", "first_name"),
+                new SelectOption("First Name (descending)", "-first_name"),
+                new SelectOption("Last Name (ascending)", "last_name"),
+                new SelectOption("Last Name (descending)", "-last_name"),
+                new SelectOption("Email (ascending)", "email"),
+                new SelectOption("Email (descending)", "-email")
+        )).addSelectionListener((obs, oldSelection, newSelection)->{
+            usersPaginatedTable.setOrdering(newSelection.getValText());
+            usersPaginatedTable.refresh();
+        }).setValText(defaultOrdering).setPrefWidth(230).setFloatMode(FloatMode.INLINE).setPadding(new Insets(4,4,4,10)).build().get());
+
+
+
+
     }
 
     public void userNew() {
@@ -141,7 +175,7 @@ public class AdminUsersController extends BaseController {
 
         userDetailVBox.getChildren().add(new Label("Profile Details"));
         userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("","Profile ID").setDisable(true).build().get());
-        userDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder<>("role","Role *", FXCollections.observableArrayList("admin", "lecturer", "student")).build().get());
+        userDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("role","Role *", List.of(new SelectOption("admin"), new SelectOption("lecturer"), new SelectOption("student"))).build().get());
         userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("father_name","Father Name").build().get());
         userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("mother_name","Mother Name").build().get());
         userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("address_1","Address 1").build().get());
@@ -161,7 +195,7 @@ public class AdminUsersController extends BaseController {
                     "first_name",   ((MFXTextField) AppModel.scene.lookup("#first_name")).getText(),
                     "last_name",    ((MFXTextField) AppModel.scene.lookup("#last_name")).getText(),
                     "email",        ((MFXTextField) AppModel.scene.lookup("#email")).getText(),
-                    "role",         ((MFXComboBox<String>) AppModel.scene.lookup("#role")).getText(),
+                    "role",         ((MFXComboBox<SelectOption>) AppModel.scene.lookup("#role")).getValue().getValText(),
                     "father_name",  ((MFXTextField) AppModel.scene.lookup("#father_name")).getText(),
                     "mother_name",  ((MFXTextField) AppModel.scene.lookup("#mother_name")).getText(),
                     "address_1",    ((MFXTextField) AppModel.scene.lookup("#address_1")).getText(),
@@ -188,7 +222,7 @@ public class AdminUsersController extends BaseController {
                     "first_name",   ((MFXTextField) AppModel.scene.lookup("#first_name")).getText(),
                     "last_name",    ((MFXTextField) AppModel.scene.lookup("#last_name")).getText(),
                     "email",        ((MFXTextField) AppModel.scene.lookup("#email")).getText(),
-                    "role",         ((MFXComboBox<String>) AppModel.scene.lookup("#role")).getText(),
+                    "role",         ((MFXComboBox<SelectOption>) AppModel.scene.lookup("#role")).getValue().getValText(),
                     "father_name",  ((MFXTextField) AppModel.scene.lookup("#father_name")).getText(),
                     "mother_name",  ((MFXTextField) AppModel.scene.lookup("#mother_name")).getText(),
                     "address_1",    ((MFXTextField) AppModel.scene.lookup("#address_1")).getText(),
@@ -261,6 +295,12 @@ public class AdminUsersController extends BaseController {
 
 
 
+    }
+
+
+
+    public void sortedBy() {
+        //sortedBySelect
     }
 
 

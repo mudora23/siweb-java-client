@@ -1,7 +1,9 @@
 package com.siweb.view.facade;
 
 import com.siweb.controller.utility.UtilityHttpController;
+import com.siweb.model.AppModel;
 import com.siweb.model.ObservableModel;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
@@ -23,6 +25,9 @@ public class FacadePaginatedTableController<S> {
     private final Pagination pagination;
     private final String apiEndPoint;
     private final int pageSize;
+    private String ordering = "";
+    private String search = "";
+    private final String resultsCountLabelId;
     private ObservableModel<S> observableModel;
 
     /***
@@ -36,7 +41,10 @@ public class FacadePaginatedTableController<S> {
         private final Pagination pagination;
         private final String apiEndPoint;
         private int pageSize = 20;
+        private String ordering = "";
+        private String resultsCountLabelId;
         private ObservableModel<S> observableModel;
+
 
         /***
          * Construct the required params in the builder
@@ -45,33 +53,15 @@ public class FacadePaginatedTableController<S> {
          * @param pagination basic pagination created in FXML
          * @param apiEndPoint API End point for listing data with server-side paging, filtering, and ordering support.
          */
-        public Builder(ObservableModel<S> observableModel, TableView<S> tableView, Pagination pagination, String apiEndPoint) {
+        public Builder(ObservableModel<S> observableModel, TableView<S> tableView, Pagination pagination, String apiEndPoint, String resultsCountLabelId) {
             this.tableView = tableView;
             this.pagination = pagination;
             this.apiEndPoint = apiEndPoint;
             this.observableModel = observableModel;
+            this.resultsCountLabelId = resultsCountLabelId;
 
             // Link the tableview item list to the observable list.
             this.tableView.setItems(observableModel.get());
-
-            // Update table when changing pages
-            pagination.setPageFactory(pageIndex -> {
-
-                http.get(apiEndPoint.replace("{limit}", String.valueOf(pageSize)).replace("{offset}",String.valueOf((pageIndex)*pageSize)), (JSONObject res) -> {
-
-                    Platform.runLater(() -> {
-                        pagination.setPageCount((int) Math.ceil((double) res.getInt("count") / pageSize));
-
-                        observableModel.clear();
-                        observableModel.add(res.getJSONArray("results"));
-
-                    });
-
-                });
-
-                return new Label("");
-
-            });
 
         }
 
@@ -97,6 +87,16 @@ public class FacadePaginatedTableController<S> {
             return this;
         }
 
+        public Builder<S> setOrdering(String ordering) {
+            this.ordering = ordering;
+            return this;
+        }
+
+        public Builder<S> setResultsCountSelector(String resultsCountLabelId) {
+            this.resultsCountLabelId = resultsCountLabelId;
+            return this;
+        }
+
         public FacadePaginatedTableController<S> build() {
             return new FacadePaginatedTableController<S>(this);
         }
@@ -108,7 +108,18 @@ public class FacadePaginatedTableController<S> {
         this.pagination = builder.pagination;
         this.apiEndPoint = builder.apiEndPoint;
         this.pageSize = builder.pageSize;
+        this.ordering = builder.ordering;
         this.observableModel = builder.observableModel;
+        this.resultsCountLabelId = builder.resultsCountLabelId;
+
+        // Update table when changing pages
+        pagination.setPageFactory(pageIndex -> {
+
+            this.refresh();
+
+            return new Label("");
+
+        });
     }
 
 
@@ -120,16 +131,30 @@ public class FacadePaginatedTableController<S> {
         return this.tableView.getSelectionModel().selectedItemProperty().get();
     }
 
+    public void setOrdering(String ordering) {
+        this.ordering = ordering;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
+    }
+
     public void refresh() {
 
-
-        http.get(apiEndPoint.replace("{limit}", String.valueOf(pageSize)).replace("{offset}",String.valueOf((pagination.getCurrentPageIndex())*pageSize)), (JSONObject res) -> {
+        http.get(apiEndPoint + "?ordering="+this.ordering+"&search="+this.search + "&limit="+pageSize+"&offset="+pagination.getCurrentPageIndex()*pageSize, (JSONObject res) -> {
 
             Platform.runLater(() -> {
                 pagination.setPageCount((int) Math.ceil((double) res.getInt("count") / pageSize));
 
                 observableModel.clear();
                 observableModel.add(res.getJSONArray("results"));
+
+                if(!resultsCountLabelId.isEmpty()) {
+                    int currentResults = res.getJSONArray("results").length();
+                    int offset = pagination.getCurrentPageIndex()*pageSize;
+
+                    ((Label) AppModel.scene.lookup(resultsCountLabelId)).setText(String.format("Showing %d - %d of %d results", offset + Math.min(currentResults,1), offset + currentResults, res.getInt("count")));
+                }
 
             });
 

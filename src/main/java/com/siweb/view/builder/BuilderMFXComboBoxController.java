@@ -1,80 +1,120 @@
 package com.siweb.view.builder;
 
+import com.siweb.view.SelectOption;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.enums.FloatMode;
+import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 
-public class BuilderMFXComboBoxController<T> {
+import java.util.List;
 
-    private final MFXComboBox<T> mfxComboBox;
+public class BuilderMFXComboBoxController {
 
-    public static class Builder<T> {
+    private final MFXComboBox<SelectOption> mfxComboBox;
 
-        private final ObservableList<T> items;
+
+    public static class Builder {
+
         private final String id;
         private String floatingText = "";
         private FloatMode floatMode = FloatMode.BORDER;
         private Boolean isAnimated = false;
         private Boolean isDisable = false;
-        private String defaultText = "";
+        private String valText = "";
         private double prefWidth = Double.MAX_VALUE;
+        private Insets padding = new Insets(6,6,6,6);
+        private ChangeListener<? super SelectOption> onChangelistener;
+        private final ObservableList<SelectOption> items = FXCollections.observableArrayList();
 
-        public Builder(String id, String floatingText, ObservableList<T> items) {
+        public Builder(String id, String floatingText, List<SelectOption> selectOptions) {
             this.id = id;
             this.floatingText = floatingText;
-            this.items = items;
+
+            items.addAll(selectOptions);
+
         }
 
-        public Builder<T> setFloatingText(String floatingText) {
+        public Builder setFloatingText(String floatingText) {
             this.floatingText = floatingText;
             return this;
         }
-        public Builder<T> setFloatMode(FloatMode floatMode) {
+        public Builder setFloatMode(FloatMode floatMode) {
             this.floatMode = floatMode;
             return this;
         }
-        public Builder<T> setAnimated(Boolean isAnimated) {
+        public Builder setAnimated(Boolean isAnimated) {
             this.isAnimated = isAnimated;
             return this;
         }
 
-        public Builder<T> setDisable(Boolean isDisable) {
+        public Builder setDisable(Boolean isDisable) {
             this.isDisable = isDisable;
             return this;
         }
 
 
-        public Builder<T> setText(String defaultText) {
-            this.defaultText = defaultText;
+        public Builder setValText(String valText) {
+            this.valText = valText;
             return this;
         }
 
-        public Builder<T> setPrefWidth(double prefWidth) {
+        public Builder setPrefWidth(double prefWidth) {
             this.prefWidth = prefWidth;
             return this;
         }
 
-        public BuilderMFXComboBoxController<T> build() {
-            return new BuilderMFXComboBoxController<T>(this);
+        public Builder setPadding(Insets padding) {
+            this.padding = padding;
+            return this;
+        }
+
+        public Builder addSelectionListener(ChangeListener<? super SelectOption> onChangelistener) {
+            this.onChangelistener = onChangelistener;
+            return this;
+        }
+
+        public BuilderMFXComboBoxController build() {
+            return new BuilderMFXComboBoxController(this);
         }
 
 
     }
 
-    private BuilderMFXComboBoxController(Builder<T> builder) {
+    private BuilderMFXComboBoxController(Builder builder) {
 
-        this.mfxComboBox = new MFXComboBox<T>(builder.items);
+        this.mfxComboBox = new MFXComboBox<>(builder.items);
+
+        if(!builder.valText.isEmpty())
+        {
+            builder.items.forEach((item) -> {
+                if(item.getValText().equals(builder.valText))
+                {
+                    this.mfxComboBox.selectItem(item);
+                }
+            });
+        }
 
         this.mfxComboBox.setId(builder.id);
         this.mfxComboBox.setFloatingText(builder.floatingText);
         this.mfxComboBox.setFloatMode(builder.floatMode);
         this.mfxComboBox.setAnimated(builder.isAnimated);
-        this.mfxComboBox.setText(builder.defaultText);
+        this.mfxComboBox.setText(builder.valText);
         this.mfxComboBox.setPrefWidth(builder.prefWidth);
+        this.mfxComboBox.setPadding(builder.padding);
         this.mfxComboBox.setDisable(builder.isDisable);
+
+        this.mfxComboBox.setFloatingTextGap(2);
+
+        if(builder.onChangelistener != null) {
+            this.mfxComboBox.selectedItemProperty().addListener(builder.onChangelistener);
+        }
+
+
     }
 
-    public MFXComboBox<T> get() {
+    public MFXComboBox<SelectOption> get() {
         return this.mfxComboBox;
     }
 

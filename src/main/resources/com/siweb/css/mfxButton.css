@@ -29,3 +29,17 @@
     -fx-background-color: -success-color;
     -fx-text-fill: -background-color;
 }
+
+.mfx-button.demo-button,
+.mfx-button.demo-button:armed,
+.mfx-button.demo-button:focused {
+    -fx-background-color: -primary-light-color;
+    -fx-text-fill: -background-color;
+}
+
+.mfx-button.login-button,
+.mfx-button.login-button:armed,
+.mfx-button.login-button:focused {
+    -fx-background-color: -primary-color;
+    -fx-text-fill: -background-color;
+}

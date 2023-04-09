@@ -1,7 +1,15 @@
 package com.siweb.view.builder;
 
+import com.siweb.view.SelectOption;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.enums.FloatMode;
+import javafx.beans.value.ChangeListener;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.input.KeyEvent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class BuilderMFXTextFieldController {
 
@@ -15,6 +23,9 @@ public class BuilderMFXTextFieldController {
         private Boolean isDisable = false;
         private String defaultText = "";
         private double prefWidth = Double.MAX_VALUE;
+        private Insets padding = new Insets(6,6,6,6);
+
+        private EventHandler<? super KeyEvent> onKeyPressed;
 
         public Builder(String id, String floatingText) {
             this.id = id;
@@ -50,6 +61,16 @@ public class BuilderMFXTextFieldController {
             return this;
         }
 
+        public Builder setPadding(Insets padding) {
+            this.padding = padding;
+            return this;
+        }
+
+        public Builder setOnKeyPressed(EventHandler<? super KeyEvent> onKeyPressed) {
+            this.onKeyPressed = onKeyPressed;
+            return this;
+        }
+
         public BuilderMFXTextFieldController build() {
             return new BuilderMFXTextFieldController(this);
         }
@@ -67,7 +88,15 @@ public class BuilderMFXTextFieldController {
         this.mfxTextField.setAnimated(builder.isAnimated);
         this.mfxTextField.setText(builder.defaultText);
         this.mfxTextField.setPrefWidth(builder.prefWidth);
+        this.mfxTextField.setPadding(builder.padding);
         this.mfxTextField.setDisable(builder.isDisable);
+
+        this.mfxTextField.setFloatingTextGap(2);
+
+        if(builder.onKeyPressed != null) {
+            this.mfxTextField.setOnKeyPressed(builder.onKeyPressed);
+        }
+
 
     }
 

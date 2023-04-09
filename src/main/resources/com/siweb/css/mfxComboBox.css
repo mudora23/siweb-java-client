@@ -5,3 +5,7 @@
 .mfx-combo-box .combo-popup .virtual-flow .mfx-combo-box-cell:hover .data-label, .mfx-combo-box .combo-popup .virtual-flow .mfx-combo-box-cell:selected .data-label {
     -fx-text-fill: -background-color;
 }
+
+.mfx-combo-box .floating-text {
+    -fx-font-size: 15px;
+}
