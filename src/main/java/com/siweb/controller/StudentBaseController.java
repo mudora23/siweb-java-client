@@ -29,6 +29,7 @@ import java.util.ResourceBundle;
 public class StudentBaseController extends BaseController
 {
     protected final UtilityHttpController http = UtilityHttpController.getInstance();
+    public Pane rootPane;
     protected ToggleGroup toggleGroup;
 
     @FXML
@@ -53,12 +54,6 @@ public class StudentBaseController extends BaseController
         this.mainMenu.getChildren().add(menuLabel);
 
         ToggleButton tempToggle = null;
-
-        tempToggle = createToggle("mfx-users", "Users");
-        tempToggle.setOnAction(event -> App.loadFXMLtoPane(this.contentArea, "admin-users"));
-        tempToggle.fire();
-        tempToggle.setSelected(true);
-        this.mainMenu.getChildren().add(tempToggle);
 
         tempToggle = createToggle("mfx-shortcut", "Log out");
         tempToggle.setOnAction(event -> logout());
