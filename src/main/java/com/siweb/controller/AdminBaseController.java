@@ -55,9 +55,19 @@ public class AdminBaseController extends BaseController {
         ToggleButton tempToggle = null;
 
         tempToggle = createToggle("mfx-users", "Users");
-        tempToggle.setOnAction(event -> App.loadFXMLtoPane(this.contentArea, "admin-users"));
+        tempToggle.setOnAction(event -> {
+            App.loadFXMLtoPane(this.contentArea, "admin-users");
+            toggleClearSelectedExcept(this.mainMenu, (ToggleButton) event.getSource());
+        });
         tempToggle.fire();
         tempToggle.setSelected(true);
+        this.mainMenu.getChildren().add(tempToggle);
+
+        tempToggle = createToggle("mfx-calendars", "Semesters");
+        tempToggle.setOnAction(event -> {
+            App.loadFXMLtoPane(this.contentArea, "admin-semester");
+            toggleClearSelectedExcept(this.mainMenu, (ToggleButton) event.getSource());
+        });
         this.mainMenu.getChildren().add(tempToggle);
 
         tempToggle = createToggle("mfx-shortcut", "Log out");
