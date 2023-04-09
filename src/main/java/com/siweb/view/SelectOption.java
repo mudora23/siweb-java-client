@@ -1,5 +1,9 @@
 package com.siweb.view;
 
+
+/***
+ * SelectOption is an "option" of a select element with a different "display text" from the "value"
+ */
 public class SelectOption {
 
     private final String displayText;

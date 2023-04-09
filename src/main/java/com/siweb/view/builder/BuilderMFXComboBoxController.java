@@ -10,30 +10,31 @@ import javafx.geometry.Insets;
 
 import java.util.List;
 
+/***
+ * BuilderMFXComboBoxController provides an easy way to create a MFXComboBox using the builder design pattern
+ */
 public class BuilderMFXComboBoxController {
 
     private final MFXComboBox<SelectOption> mfxComboBox;
 
-
     public static class Builder {
 
         private final String id;
+        private final ObservableList<SelectOption> items = FXCollections.observableArrayList();
+        private String valText = "";
         private String floatingText = "";
         private FloatMode floatMode = FloatMode.BORDER;
         private Boolean isAnimated = false;
         private Boolean isDisable = false;
-        private String valText = "";
         private double prefWidth = Double.MAX_VALUE;
         private Insets padding = new Insets(6,6,6,6);
         private ChangeListener<? super SelectOption> onChangelistener;
-        private final ObservableList<SelectOption> items = FXCollections.observableArrayList();
 
         public Builder(String id, String floatingText, List<SelectOption> selectOptions) {
             this.id = id;
             this.floatingText = floatingText;
 
             items.addAll(selectOptions);
-
         }
 
         public Builder setFloatingText(String floatingText) {
@@ -53,7 +54,6 @@ public class BuilderMFXComboBoxController {
             this.isDisable = isDisable;
             return this;
         }
-
 
         public Builder setValText(String valText) {
             this.valText = valText;
@@ -104,8 +104,6 @@ public class BuilderMFXComboBoxController {
         this.mfxComboBox.setPrefWidth(builder.prefWidth);
         this.mfxComboBox.setPadding(builder.padding);
         this.mfxComboBox.setDisable(builder.isDisable);
-
-        this.mfxComboBox.setFloatingTextGap(2);
 
         if(builder.onChangelistener != null) {
             this.mfxComboBox.selectedItemProperty().addListener(builder.onChangelistener);

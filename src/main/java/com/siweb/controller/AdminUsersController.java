@@ -14,6 +14,7 @@ import io.github.palexdev.materialfx.enums.FloatMode;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -24,16 +25,17 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.util.*;
 
-public class AdminUsersController extends BaseController {
+/***
+ * AdminUsersController manages the users management page of admin
+ */
+public class AdminUsersController extends BaseController implements Initializable {
 
     private FacadePaginatedTableController<User> usersPaginatedTable;
     private final UserModel userModel = UserModel.getInstance();
     @FXML
-    private TableView usersTable;
+    private TableView<User> usersTable;
     @FXML
     private Pagination usersTablePagination;
-    @FXML
-    private Label resultsCountLabel;
     @FXML
     private VBox userDetailVBox;
     @FXML
@@ -48,12 +50,22 @@ public class AdminUsersController extends BaseController {
     private HBox tableHeaderHBox;
 
 
+    /***
+     * initialize the page. Setup TableView, pagination, search field, and the ordering select
+     * @param location
+     * The location used to resolve relative paths for the root object, or
+     * {@code null} if the location is not known.
+     *
+     * @param resources
+     * The resources used to localize the root object, or {@code null} if
+     * the root object was not localized.
+     */
     public void initialize(URL location, ResourceBundle resources) {
 
-        super.initialize(location, resources);
-
+        // default ordering, will be used in TableView and the ordering select
         String defaultOrdering = "-date_joined";
 
+        // Create a new Facade class to easily manage the tableView with pagination
         usersPaginatedTable = new FacadePaginatedTableController.Builder<User>(userModel, usersTable, usersTablePagination, "/user/", "#resultsCountLabel")
                 .addColumn(new TableColumn<User, String>("Username"), "getUserName", 130)
                 .addColumn(new TableColumn<User, String>("First Name"), "getFirstName", 130)
@@ -64,15 +76,16 @@ public class AdminUsersController extends BaseController {
                 .setOrdering(defaultOrdering)
                 .build();
 
+        // Add a listener when user select / deselect a user
         usersPaginatedTable.addSelectionListener((obs, oldSelection, newSelection) -> {
 
-
+            // disable the buttons and clear the detail box first, then enable them accordingly if needed below
             userDetailVBox.getChildren().clear();
             userDetailPane.setVvalue(0.0);
             userDeleteBtn.setDisable(true);
             userSaveBtn.setDisable(true);
 
-
+            // create a basic fade transition on the detail box
             FadeTransition fade = new FadeTransition();
             fade.setDuration(Duration.millis(100));
             fade.setFromValue(0);
@@ -80,14 +93,18 @@ public class AdminUsersController extends BaseController {
             fade.setNode(userDetailVBox);
             fade.play();
 
+            // if a user is selected, show the user's details and enable save / delete button.
             if (newSelection != null) {
 
                 if(userModel.getCurrentUserID() != newSelection.id) {
-                    // disable deleting own admin account
+                    // prevent deleting myself, otherwise the current admin will not have the permission to keep browsing on this page anymore.
                     userDeleteBtn.setDisable(false);
                 }
+
+                // enable save button
                 userSaveBtn.setDisable(false);
 
+                // show basic information
                 userDetailVBox.getChildren().add(new Label("Basic Information"));
                 userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setText(newSelection.getId() + "").setDisable(true).build().get());
                 userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("username","Username *").setText(newSelection.getUserName()).build().get());
@@ -97,9 +114,11 @@ public class AdminUsersController extends BaseController {
 
                 userDetailVBox.getChildren().add(new Separator());
 
+                // show profile details
                 userDetailVBox.getChildren().add(new Label("Profile Details"));
                 userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("","Profile ID").setText(newSelection.getProfileId() + "").setDisable(true).build().get());
 
+                // admin cannot change its own "role", otherwise the current admin will not have the permission to keep browsing on this page anymore.
                 if(userModel.getCurrentUserID() != newSelection.id) {
                     userDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("role", "Role *", List.of(new SelectOption("admin"), new SelectOption("lecturer"), new SelectOption("student"))).setValText(newSelection.getProfileRole()).build().get());
                 }
@@ -117,7 +136,7 @@ public class AdminUsersController extends BaseController {
         });
 
 
-        // search
+        // "search" button creation and listen to "ENTER" presses
         tableHeaderHBox.getChildren().add(new BuilderMFXTextFieldController.Builder("search", "Search").setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 usersPaginatedTable.setSearch(((MFXTextField) AppModel.scene.lookup("#search")).getText());
@@ -127,7 +146,7 @@ public class AdminUsersController extends BaseController {
 
 
 
-        // order by
+        // "order by" select and listen to changes
         tableHeaderHBox.getChildren().add(new BuilderMFXComboBoxController.Builder("order_by", "Order By", List.of(
                 new SelectOption("Date joined (ascending)", "date_joined"),
                 new SelectOption("Date joined (descending)", "-date_joined"),
@@ -144,11 +163,11 @@ public class AdminUsersController extends BaseController {
             usersPaginatedTable.refresh();
         }).setValText(defaultOrdering).setPrefWidth(230).setFloatMode(FloatMode.INLINE).setPadding(new Insets(4,4,4,10)).build().get());
 
-
-
-
     }
 
+    /***
+     * After clicking on the new user button, show an empty form on the right for admin to fill in.
+     */
     public void userNew() {
 
         userDetailVBox.getChildren().clear();
@@ -184,10 +203,16 @@ public class AdminUsersController extends BaseController {
 
     }
 
+    /***
+     * After clicking on the save button.
+     * 1. if a user is selected, update the selected user with a PUT method to the server.
+     * 2. if no user is selected, create a new user with a POST method to the server.
+     */
     public void userSave() {
 
         User selectedUser = usersPaginatedTable.getCurrentSelection();
 
+        // Updating the existing user and refresh the table
         if(selectedUser != null)
         {
             http.put("/user/" + selectedUser.getId() + "/", Map.of(
@@ -211,11 +236,8 @@ public class AdminUsersController extends BaseController {
 
         }
 
+        // create a new user and refresh the table
         else {
-
-
-
-
 
             http.post("/user/", Map.of(
                     "username",     ((MFXTextField) AppModel.scene.lookup("#username")).getText(),
@@ -239,23 +261,15 @@ public class AdminUsersController extends BaseController {
 
                     usersPaginatedTable.refresh();
                 });
-
             });
-
-
-
-
-
-
-
-
-
         }
 
     }
 
 
-
+    /***
+     * After clicking the delete button, a confirmation box is shown, with the option to delete the user permanently.
+     */
     public void userDelete() {
 
         User selectedUser = usersPaginatedTable.getCurrentSelection();
@@ -291,18 +305,6 @@ public class AdminUsersController extends BaseController {
             }
         }
 
-
-
-
-
     }
-
-
-
-    public void sortedBy() {
-        //sortedBySelect
-    }
-
-
 
 }

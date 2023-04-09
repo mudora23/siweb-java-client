@@ -24,10 +24,12 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AdminBaseController extends BaseController implements Initializable {
+/***
+ * AdminBaseController is the base for all admin pages. It provides the admin menu and a contentArea which child admin pages can be loaded into
+ */
+public abstract class AdminBaseController extends BaseController implements Initializable {
 
     protected final UtilityHttpController http = UtilityHttpController.getInstance();
-
     protected final ToggleGroup toggleGroup;
 
     @FXML

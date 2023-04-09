@@ -1,16 +1,14 @@
 package com.siweb.view.builder;
 
-import com.siweb.view.SelectOption;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.enums.FloatMode;
-import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.input.KeyEvent;
 
-import java.util.HashMap;
-import java.util.Map;
-
+/***
+ * BuilderMFXTextFieldController provides an easy way to create a MFXTextField using the builder design pattern
+ */
 public class BuilderMFXTextFieldController {
 
     private final MFXTextField mfxTextField;
@@ -90,8 +88,6 @@ public class BuilderMFXTextFieldController {
         this.mfxTextField.setPrefWidth(builder.prefWidth);
         this.mfxTextField.setPadding(builder.padding);
         this.mfxTextField.setDisable(builder.isDisable);
-
-        this.mfxTextField.setFloatingTextGap(2);
 
         if(builder.onKeyPressed != null) {
             this.mfxTextField.setOnKeyPressed(builder.onKeyPressed);

@@ -1,6 +1,10 @@
 package com.siweb.model;
 import org.json.JSONObject;
 
+
+/***
+ * UserModel stores the current Users. It extends the ObservableModel where an unmodifiable observable list of users can be produced.
+ */
 public class UserModel extends ObservableModel<User> {
 
     // Declares variables
