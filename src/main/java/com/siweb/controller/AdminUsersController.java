@@ -28,7 +28,7 @@ import java.util.*;
 /***
  * AdminUsersController manages the users management page of admin
  */
-public class AdminUsersController extends BaseController implements Initializable {
+public class AdminUsersController extends BaseController {
 
     private FacadePaginatedTableController<User> usersPaginatedTable;
     private final UserModel userModel = UserModel.getInstance();

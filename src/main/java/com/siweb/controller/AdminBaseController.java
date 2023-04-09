@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import org.json.JSONObject;
 
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
@@ -27,7 +28,7 @@ import java.util.ResourceBundle;
 /***
  * AdminBaseController is the base for all admin pages. It provides the admin menu and a contentArea which child admin pages can be loaded into
  */
-public abstract class AdminBaseController extends BaseController implements Initializable {
+public class AdminBaseController extends BaseController {
 
     protected final UtilityHttpController http = UtilityHttpController.getInstance();
     protected final ToggleGroup toggleGroup;
