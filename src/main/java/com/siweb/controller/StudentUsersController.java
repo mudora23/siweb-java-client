@@ -66,7 +66,7 @@ public class StudentUsersController extends BaseController {
         String defaultOrdering = "-date_joined";
 
         // Create a new Facade class to easily manage the tableView with pagination
-        usersPaginatedTable = new FacadePaginatedTableController.Builder<User>(userModel, usersTable, usersTablePagination, "/user/current/", "#resultsCountLabel")
+        usersPaginatedTable = new FacadePaginatedTableController.Builder<User>(userModel, usersTable, usersTablePagination, "/user/", "#resultsCountLabel")
                 .addColumn(new TableColumn<User, String>("Username"), "getUserName", 130)
                 .addColumn(new TableColumn<User, String>("First Name"), "getFirstName", 130)
                 .addColumn(new TableColumn<User, String>("Last Name"), "getLastName", 130)
@@ -76,63 +76,7 @@ public class StudentUsersController extends BaseController {
                 .setOrdering(defaultOrdering)
                 .build();
 
-        // Add a listener when user select / deselect a user
-        usersPaginatedTable.addSelectionListener((obs, oldSelection, newSelection) -> {
 
-            // disable the buttons and clear the detail box first, then enable them accordingly if needed below
-            userDetailVBox.getChildren().clear();
-            userDetailPane.setVvalue(0.0);
-            userDeleteBtn.setDisable(true);
-            userSaveBtn.setDisable(true);
-
-            // create a basic fade transition on the detail box
-            FadeTransition fade = new FadeTransition();
-            fade.setDuration(Duration.millis(100));
-            fade.setFromValue(0);
-            fade.setToValue(1);
-            fade.setNode(userDetailVBox);
-            fade.play();
-
-            // if a user is selected, show the user's details and enable save / delete button.
-            if (newSelection != null) {
-
-                if (userModel.getCurrentUserID() != newSelection.id) {
-                    // prevent deleting myself, otherwise the current admin will not have the permission to keep browsing on this page anymore.
-                    userDeleteBtn.setDisable(false);
-                }
-
-                // enable save button
-                userSaveBtn.setDisable(false);
-
-                // show basic information
-                userDetailVBox.getChildren().add(new Label("Basic Information"));
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id", "ID").setText(newSelection.getId() + "").setDisable(true).build().get());
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("username", "Username *").setText(newSelection.getUserName()).build().get());
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("first_name", "First Name").setText(newSelection.getFirstName()).build().get());
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("last_name", "Last Name").setText(newSelection.getLastName()).build().get());
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("email", "Email").setText(newSelection.getEmail()).build().get());
-
-                userDetailVBox.getChildren().add(new Separator());
-
-                // show profile details
-                userDetailVBox.getChildren().add(new Label("Profile Details"));
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("", "Profile ID").setText(newSelection.getProfileId() + "").setDisable(true).build().get());
-
-                // admin cannot change its own "role", otherwise the current admin will not have the permission to keep browsing on this page anymore.
-                if (userModel.getCurrentUserID() != newSelection.id) {
-                    userDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("role", "Role *", List.of(new SelectOption("admin"), new SelectOption("lecturer"), new SelectOption("student"))).setValText(newSelection.getProfileRole()).build().get());
-                } else {
-                    // disable changing "role" for own admin account
-                    userDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("role", "Role *", List.of(new SelectOption("admin"), new SelectOption("lecturer"), new SelectOption("student"))).setValText(newSelection.getProfileRole()).setDisable(true).build().get());
-                }
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("father_name", "Father Name").setText(newSelection.getProfileFatherName()).build().get());
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("mother_name", "Mother Name").setText(newSelection.getProfileMotherName()).build().get());
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("address_1", "Address 1").setText(newSelection.getProfileAddress1()).build().get());
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("address_2", "Address 2").setText(newSelection.getProfileAddress2()).build().get());
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("tel", "Tel.").setText(newSelection.getProfileTel()).build().get());
-
-            }
-        });
 
 
         // "search" button creation and listen to "ENTER" presses
