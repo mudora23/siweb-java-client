@@ -56,7 +56,7 @@ public class LoginController extends BaseController {
                             System.err.println("Welcome Back, Admin!");
                             System.err.println();
 
-                            com.siweb.App.setRoot("base");
+                            com.siweb.App.setRoot("admin-base");
 
                         } else if (userModel.getCurrentUserProfileRole().equals("lecturer")) {
 
@@ -69,7 +69,7 @@ public class LoginController extends BaseController {
                             //System.err.println("Welcome Back, Student!");
                             //System.err.println();
 
-                            com.siweb.App.setRoot("student-dashboard");
+                            com.siweb.App.setRoot("base");
                         } else {
 
                             // WIP, redirect admins / lecturers to different views
