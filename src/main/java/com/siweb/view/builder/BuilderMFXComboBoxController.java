@@ -55,8 +55,20 @@ public class BuilderMFXComboBoxController {
             return this;
         }
 
-        public Builder setValText(String valText) {
-            this.valText = valText;
+        public Builder setValText(int i) {
+            this.valText = i + "";
+            return this;
+        }
+        public Builder setValText(double d) {
+            this.valText = d + "";
+            return this;
+        }
+        public Builder setValText(String s) {
+            this.valText = s;
+            return this;
+        }
+        public Builder setValText(Object o) {
+            this.valText = o.toString();
             return this;
         }
 
@@ -89,7 +101,9 @@ public class BuilderMFXComboBoxController {
         if(!builder.valText.isEmpty())
         {
             builder.items.forEach((item) -> {
-                if(item.getValText().equals(builder.valText))
+
+                // automatically select the option either by display value or by val value
+                if(item.toString().equals(builder.valText) || item.getValText().equals(builder.valText))
                 {
                     this.mfxComboBox.selectItem(item);
                 }

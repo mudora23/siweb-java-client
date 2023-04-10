@@ -293,7 +293,7 @@ public class AdminUsersController extends BaseController {
             {
                 System.err.println("Dialog OK pressed");
 
-                http.delete("/user/"+selectedUser.getId()+"/", (JSONObject jsonUserCurrent) -> {
+                http.delete("/user/"+selectedUser.getId()+"/", (JSONObject json) -> {
 
                     Platform.runLater(() -> {
                         usersPaginatedTable.refresh(false);

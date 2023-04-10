@@ -53,6 +53,14 @@ public class BuilderMFXTextFieldController {
             this.defaultText = defaultText;
             return this;
         }
+        public Builder setText(double d) {
+            this.defaultText = d + "";
+            return this;
+        }
+        public Builder setText(int i) {
+            this.defaultText = i + "";
+            return this;
+        }
 
         public Builder setPrefWidth(double prefWidth) {
             this.prefWidth = prefWidth;

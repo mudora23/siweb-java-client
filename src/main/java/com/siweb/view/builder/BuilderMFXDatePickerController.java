@@ -12,6 +12,7 @@ import javafx.util.converter.LocalDateStringConverter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /***
  * BuilderMFXTextFieldController provides an easy way to create a MFXTextField using the builder design pattern
@@ -58,6 +59,11 @@ public class BuilderMFXDatePickerController {
 
         public Builder setText(String defaultText) {
             this.defaultText = defaultText;
+            return this;
+        }
+
+        public Builder setText(LocalDate defaultDate) {
+            this.defaultText = defaultDate.toString();
             return this;
         }
 

@@ -41,6 +41,22 @@ public class AdminBaseController extends BaseController {
         });
         this.mainMenu.getChildren().add(tempToggle);
 
+        // Page - Courses
+        tempToggle = createToggle("mfx-spreadsheet", "Courses");
+        tempToggle.setOnAction(event -> {
+            App.loadFXMLtoPane(this.contentArea, "admin-course");
+            toggleClearSelectedExcept(this.mainMenu, (ToggleButton) event.getSource());
+        });
+        this.mainMenu.getChildren().add(tempToggle);
+
+        // Page - Section
+        tempToggle = createToggle("mfx-list-dropdown", "Sections");
+        tempToggle.setOnAction(event -> {
+            App.loadFXMLtoPane(this.contentArea, "admin-section");
+            toggleClearSelectedExcept(this.mainMenu, (ToggleButton) event.getSource());
+        });
+        this.mainMenu.getChildren().add(tempToggle);
+
         // Page - Logout
         tempToggle = createToggle("mfx-shortcut", "Log out");
         tempToggle.setOnAction(event -> logout());

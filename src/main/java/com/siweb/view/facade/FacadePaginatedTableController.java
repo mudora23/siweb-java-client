@@ -3,7 +3,6 @@ package com.siweb.view.facade;
 import com.siweb.controller.utility.UtilityHttpController;
 import com.siweb.model.AppModel;
 import com.siweb.model.ObservableModel;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
@@ -62,7 +61,7 @@ public class FacadePaginatedTableController<S> {
             this.resultsCountLabelId = resultsCountLabelId;
 
             // Link the tableview item list to the observable list.
-            this.tableView.setItems(observableModel.get());
+            this.tableView.setItems(observableModel.getObsList());
 
         }
 
@@ -151,9 +150,9 @@ public class FacadePaginatedTableController<S> {
 
     /***
      * Refresh the table, request the updated information from the server and store the results in model again.
-     * @param selectFirstAfter after refreshing, either reselect the first user of the table or the user with the previous selected index
+     * @param isSelectFirstAfter after refreshing, either reselect the first user of the table or the user with the previous selected index
      */
-    public void refresh(Boolean selectFirstAfter) {
+    public void refresh(Boolean isSelectFirstAfter) {
 
         http.get(apiEndPoint + "?limit="+pageSize+"&offset="+pagination.getCurrentPageIndex()*pageSize + "&ordering="+this.ordering+"&search="+java.net.URLEncoder.encode(this.search), (JSONObject res) -> {
 
@@ -162,8 +161,8 @@ public class FacadePaginatedTableController<S> {
 
                 int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
 
-                observableModel.clear();
-                observableModel.add(res.getJSONArray("results"));
+                observableModel.clearObsList();
+                observableModel.add(res.getJSONArray("results"), true);
 
                 if(!resultsCountLabelId.isEmpty()) {
                     int currentResults = res.getJSONArray("results").length();
@@ -174,7 +173,7 @@ public class FacadePaginatedTableController<S> {
                     // after refreshing, we reselect the first user of the table or the user with the previous selected index automatically
                     if (currentResults > 0)
                     {
-                        if(selectedIndex > 0 && !selectFirstAfter){
+                        if(selectedIndex > 0 && !isSelectFirstAfter){
                             tableView.getSelectionModel().select(selectedIndex);
                         }
                         else {

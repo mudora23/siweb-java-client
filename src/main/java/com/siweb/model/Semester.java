@@ -5,20 +5,20 @@ import org.json.JSONObject;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Semester {
+public class Semester implements TableViewModel {
 
     private final int id;
     private final String year;
-    private final String semester;
-    private final String date_start;
-    private final String date_end;
+    private final int semester;
+    private final LocalDate dateStart;
+    private final LocalDate dateEnd;
 
     public Semester(JSONObject jsonSemester) {
         this.id = jsonSemester.getInt("id");
         this.year = jsonSemester.getString("year");
-        this.semester = jsonSemester.getInt("semester") + "";
-        this.date_start = jsonSemester.getString("date_start");
-        this.date_end = jsonSemester.getString("date_end");
+        this.semester = jsonSemester.getInt("semester");
+        this.dateStart = LocalDate.parse(jsonSemester.getString("date_start"));
+        this.dateEnd = LocalDate.parse(jsonSemester.getString("date_end"));
     }
 
     public int getId() {
@@ -27,15 +27,23 @@ public class Semester {
     public String getYear() {
         return year;
     }
-    public String getSemester() {
+    public int getSemester() {
         return semester;
     }
-    public String getDateStart() {
-        return date_start;
+    public LocalDate getDateStart() {
+        return dateStart;
     }
-    public String getDateEnd() {
-        return date_end;
+    public LocalDate getDateEnd() {
+        return dateEnd;
     }
 
+    @Override
+    public String toString() {
+        return this.year + "-" + this.semester;
+    }
+
+    public String getValText() {
+        return id + "";
+    }
 
 }
