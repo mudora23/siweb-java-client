@@ -224,7 +224,7 @@ public class AdminSectionController extends BaseController {
         // create a new section and refresh the table
         else {
 
-            http.post("/academic/section/" + selectedSection.getId() + "/", Map.of(
+            http.post("/academic/section/", Map.of(
                     "section_code",         ((MFXTextField) AppModel.scene.lookup("#section_code")).getText(),
                     "course",   course == null ? "" : course.getValText(),
                     "lecturer",   lecturer == null ? "" : lecturer.getValText()

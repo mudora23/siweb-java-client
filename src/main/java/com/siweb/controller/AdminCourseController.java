@@ -216,7 +216,7 @@ public class AdminCourseController extends BaseController {
         // create a new course and refresh the table
         else {
 
-            http.post("/academic/course/" + selectedCourse.getId() + "/", Map.of(
+            http.post("/academic/course/", Map.of(
                     "course_code",         ((MFXTextField) AppModel.scene.lookup("#code")).getText(),
                     "course_name",         ((MFXTextField) AppModel.scene.lookup("#name")).getText(),
                     "course_credit",     ((MFXTextField) AppModel.scene.lookup("#credit")).getText(),
