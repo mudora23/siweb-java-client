@@ -31,6 +31,14 @@ public class StudentBaseController extends BaseController {
         tempToggle.setSelected(true);
         this.mainMenu.getChildren().add(tempToggle);
 
+        tempToggle = createToggle("mfx-calendars", "Semester");
+        tempToggle.setOnAction(event -> {
+            App.loadFXMLtoPane(this.contentArea, "student-semester");
+            toggleClearSelectedExcept(this.mainMenu, (ToggleButton) event.getSource());
+        });
+        this.mainMenu.getChildren().add(tempToggle);
+
+
         // Page - Logout
         tempToggle = createToggle("mfx-shortcut", "Log out");
         tempToggle.setOnAction(event -> logout());
