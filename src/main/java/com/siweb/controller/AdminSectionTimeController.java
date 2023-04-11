@@ -209,7 +209,6 @@ public class AdminSectionTimeController extends BaseController {
         else {
 
             http.post("/academic/sectionTime/", Map.of(
-                    "sectionTime_code",         ((MFXTextField) AppModel.scene.lookup("#sectionTime_code")).getText(),
                     "section",   section == null ? "" : section.getValText(),
                     "timeSlot",   timeSlot == null ? "" : timeSlot.getValText()
             ), (JSONObject jsonUser) -> {
