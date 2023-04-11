@@ -46,6 +46,16 @@ public class Enrollment implements TableViewModel {
         return firstName + " " + lastName;
     }
 
+    public String getStudentFullName(){
+        String firstName =  getUser().getFirstName();
+        String lastName =  getUser().getLastName();
+        return firstName + " " + lastName;
+    }
+
+    public String getStudentUserName(){
+        return  getUser().getUserName();
+    }
+
     @Override
     public String toString() {
         return this.user + " (" + this.section + ", grade:" + this.finalGrade + ")";

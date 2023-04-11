@@ -93,7 +93,9 @@ public class StudentEnrollmentController extends BaseController{
                 new SelectOption("Course Code (ascending)", "section__course__course_code"),
                 new SelectOption("Course Code (descending)", "-section__course__course_code"),
                 new SelectOption("Course Name (ascending)", "section__course__course_name"),
-                new SelectOption("Course Name (descending)", "-section__course__course_name")
+                new SelectOption("Course Name (descending)", "-section__course__course_name"),
+                new SelectOption("final grade (ascending)", "final_grade"),
+                new SelectOption("final grade (descending)", "-final_grade")
 
         )).addSelectionListener((obs, oldSelection, newSelection)->{
             enrollmentPaginatedTable.setOrdering(newSelection.getValText());
