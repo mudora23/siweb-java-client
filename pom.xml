@@ -52,31 +52,7 @@
             <artifactId>json</artifactId>
             <version>20230227</version>
         </dependency>
-            <dependency>
-                <groupId>org.kordamp.ikonli</groupId>
-                <artifactId>ikonli-javafx</artifactId>
-                <version>12.3.1</version>
-            </dependency>
-        <dependency>
-            <groupId>org.kordamp.ikonli</groupId>
-            <artifactId>ikonli-fontawesome5-pack</artifactId>
-            <version>12.3.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.kordamp.ikonli</groupId>
-            <artifactId>ikonli-elusive-pack</artifactId>
-            <version>12.3.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.jfoenix</groupId>
-            <artifactId>jfoenix</artifactId>
-            <version>9.0.10</version>
-        </dependency>
-        <dependency>
-            <groupId>org.kordamp.ikonli</groupId>
-            <artifactId>ikonli-antdesignicons-pack</artifactId>
-            <version>12.3.1</version>
-        </dependency>
+
         <dependency>
             <groupId>io.github.palexdev</groupId>
             <artifactId>virtualizedfx</artifactId>
