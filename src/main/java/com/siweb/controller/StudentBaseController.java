@@ -31,12 +31,20 @@ public class StudentBaseController extends BaseController {
         tempToggle.setSelected(true);
         this.mainMenu.getChildren().add(tempToggle);
 
-        tempToggle = createToggle("mfx-calendars", "Semester");
+//        tempToggle = createToggle("mfx-calendars", "Semester");
+//        tempToggle.setOnAction(event -> {
+//            App.loadFXMLtoPane(this.contentArea, "student-semester");
+//            toggleClearSelectedExcept(this.mainMenu, (ToggleButton) event.getSource());
+//        });
+//        this.mainMenu.getChildren().add(tempToggle);
+//
+        tempToggle = createToggle("mfx-spreadsheet", "Enrollment");
         tempToggle.setOnAction(event -> {
-            App.loadFXMLtoPane(this.contentArea, "student-semester");
+            App.loadFXMLtoPane(this.contentArea, "student-enrollment");
             toggleClearSelectedExcept(this.mainMenu, (ToggleButton) event.getSource());
         });
         this.mainMenu.getChildren().add(tempToggle);
+
 
 
         // Page - Logout

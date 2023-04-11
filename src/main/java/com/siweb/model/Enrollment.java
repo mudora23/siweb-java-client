@@ -28,6 +28,24 @@ public class Enrollment implements TableViewModel {
         return section;
     }
 
+    public String getSectionCode(){
+        return  getSection().getCode();
+    }
+
+    public String getCourseCode(){
+        return  getSection().getCourse().getCode();
+    }
+
+    public String getCourseName(){
+        return  getSection().getCourse().getName();
+    }
+
+    public String getLectureFullName(){
+        String firstName =  getSection().getLecturer().getFirstName();
+        String lastName =  getSection().getLecturer().getLastName();
+        return firstName + " " + lastName;
+    }
+
     @Override
     public String toString() {
         return this.user + " (" + this.section + ", grade:" + this.finalGrade + ")";
