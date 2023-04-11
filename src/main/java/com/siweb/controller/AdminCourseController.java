@@ -148,7 +148,7 @@ public class AdminCourseController extends BaseController {
         )).addSelectionListener((obs, oldSelection, newSelection)->{
             coursesPaginatedTable.setOrdering(newSelection.getValText());
             coursesPaginatedTable.refresh(true);
-        }).setValText(defaultOrdering).setPrefWidth(230).setFloatMode(FloatMode.INLINE).setPadding(new Insets(4,4,4,10)).build().get());
+        }).setValText(defaultOrdering).setPrefWidth(280).setFloatMode(FloatMode.INLINE).setPadding(new Insets(4,4,4,10)).build().get());
 
     }
 

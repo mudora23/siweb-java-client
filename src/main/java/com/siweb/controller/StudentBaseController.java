@@ -38,7 +38,7 @@ public class StudentBaseController extends BaseController {
 //        });
 //        this.mainMenu.getChildren().add(tempToggle);
 //
-        tempToggle = createToggle("mfx-spreadsheet", "Enrollment");
+        tempToggle = createToggle("mfx-google-sites", "Enrollment");
         tempToggle.setOnAction(event -> {
             App.loadFXMLtoPane(this.contentArea, "student-enrollment");
             toggleClearSelectedExcept(this.mainMenu, (ToggleButton) event.getSource());

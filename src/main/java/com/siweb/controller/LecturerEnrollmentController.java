@@ -62,16 +62,14 @@ public class LecturerEnrollmentController extends BaseController {
     public void setup() {
 
         // default ordering, will be used in TableView and the ordering select
-        String defaultOrdering = "course_code";
+        String defaultOrdering = "-section__section_code,section__course__course_code";
 
         // Create a new Facade class to easily manage the tableView with pagination
         enrollmentPaginatedTable = new FacadePaginatedTableController.Builder<Enrollment>(enrollmentModel, enrollmentTable, enrollmentTablePagination, "/academic/enrollment/", "#resultsCountLabel")
-                .addColumn(new TableColumn<Enrollment, String>("Section Code"), "getSectionCode", 100)
-                .addColumn(new TableColumn<Enrollment, String>("Course Code"), "getCourseCode", 100)
+                .addColumn(new TableColumn<Enrollment, String>("Section"), "getSection", 200)
                 .addColumn(new TableColumn<Enrollment, String>("Course Name"), "getCourseName", 200)
-                .addColumn(new TableColumn<Enrollment, String>("Student ID"), "getStudentUserName", 90)
-                .addColumn(new TableColumn<Enrollment, String>("Student Name"), "getStudentFullName", 150)
-                .addColumn(new TableColumn<Enrollment, String>("Final Grade"), "getFinalGrade", 100)
+                .addColumn(new TableColumn<Enrollment, String>("Student"), "getStudentFullName", 220)
+                .addColumn(new TableColumn<Enrollment, String>("Final Grade"), "getFinalGrade", 120)
                 .setPageSize(23)
                 .setOrdering(defaultOrdering)
                 .build();
@@ -101,12 +99,13 @@ public class LecturerEnrollmentController extends BaseController {
 
                 // show basic information
                 enrollmentDetailVBox.getChildren().add(new Label("Enrollment Information"));
-                enrollmentDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("section code","Section Code").setText(newSelection.getSectionCode()).setDisable(true).build().get());
-                enrollmentDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("course code","Course Code").setText(newSelection.getCourseCode()).setDisable(true).build().get());
-                enrollmentDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("course name","Course Name").setText(newSelection.getCourseName()).setDisable(true).build().get());
-                enrollmentDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("student ID","Student username").setText(newSelection.getStudentUserName()).setDisable(true).build().get());
-                enrollmentDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("student name","Student Name").setText(newSelection.getStudentFullName()).setDisable(true).build().get());
-                enrollmentDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("final grade","Final Grade").setText(newSelection.getFinalGrade()).build().get());
+                enrollmentDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setText(newSelection.getId() + "").setDisable(true).build().get());
+
+                enrollmentDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("user","Student *", userModel.getSelectOptionList("student")).setIsFiltered(true).setDisable(true).setValText(newSelection.getUser()).build().get());
+
+                enrollmentDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("final_grade","Final Grade").setText(newSelection.getFinalGrade()).build().get());
+
+                enrollmentDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("section","Section *", sectionModel.getSelectOptionList()).setIsFiltered(true).setDisable(true).setValText(newSelection.getSection()).build().get());
 
             }
         });
@@ -123,6 +122,7 @@ public class LecturerEnrollmentController extends BaseController {
 
         // "order by" select and listen to changes
         tableHeaderHBox.getChildren().add(new BuilderMFXComboBoxController.Builder("order_by", "Order By", List.of(
+                new SelectOption("Default", "-section__section_code,section__course__course_code"),
                 new SelectOption("Section Code (ascending)", "section__section_code"),
                 new SelectOption("Section Code (descending)", "-section__section_code"),
                 new SelectOption("Course Code (ascending)", "section__course__course_code"),
@@ -135,7 +135,7 @@ public class LecturerEnrollmentController extends BaseController {
         )).addSelectionListener((obs, oldSelection, newSelection)->{
             enrollmentPaginatedTable.setOrdering(newSelection.getValText());
             enrollmentPaginatedTable.refresh(true);
-        }).setValText(defaultOrdering).setPrefWidth(230).setFloatMode(FloatMode.INLINE).setPadding(new Insets(4,4,4,10)).build().get());
+        }).setValText(defaultOrdering).setPrefWidth(280).setFloatMode(FloatMode.INLINE).setPadding(new Insets(4,4,4,10)).build().get());
 
     }
 
@@ -147,14 +147,12 @@ public class LecturerEnrollmentController extends BaseController {
 
         Enrollment selectedEnrollment = enrollmentPaginatedTable.getCurrentSelection();
 
-        SelectOption enrollment = ((MFXComboBox<SelectOption>) AppModel.scene.lookup("#final_grae")).getValue();
-
         // Updating the existing user and refresh the table
         if(selectedEnrollment != null)
         {
 
 
-            http.put("/academic/enrollment/" + selectedEnrollment.getId() + "/", Map.of(
+            http.patch("/academic/enrollment/" + selectedEnrollment.getId() + "/", Map.of(
                     "final_grade", ((MFXTextField) AppModel.scene.lookup("#final_grade")).getText()
             ), (JSONObject jsonUser) -> {
 

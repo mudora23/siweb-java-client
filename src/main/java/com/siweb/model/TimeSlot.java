@@ -2,6 +2,7 @@ package com.siweb.model;
 
 import org.json.JSONObject;
 
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 public class TimeSlot implements TableViewModel {
@@ -12,7 +13,7 @@ public class TimeSlot implements TableViewModel {
 
     public TimeSlot(JSONObject jsonTimeSlot){
         this.id = jsonTimeSlot.getInt("id");
-        this.weekDay = jsonTimeSlot.getInt("week_day");
+        this.weekDay = jsonTimeSlot.getInt("weekday");
         this.startTime = LocalTime.parse(jsonTimeSlot.getString("start_time"));
         this.endTime = LocalTime.parse(jsonTimeSlot.getString("end_time"));
     }
@@ -31,7 +32,7 @@ public class TimeSlot implements TableViewModel {
     }
     @Override
     public String toString() {
-        return this.weekDay + " (" + this.startTime + " - " + this.endTime + ")";
+        return DayOfWeek.of(weekDay).toString().substring(0, 3) + " (" + this.startTime + " - " + this.endTime + ")";
     }
 
     public String getValText() {

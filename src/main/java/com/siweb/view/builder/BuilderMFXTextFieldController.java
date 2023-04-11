@@ -53,6 +53,12 @@ public class BuilderMFXTextFieldController {
             this.defaultText = defaultText;
             return this;
         }
+
+        public Builder setText(Double d) { // allow nulls on final grade
+            if(d == null) this.defaultText = "";
+            else this.defaultText = d + "";
+            return this;
+        }
         public Builder setText(double d) {
             this.defaultText = d + "";
             return this;

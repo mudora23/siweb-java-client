@@ -22,7 +22,7 @@ public class LecturerBaseController extends BaseController {
         ToggleButton tempToggle = null;
 
         // Page - Profile
-        tempToggle = createToggle("mfx-user", "StudentProfile");
+        tempToggle = createToggle("mfx-user", "Profile");
         tempToggle.setOnAction(event -> {
             App.loadFXMLtoPane(this.contentArea, "lecturer-profiles");
             toggleClearSelectedExcept(this.mainMenu, (ToggleButton) event.getSource());
@@ -31,7 +31,7 @@ public class LecturerBaseController extends BaseController {
         tempToggle.setSelected(true);
         this.mainMenu.getChildren().add(tempToggle);
 
-        tempToggle = createToggle("mfx-spreadsheet", "Enrollment");
+        tempToggle = createToggle("mfx-google-sites", "Enrollment");
         tempToggle.setOnAction(event -> {
             App.loadFXMLtoPane(this.contentArea, "lecturer-enrollment");
             toggleClearSelectedExcept(this.mainMenu, (ToggleButton) event.getSource());

@@ -63,15 +63,16 @@ public class StudentEnrollmentController extends BaseController{
     public void setup() {
 
         // default ordering, will be used in TableView and the ordering select
-        String defaultOrdering = "-section__course__course_code";
+        String defaultOrdering = "-section__section_code,section__course__course_code";
 
         // Create a new Facade class to easily manage the tableView with pagination
         enrollmentPaginatedTable = new FacadePaginatedTableController.Builder<>(enrollmentModel, enrollmentsTable, enrollmentTablePagination, "/academic/enrollment/", "#resultsCountLabel")
+                .addColumn(new TableColumn<Enrollment, String>("Semester"), "getSemester", 130)
                 .addColumn(new TableColumn<Enrollment, String>("Section Code"), "getSectionCode", 160)
                 .addColumn(new TableColumn<Enrollment, String>("Course Code"), "getCourseCode", 160)
                 .addColumn(new TableColumn<Enrollment, String>("Course Name"), "getCourseName", 300)
-                .addColumn(new TableColumn<Enrollment, String>("Lecture Name"), "getLectureFullName", 120)
                 .addColumn(new TableColumn<Enrollment, String>("Final Grade"), "getFinalGrade", 160)
+                .addColumn(new TableColumn<Enrollment, String>("Lecturer Name"), "getSectionLecturerFullName", 250)
                 .setPageSize(23)
                 .setOrdering(defaultOrdering)
                 .build();
@@ -88,6 +89,7 @@ public class StudentEnrollmentController extends BaseController{
 
         // "order by" select and listen to changes
         tableHeaderHBox.getChildren().add(new BuilderMFXComboBoxController.Builder("order_by", "Order By", List.of(
+                new SelectOption("Default", "-section__section_code,section__course__course_code"),
                 new SelectOption("Section Code (ascending)", "section__section_code"),
                 new SelectOption("Section Code (descending)", "-section__section_code"),
                 new SelectOption("Course Code (ascending)", "section__course__course_code"),
@@ -100,7 +102,7 @@ public class StudentEnrollmentController extends BaseController{
         )).addSelectionListener((obs, oldSelection, newSelection)->{
             enrollmentPaginatedTable.setOrdering(newSelection.getValText());
             enrollmentPaginatedTable.refresh(true);
-        }).setValText(defaultOrdering).setPrefWidth(230).setFloatMode(FloatMode.INLINE).setPadding(new Insets(4,4,4,10)).build().get());
+        }).setValText(defaultOrdering).setPrefWidth(280).setFloatMode(FloatMode.INLINE).setPadding(new Insets(4,4,4,10)).build().get());
 
     }
 }

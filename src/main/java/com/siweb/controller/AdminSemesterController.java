@@ -140,7 +140,7 @@ public class AdminSemesterController extends BaseController {
         )).addSelectionListener((obs, oldSelection, newSelection)->{
             semestersPaginatedTable.setOrdering(newSelection.getValText());
             semestersPaginatedTable.refresh(true);
-        }).setValText(defaultOrdering).setPrefWidth(230).setFloatMode(FloatMode.INLINE).setPadding(new Insets(4,4,4,10)).build().get());
+        }).setValText(defaultOrdering).setPrefWidth(280).setFloatMode(FloatMode.INLINE).setPadding(new Insets(4,4,4,10)).build().get());
 
     }
 

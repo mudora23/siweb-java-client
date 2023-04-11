@@ -120,9 +120,9 @@ public class AdminSectionController extends BaseController {
 
                 sectionDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("section_code","Section Code *").setText(newSelection.getCode()).build().get());
 
-                sectionDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("course","Course *", courseModel.getSelectOptionList()).setValText(newSelection.getCourse()).build().get());
+                sectionDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("course","Course *", courseModel.getSelectOptionList()).setIsFiltered(true).setValText(newSelection.getCourse()).build().get());
 
-                sectionDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("lecturer","Lecturer *", userModel.getSelectOptionList("lecturer")).setValText(newSelection.getLecturer()).build().get());
+                sectionDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("lecturer","Lecturer *", userModel.getSelectOptionList("lecturer")).setIsFiltered(true).setValText(newSelection.getLecturer()).build().get());
 
             }
         });
@@ -154,7 +154,7 @@ public class AdminSectionController extends BaseController {
         )).addSelectionListener((obs, oldSelection, newSelection)->{
             sectionsPaginatedTable.setOrdering(newSelection.getValText());
             sectionsPaginatedTable.refresh(true);
-        }).setValText(defaultOrdering).setPrefWidth(230).setFloatMode(FloatMode.INLINE).setPadding(new Insets(4,4,4,10)).build().get());
+        }).setValText(defaultOrdering).setPrefWidth(280).setFloatMode(FloatMode.INLINE).setPadding(new Insets(4,4,4,10)).build().get());
 
     }
 
@@ -183,9 +183,9 @@ public class AdminSectionController extends BaseController {
 
         sectionDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("section_code","Section Code *").build().get());
 
-        sectionDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("course","Course *", courseModel.getSelectOptionList()).build().get());
+        sectionDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("course","Course *", courseModel.getSelectOptionList()).setIsFiltered(true).build().get());
 
-        sectionDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("lecturer","Lecturer *", userModel.getSelectOptionList("lecturer")).build().get());
+        sectionDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("lecturer","Lecturer *", userModel.getSelectOptionList("lecturer")).setIsFiltered(true).build().get());
 
 
     }

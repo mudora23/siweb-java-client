@@ -33,6 +33,14 @@ public class AdminBaseController extends BaseController {
         tempToggle.setSelected(true);
         this.mainMenu.getChildren().add(tempToggle);
 
+        // Page - Enrollment
+        tempToggle = createToggle("mfx-google-sites", "Enrollment");
+        tempToggle.setOnAction(event -> {
+            App.loadFXMLtoPane(this.contentArea, "admin-enrollment");
+            toggleClearSelectedExcept(this.mainMenu, (ToggleButton) event.getSource());
+        });
+        this.mainMenu.getChildren().add(tempToggle);
+
         // Page - Semesters
         tempToggle = createToggle("mfx-calendars", "Semesters");
         tempToggle.setOnAction(event -> {
@@ -53,6 +61,14 @@ public class AdminBaseController extends BaseController {
         tempToggle = createToggle("mfx-list-dropdown", "Sections");
         tempToggle.setOnAction(event -> {
             App.loadFXMLtoPane(this.contentArea, "admin-section");
+            toggleClearSelectedExcept(this.mainMenu, (ToggleButton) event.getSource());
+        });
+        this.mainMenu.getChildren().add(tempToggle);
+
+        // Page - Section Time
+        tempToggle = createToggle("mfx-bell", "Section Time");
+        tempToggle.setOnAction(event -> {
+            App.loadFXMLtoPane(this.contentArea, "admin-section-time");
             toggleClearSelectedExcept(this.mainMenu, (ToggleButton) event.getSource());
         });
         this.mainMenu.getChildren().add(tempToggle);
