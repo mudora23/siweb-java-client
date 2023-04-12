@@ -2,32 +2,21 @@ package com.siweb.controller;
 
 import com.siweb.model.AppModel;
 import com.siweb.model.Semester;
-import com.siweb.model.User;
-import com.siweb.model.UserModel;
 import com.siweb.view.SelectOption;
-import com.siweb.view.builder.BuilderMFXComboBoxController;
-import com.siweb.view.builder.BuilderMFXDatePickerController;
-import com.siweb.view.builder.BuilderMFXTextFieldController;
-import com.siweb.view.facade.FacadePaginatedTableController;
+import com.siweb.view.builder.BuilderMFXComboBox;
+import com.siweb.view.builder.BuilderMFXTextField;
+import com.siweb.view.facade.FacadePaginatedTable;
 import io.github.palexdev.materialfx.controls.*;
 import io.github.palexdev.materialfx.enums.FloatMode;
-import javafx.animation.FadeTransition;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
-import org.json.JSONObject;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 /***
@@ -35,7 +24,7 @@ import java.util.ResourceBundle;
  */
 public class StudentSemesterController extends BaseController {
 
-    private FacadePaginatedTableController<Semester> semestersPaginatedTable;
+    private FacadePaginatedTable<Semester> semestersPaginatedTable;
     @FXML
     private TableView<Semester> semestersTable;
     @FXML
@@ -70,7 +59,7 @@ public class StudentSemesterController extends BaseController {
         String defaultOrdering = "-date_end";
 
         // Create a new Facade class to easily manage the tableView with pagination
-        semestersPaginatedTable = new FacadePaginatedTableController.Builder<Semester>(semesterModel, semestersTable, semestersTablePagination, "/academic/semester/", "#resultsCountLabel")
+        semestersPaginatedTable = new FacadePaginatedTable.Builder<Semester>(semesterModel, semestersTable, semestersTablePagination, "/academic/semester/", "#resultsCountLabel")
                 .addColumn(new TableColumn<Semester, String>("Year"), "getYear", 160)
                 .addColumn(new TableColumn<Semester, String>("Semester"), "getSemester", 160)
                 .addColumn(new TableColumn<Semester, String>("Date Start"), "getDateStart", 160)
@@ -82,7 +71,7 @@ public class StudentSemesterController extends BaseController {
         // Add a listener when select / deselect a row
 
         // "search" button creation and listen to "ENTER" presses
-        tableHeaderHBox.getChildren().add(new BuilderMFXTextFieldController.Builder("search", "Search").setOnKeyPressed(event -> {
+        tableHeaderHBox.getChildren().add(new BuilderMFXTextField.Builder("search", "Search").setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 semestersPaginatedTable.setSearch(((MFXTextField) AppModel.scene.lookup("#search")).getText());
                 semestersPaginatedTable.refresh(true);
@@ -92,7 +81,7 @@ public class StudentSemesterController extends BaseController {
 
 
         // "order by" select and listen to changes
-        tableHeaderHBox.getChildren().add(new BuilderMFXComboBoxController.Builder("order_by", "Order By", List.of(
+        tableHeaderHBox.getChildren().add(new BuilderMFXComboBox.Builder("order_by", "Order By", List.of(
                 new SelectOption("Date end (ascending)", "date_end"),
                 new SelectOption("Date end (descending)", "-date_end"),
                 new SelectOption("Date start (ascending)", "date_start"),

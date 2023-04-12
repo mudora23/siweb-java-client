@@ -1,0 +1,10 @@
+@import 'mfxnotification.css';
+
+.notification {
+	-fx-background-color: -success-color;
+	-fx-border-color: -success-dark-color;
+}
+
+.notification .mfx-icon {
+	-fx-color: green;
+}

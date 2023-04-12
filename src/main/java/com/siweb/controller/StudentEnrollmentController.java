@@ -1,17 +1,13 @@
 package com.siweb.controller;
 
 import com.siweb.model.AppModel;
-import com.siweb.model.Course;
 import com.siweb.model.Enrollment;
 import com.siweb.view.SelectOption;
-import com.siweb.view.builder.BuilderMFXComboBoxController;
-import com.siweb.view.builder.BuilderMFXTextFieldController;
-import com.siweb.view.facade.FacadePaginatedTableController;
-import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXScrollPane;
+import com.siweb.view.builder.BuilderMFXComboBox;
+import com.siweb.view.builder.BuilderMFXTextField;
+import com.siweb.view.facade.FacadePaginatedTable;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.enums.FloatMode;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -20,8 +16,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import org.json.JSONArray;
 
 import java.net.URL;
 import java.util.List;
@@ -29,7 +23,7 @@ import java.util.ResourceBundle;
 
 public class StudentEnrollmentController extends BaseController{
     @FXML
-    private FacadePaginatedTableController<Enrollment> enrollmentPaginatedTable;
+    private FacadePaginatedTable<Enrollment> enrollmentPaginatedTable;
 
     @FXML
     private TableView<Enrollment> enrollmentsTable;
@@ -66,7 +60,7 @@ public class StudentEnrollmentController extends BaseController{
         String defaultOrdering = "-section__section_code,section__course__course_code";
 
         // Create a new Facade class to easily manage the tableView with pagination
-        enrollmentPaginatedTable = new FacadePaginatedTableController.Builder<>(enrollmentModel, enrollmentsTable, enrollmentTablePagination, "/academic/enrollment/", "#resultsCountLabel")
+        enrollmentPaginatedTable = new FacadePaginatedTable.Builder<>(enrollmentModel, enrollmentsTable, enrollmentTablePagination, "/academic/enrollment/", "#resultsCountLabel")
                 .addColumn(new TableColumn<Enrollment, String>("Semester"), "getSemester", 130)
                 .addColumn(new TableColumn<Enrollment, String>("Section Code"), "getSectionCode", 160)
                 .addColumn(new TableColumn<Enrollment, String>("Course Code"), "getCourseCode", 160)
@@ -79,7 +73,7 @@ public class StudentEnrollmentController extends BaseController{
 
 
         // "search" button creation and listen to "ENTER" presses
-        tableHeaderHBox.getChildren().add(new BuilderMFXTextFieldController.Builder("search", "Search").setOnKeyPressed(event -> {
+        tableHeaderHBox.getChildren().add(new BuilderMFXTextField.Builder("search", "Search").setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 enrollmentPaginatedTable.setSearch(((MFXTextField) AppModel.scene.lookup("#search")).getText());
                 enrollmentPaginatedTable.refresh(true);
@@ -88,7 +82,7 @@ public class StudentEnrollmentController extends BaseController{
 
 
         // "order by" select and listen to changes
-        tableHeaderHBox.getChildren().add(new BuilderMFXComboBoxController.Builder("order_by", "Order By", List.of(
+        tableHeaderHBox.getChildren().add(new BuilderMFXComboBox.Builder("order_by", "Order By", List.of(
                 new SelectOption("Default", "-section__section_code,section__course__course_code"),
                 new SelectOption("Section Code (ascending)", "section__section_code"),
                 new SelectOption("Section Code (descending)", "-section__section_code"),

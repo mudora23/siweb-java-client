@@ -15,7 +15,7 @@ public class CourseModel extends ObservableModel<Course> {
 
     private CourseModel(){}
 
-    public Course add(JSONObject jsonCourse, Boolean isAddToObservableList) {
+    public Course add(JSONObject jsonCourse, boolean isAddToObservableList) {
         Course course = new Course(jsonCourse);
         modelsMap.put(course.getId(), course);
         if(isAddToObservableList)

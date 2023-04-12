@@ -3,9 +3,9 @@ package com.siweb.controller;
 import com.siweb.model.AppModel;
 import com.siweb.model.Section;
 import com.siweb.view.SelectOption;
-import com.siweb.view.builder.BuilderMFXComboBoxController;
-import com.siweb.view.builder.BuilderMFXTextFieldController;
-import com.siweb.view.facade.FacadePaginatedTableController;
+import com.siweb.view.builder.BuilderMFXComboBox;
+import com.siweb.view.builder.BuilderMFXTextField;
+import com.siweb.view.facade.FacadePaginatedTable;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
@@ -34,7 +34,7 @@ import java.util.ResourceBundle;
  */
 public class AdminSectionController extends BaseController {
 
-    private FacadePaginatedTableController<Section> sectionsPaginatedTable;
+    private FacadePaginatedTable<Section> sectionsPaginatedTable;
     @FXML
     private TableView<Section> sectionsTable;
     @FXML
@@ -80,7 +80,7 @@ public class AdminSectionController extends BaseController {
         String defaultOrdering = "course__course_code";
 
         // Create a new Facade class to easily manage the tableView with pagination
-        sectionsPaginatedTable = new FacadePaginatedTableController.Builder<Section>(sectionModel, sectionsTable, sectionsTablePagination, "/academic/section/", "#resultsCountLabel")
+        sectionsPaginatedTable = new FacadePaginatedTable.Builder<Section>(sectionModel, sectionsTable, sectionsTablePagination, "/academic/section/", "#resultsCountLabel")
                 .addColumn(new TableColumn<Section, String>("Section Code"), "getCode", 120)
                 .addColumn(new TableColumn<Section, String>("Course"), "getCourse", 300)
                 .addColumn(new TableColumn<Section, String>("Lecturer"), "getLecturer", 300)
@@ -116,20 +116,20 @@ public class AdminSectionController extends BaseController {
 
                 // show basic information
                 sectionDetailVBox.getChildren().add(new Label("Section Information"));
-                sectionDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setText(newSelection.getId() + "").setDisable(true).build().get());
+                sectionDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("id","ID").setText(newSelection.getId() + "").setDisable(true).build().get());
 
-                sectionDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("section_code","Section Code *").setText(newSelection.getCode()).build().get());
+                sectionDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("section_code","Section Code *").setText(newSelection.getCode()).build().get());
 
-                sectionDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("course","Course *", courseModel.getSelectOptionList()).setIsFiltered(true).setValText(newSelection.getCourse()).build().get());
+                sectionDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("course","Course *", courseModel.getSelectOptionList()).setIsFiltered(true).setValText(newSelection.getCourse()).build().get());
 
-                sectionDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("lecturer","Lecturer *", userModel.getSelectOptionList("lecturer")).setIsFiltered(true).setValText(newSelection.getLecturer()).build().get());
+                sectionDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("lecturer","Lecturer *", userModel.getSelectOptionList("lecturer")).setIsFiltered(true).setValText(newSelection.getLecturer()).build().get());
 
             }
         });
 
 
         // "search" button creation and listen to "ENTER" presses
-        tableHeaderHBox.getChildren().add(new BuilderMFXTextFieldController.Builder("search", "Search").setOnKeyPressed(event -> {
+        tableHeaderHBox.getChildren().add(new BuilderMFXTextField.Builder("search", "Search").setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 sectionsPaginatedTable.setSearch(((MFXTextField) AppModel.scene.lookup("#search")).getText());
                 sectionsPaginatedTable.refresh(true);
@@ -138,7 +138,7 @@ public class AdminSectionController extends BaseController {
 
 
         // "order by" select and listen to changes
-        tableHeaderHBox.getChildren().add(new BuilderMFXComboBoxController.Builder("order_by", "Order By", List.of(
+        tableHeaderHBox.getChildren().add(new BuilderMFXComboBox.Builder("order_by", "Order By", List.of(
                 new SelectOption("Code (ascending)", "section_code"),
                 new SelectOption("Code (descending)", "-section_code"),
                 new SelectOption("Course Code (ascending)", "course__course_code"),
@@ -179,13 +179,13 @@ public class AdminSectionController extends BaseController {
         sectionSaveBtn.setDisable(false);
 
         sectionDetailVBox.getChildren().add(new Label("Section Information"));
-        sectionDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setDisable(true).build().get());
+        sectionDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("id","ID").setDisable(true).build().get());
 
-        sectionDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("section_code","Section Code *").build().get());
+        sectionDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("section_code","Section Code *").build().get());
 
-        sectionDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("course","Course *", courseModel.getSelectOptionList()).setIsFiltered(true).build().get());
+        sectionDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("course","Course *", courseModel.getSelectOptionList()).setIsFiltered(true).build().get());
 
-        sectionDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("lecturer","Lecturer *", userModel.getSelectOptionList("lecturer")).setIsFiltered(true).build().get());
+        sectionDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("lecturer","Lecturer *", userModel.getSelectOptionList("lecturer")).setIsFiltered(true).build().get());
 
 
     }

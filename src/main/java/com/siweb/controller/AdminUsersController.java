@@ -2,11 +2,10 @@ package com.siweb.controller;
 
 import com.siweb.model.AppModel;
 import com.siweb.view.SelectOption;
-import com.siweb.view.builder.BuilderMFXComboBoxController;
-import com.siweb.view.builder.BuilderMFXTextFieldController;
-import com.siweb.view.facade.FacadePaginatedTableController;
+import com.siweb.view.builder.BuilderMFXComboBox;
+import com.siweb.view.builder.BuilderMFXTextField;
+import com.siweb.view.facade.FacadePaginatedTable;
 import com.siweb.model.User;
-import com.siweb.model.UserModel;
 import io.github.palexdev.materialfx.controls.*;
 import io.github.palexdev.materialfx.enums.FloatMode;
 
@@ -14,7 +13,6 @@ import io.github.palexdev.materialfx.enums.FloatMode;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -29,7 +27,7 @@ import java.util.*;
  * AdminUsersController manages the users management page of admin
  */
 public class AdminUsersController extends BaseController {
-    private FacadePaginatedTableController<User> usersPaginatedTable;
+    private FacadePaginatedTable<User> usersPaginatedTable;
     @FXML
     private TableView<User> usersTable;
     @FXML
@@ -64,7 +62,7 @@ public class AdminUsersController extends BaseController {
         String defaultOrdering = "-date_joined";
 
         // Create a new Facade class to easily manage the tableView with pagination
-        usersPaginatedTable = new FacadePaginatedTableController.Builder<User>(userModel, usersTable, usersTablePagination, "/user/", "#resultsCountLabel")
+        usersPaginatedTable = new FacadePaginatedTable.Builder<User>(userModel, usersTable, usersTablePagination, "/user/", "#resultsCountLabel")
                 .addColumn(new TableColumn<User, String>("Username"), "getUserName", 130)
                 .addColumn(new TableColumn<User, String>("First Name"), "getFirstName", 130)
                 .addColumn(new TableColumn<User, String>("Last Name"), "getLastName", 130)
@@ -104,38 +102,38 @@ public class AdminUsersController extends BaseController {
 
                 // show basic information
                 userDetailVBox.getChildren().add(new Label("Basic Information"));
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setText(newSelection.getId() + "").setDisable(true).build().get());
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("username","Username *").setText(newSelection.getUserName()).build().get());
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("first_name","First Name").setText(newSelection.getFirstName()).build().get());
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("last_name","Last Name").setText(newSelection.getLastName()).build().get());
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("email","Email").setText(newSelection.getEmail()).build().get());
+                userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("id","ID").setText(newSelection.getId() + "").setDisable(true).build().get());
+                userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("username","Username *").setText(newSelection.getUserName()).build().get());
+                userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("first_name","First Name").setText(newSelection.getFirstName()).build().get());
+                userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("last_name","Last Name").setText(newSelection.getLastName()).build().get());
+                userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("email","Email").setText(newSelection.getEmail()).build().get());
 
                 userDetailVBox.getChildren().add(new Separator());
 
                 // show profile details
                 userDetailVBox.getChildren().add(new Label("Profile Details"));
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("","Profile ID").setText(newSelection.getProfileId() + "").setDisable(true).build().get());
+                userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("","Profile ID").setText(newSelection.getProfileId() + "").setDisable(true).build().get());
 
                 // admin cannot change its own "role", otherwise the current admin will not have the permission to keep browsing on this page anymore.
                 if(userModel.getCurrentUserID() != newSelection.getId()) {
-                    userDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("role", "Role *", List.of(new SelectOption("admin"), new SelectOption("lecturer"), new SelectOption("student"))).setValText(newSelection.getProfileRole()).build().get());
+                    userDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("role", "Role *", List.of(new SelectOption("admin"), new SelectOption("lecturer"), new SelectOption("student"))).setValText(newSelection.getProfileRole()).build().get());
                 }
                 else {
                     // disable changing "role" for own admin account
-                    userDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("role", "Role *", List.of(new SelectOption("admin"), new SelectOption("lecturer"), new SelectOption("student"))).setValText(newSelection.getProfileRole()).setDisable(true).build().get());
+                    userDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("role", "Role *", List.of(new SelectOption("admin"), new SelectOption("lecturer"), new SelectOption("student"))).setValText(newSelection.getProfileRole()).setDisable(true).build().get());
                 }
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("father_name","Father Name").setText(newSelection.getProfileFatherName()).build().get());
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("mother_name","Mother Name").setText(newSelection.getProfileMotherName()).build().get());
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("address_1","Address 1").setText(newSelection.getProfileAddress1()).build().get());
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("address_2","Address 2").setText(newSelection.getProfileAddress2()).build().get());
-                userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("tel","Tel.").setText(newSelection.getProfileTel()).build().get());
+                userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("father_name","Father Name").setText(newSelection.getProfileFatherName()).build().get());
+                userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("mother_name","Mother Name").setText(newSelection.getProfileMotherName()).build().get());
+                userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("address_1","Address 1").setText(newSelection.getProfileAddress1()).build().get());
+                userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("address_2","Address 2").setText(newSelection.getProfileAddress2()).build().get());
+                userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("tel","Tel.").setText(newSelection.getProfileTel()).build().get());
 
             }
         });
 
 
         // "search" button creation and listen to "ENTER" presses
-        tableHeaderHBox.getChildren().add(new BuilderMFXTextFieldController.Builder("search", "Search").setOnKeyPressed(event -> {
+        tableHeaderHBox.getChildren().add(new BuilderMFXTextField.Builder("search", "Search").setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 usersPaginatedTable.setSearch(((MFXTextField) AppModel.scene.lookup("#search")).getText());
                 usersPaginatedTable.refresh(true);
@@ -145,7 +143,7 @@ public class AdminUsersController extends BaseController {
 
 
         // "order by" select and listen to changes
-        tableHeaderHBox.getChildren().add(new BuilderMFXComboBoxController.Builder("order_by", "Order By", List.of(
+        tableHeaderHBox.getChildren().add(new BuilderMFXComboBox.Builder("order_by", "Order By", List.of(
                 new SelectOption("Date joined (ascending)", "date_joined"),
                 new SelectOption("Date joined (descending)", "-date_joined"),
                 new SelectOption("Username (ascending)", "username"),
@@ -184,22 +182,22 @@ public class AdminUsersController extends BaseController {
         userSaveBtn.setDisable(false);
 
         userDetailVBox.getChildren().add(new Label("Basic Information"));
-        userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setDisable(true).build().get());
-        userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("username","Username *").build().get());
-        userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("first_name","First Name").build().get());
-        userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("last_name","Last Name").build().get());
-        userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("email","Email").build().get());
+        userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("id","ID").setDisable(true).build().get());
+        userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("username","Username *").build().get());
+        userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("first_name","First Name").build().get());
+        userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("last_name","Last Name").build().get());
+        userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("email","Email").build().get());
 
         userDetailVBox.getChildren().add(new Separator());
 
         userDetailVBox.getChildren().add(new Label("Profile Details"));
-        userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("","Profile ID").setDisable(true).build().get());
-        userDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("role","Role *", List.of(new SelectOption("admin"), new SelectOption("lecturer"), new SelectOption("student"))).build().get());
-        userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("father_name","Father Name").build().get());
-        userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("mother_name","Mother Name").build().get());
-        userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("address_1","Address 1").build().get());
-        userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("address_2","Address 2").build().get());
-        userDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("tel","Tel.").build().get());
+        userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("","Profile ID").setDisable(true).build().get());
+        userDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("role","Role *", List.of(new SelectOption("admin"), new SelectOption("lecturer"), new SelectOption("student"))).build().get());
+        userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("father_name","Father Name").build().get());
+        userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("mother_name","Mother Name").build().get());
+        userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("address_1","Address 1").build().get());
+        userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("address_2","Address 2").build().get());
+        userDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("tel","Tel.").build().get());
 
     }
 

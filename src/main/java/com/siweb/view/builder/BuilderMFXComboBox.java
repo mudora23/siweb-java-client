@@ -12,9 +12,9 @@ import javafx.geometry.Insets;
 import java.util.List;
 
 /***
- * BuilderMFXComboBoxController provides an easy way to create a MFXComboBox using the builder design pattern
+ * BuilderMFXComboBox provides an easy way to create a MFXComboBox using the builder design pattern
  */
-public class BuilderMFXComboBoxController {
+public class BuilderMFXComboBox {
 
     private final MFXComboBox<SelectOption> mfxComboBox;
 
@@ -25,9 +25,9 @@ public class BuilderMFXComboBoxController {
         private String valText = "";
         private String floatingText = "";
         private FloatMode floatMode = FloatMode.BORDER;
-        private Boolean isAnimated = false;
-        private Boolean isDisable = false;
-        private Boolean isFiltered = false;
+        private boolean isAnimated = false;
+        private boolean isDisable = false;
+        private boolean isFiltered = false;
         private double prefWidth = Double.MAX_VALUE;
         private Insets padding = new Insets(6,6,6,6);
         private ChangeListener<? super SelectOption> onChangelistener;
@@ -47,12 +47,12 @@ public class BuilderMFXComboBoxController {
             this.floatMode = floatMode;
             return this;
         }
-        public Builder setAnimated(Boolean isAnimated) {
+        public Builder setAnimated(boolean isAnimated) {
             this.isAnimated = isAnimated;
             return this;
         }
 
-        public Builder setDisable(Boolean isDisable) {
+        public Builder setDisable(boolean isDisable) {
             this.isDisable = isDisable;
             return this;
         }
@@ -84,7 +84,7 @@ public class BuilderMFXComboBoxController {
             return this;
         }
 
-        public Builder setIsFiltered(Boolean isFiltered) {
+        public Builder setIsFiltered(boolean isFiltered) {
             this.isFiltered = isFiltered;
             return this;
         }
@@ -94,14 +94,14 @@ public class BuilderMFXComboBoxController {
             return this;
         }
 
-        public BuilderMFXComboBoxController build() {
-            return new BuilderMFXComboBoxController(this);
+        public BuilderMFXComboBox build() {
+            return new BuilderMFXComboBox(this);
         }
 
 
     }
 
-    private BuilderMFXComboBoxController(Builder builder) {
+    private BuilderMFXComboBox(Builder builder) {
 
         if (builder.isFiltered)
         {

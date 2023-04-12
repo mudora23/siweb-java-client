@@ -14,7 +14,7 @@ public class EnrollmentModel extends ObservableModel<Enrollment> {
 
     private EnrollmentModel(){}
 
-    public Enrollment add(JSONObject jsonEnrollment, Boolean isAddToObservableList) {
+    public Enrollment add(JSONObject jsonEnrollment, boolean isAddToObservableList) {
         Enrollment enrollment = new Enrollment(jsonEnrollment);
         modelsMap.put(enrollment.getId(), enrollment);
         if(isAddToObservableList)

@@ -3,9 +3,9 @@ package com.siweb.controller;
 import com.siweb.model.AppModel;
 import com.siweb.model.SectionTime;
 import com.siweb.view.SelectOption;
-import com.siweb.view.builder.BuilderMFXComboBoxController;
-import com.siweb.view.builder.BuilderMFXTextFieldController;
-import com.siweb.view.facade.FacadePaginatedTableController;
+import com.siweb.view.builder.BuilderMFXComboBox;
+import com.siweb.view.builder.BuilderMFXTextField;
+import com.siweb.view.facade.FacadePaginatedTable;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
@@ -34,7 +34,7 @@ import java.util.ResourceBundle;
  */
 public class AdminSectionTimeController extends BaseController {
 
-    private FacadePaginatedTableController<SectionTime> sectionTimesPaginatedTable;
+    private FacadePaginatedTable<SectionTime> sectionTimesPaginatedTable;
     @FXML
     private TableView<SectionTime> sectionTimesTable;
     @FXML
@@ -81,7 +81,7 @@ public class AdminSectionTimeController extends BaseController {
         String defaultOrdering = "section__course__course_code";
 
         // Create a new Facade class to easily manage the tableView with pagination
-        sectionTimesPaginatedTable = new FacadePaginatedTableController.Builder<SectionTime>(sectionTimeModel, sectionTimesTable, sectionTimesTablePagination, "/academic/sectionTime/", "#resultsCountLabel")
+        sectionTimesPaginatedTable = new FacadePaginatedTable.Builder<SectionTime>(sectionTimeModel, sectionTimesTable, sectionTimesTablePagination, "/academic/sectionTime/", "#resultsCountLabel")
                 .addColumn(new TableColumn<SectionTime, String>("Section"), "getSection", 300)
                 .addColumn(new TableColumn<SectionTime, String>("Time Slot"), "getTimeSlot", 300)
                 .setPageSize(23)
@@ -116,15 +116,15 @@ public class AdminSectionTimeController extends BaseController {
 
                 // show basic information
                 sectionTimeDetailVBox.getChildren().add(new Label("Section Time Information"));
-                sectionTimeDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setText(newSelection.getId() + "").setDisable(true).build().get());
-                sectionTimeDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("section","Section *", sectionModel.getSelectOptionList()).setIsFiltered(true).setValText(newSelection.getSection()).build().get());
-                sectionTimeDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("timeSlot","Time Slot *", timeSlotModel.getSelectOptionList()).setIsFiltered(true).setValText(newSelection.getTimeSlot()).build().get());
+                sectionTimeDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("id","ID").setText(newSelection.getId() + "").setDisable(true).build().get());
+                sectionTimeDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("section","Section *", sectionModel.getSelectOptionList()).setIsFiltered(true).setValText(newSelection.getSection()).build().get());
+                sectionTimeDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("timeSlot","Time Slot *", timeSlotModel.getSelectOptionList()).setIsFiltered(true).setValText(newSelection.getTimeSlot()).build().get());
             }
         });
 
 
         // "search" button creation and listen to "ENTER" presses
-        tableHeaderHBox.getChildren().add(new BuilderMFXTextFieldController.Builder("search", "Search").setOnKeyPressed(event -> {
+        tableHeaderHBox.getChildren().add(new BuilderMFXTextField.Builder("search", "Search").setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 sectionTimesPaginatedTable.setSearch(((MFXTextField) AppModel.scene.lookup("#search")).getText());
                 sectionTimesPaginatedTable.refresh(true);
@@ -133,7 +133,7 @@ public class AdminSectionTimeController extends BaseController {
 
 
         // "order by" select and listen to changes
-        tableHeaderHBox.getChildren().add(new BuilderMFXComboBoxController.Builder("order_by", "Order By", List.of(
+        tableHeaderHBox.getChildren().add(new BuilderMFXComboBox.Builder("order_by", "Order By", List.of(
                 new SelectOption("Course Code (ascending)", "section__course__course_code"),
                 new SelectOption("Course Code (descending)", "-section__course__course_code"),
                 new SelectOption("Time Slot (Start Time) (ascending)", "time_slot__start_time"),
@@ -168,9 +168,9 @@ public class AdminSectionTimeController extends BaseController {
         sectionTimeSaveBtn.setDisable(false);
 
         sectionTimeDetailVBox.getChildren().add(new Label("Section Time Information"));
-        sectionTimeDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setDisable(true).build().get());
-        sectionTimeDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("section","Section *", sectionModel.getSelectOptionList()).setIsFiltered(true).build().get());
-        sectionTimeDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("timeSlot","Time Slot *", timeSlotModel.getSelectOptionList()).setIsFiltered(true).build().get());
+        sectionTimeDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("id","ID").setDisable(true).build().get());
+        sectionTimeDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("section","Section *", sectionModel.getSelectOptionList()).setIsFiltered(true).build().get());
+        sectionTimeDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("timeSlot","Time Slot *", timeSlotModel.getSelectOptionList()).setIsFiltered(true).build().get());
 
 
     }

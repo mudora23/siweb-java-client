@@ -1,0 +1,10 @@
+@import 'mfxnotification.css';
+
+.notification {
+	-fx-background-color: -error-color;
+	-fx-border-color: -error-dark-color;
+}
+
+.notification .mfx-icon {
+	-fx-color: red;
+}

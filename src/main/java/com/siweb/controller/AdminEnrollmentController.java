@@ -3,9 +3,9 @@ package com.siweb.controller;
 import com.siweb.model.AppModel;
 import com.siweb.model.Enrollment;
 import com.siweb.view.SelectOption;
-import com.siweb.view.builder.BuilderMFXComboBoxController;
-import com.siweb.view.builder.BuilderMFXTextFieldController;
-import com.siweb.view.facade.FacadePaginatedTableController;
+import com.siweb.view.builder.BuilderMFXComboBox;
+import com.siweb.view.builder.BuilderMFXTextField;
+import com.siweb.view.facade.FacadePaginatedTable;
 import io.github.palexdev.materialfx.controls.*;
 import io.github.palexdev.materialfx.enums.FloatMode;
 import javafx.animation.FadeTransition;
@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
  */
 public class AdminEnrollmentController extends BaseController {
 
-    private FacadePaginatedTableController<Enrollment> enrollmentsPaginatedTable;
+    private FacadePaginatedTable<Enrollment> enrollmentsPaginatedTable;
     @FXML
     private TableView<Enrollment> enrollmentsTable;
     @FXML
@@ -80,7 +80,7 @@ public class AdminEnrollmentController extends BaseController {
         String defaultOrdering = "-section__section_code,section__course__course_code";
 
         // Create a new Facade class to easily manage the tableView with pagination
-        enrollmentsPaginatedTable = new FacadePaginatedTableController.Builder<Enrollment>(enrollmentModel, enrollmentsTable, enrollmentsTablePagination, "/academic/enrollment/", "#resultsCountLabel")
+        enrollmentsPaginatedTable = new FacadePaginatedTable.Builder<Enrollment>(enrollmentModel, enrollmentsTable, enrollmentsTablePagination, "/academic/enrollment/", "#resultsCountLabel")
                 .addColumn(new TableColumn<Enrollment, String>("Student"), "getUser", 250)
                 .addColumn(new TableColumn<Enrollment, String>("Section"), "getSection", 190)
                 .addColumn(new TableColumn<Enrollment, String>("Final Grade"), "getFinalGrade", 90)
@@ -117,13 +117,13 @@ public class AdminEnrollmentController extends BaseController {
 
                 // show basic information
                 enrollmentDetailVBox.getChildren().add(new Label("Enrollment Information"));
-                enrollmentDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setText(newSelection.getId() + "").setDisable(true).build().get());
+                enrollmentDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("id","ID").setText(newSelection.getId() + "").setDisable(true).build().get());
 
-                enrollmentDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("user","Student *", userModel.getSelectOptionList("student")).setIsFiltered(true).setValText(newSelection.getUser()).build().get());
+                enrollmentDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("user","Student *", userModel.getSelectOptionList("student")).setIsFiltered(true).setValText(newSelection.getUser()).build().get());
 
-                enrollmentDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("final_grade","Final Grade").setText(newSelection.getFinalGrade()).build().get());
+                enrollmentDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("final_grade","Final Grade").setText(newSelection.getFinalGrade()).build().get());
 
-                enrollmentDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("section","Section *", sectionModel.getSelectOptionList()).setIsFiltered(true).setValText(newSelection.getSection()).build().get());
+                enrollmentDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("section","Section *", sectionModel.getSelectOptionList()).setIsFiltered(true).setValText(newSelection.getSection()).build().get());
 
 
             }
@@ -131,7 +131,7 @@ public class AdminEnrollmentController extends BaseController {
 
 
         // "search" button creation and listen to "ENTER" presses
-        tableHeaderHBox.getChildren().add(new BuilderMFXTextFieldController.Builder("search", "Search").setOnKeyPressed(event -> {
+        tableHeaderHBox.getChildren().add(new BuilderMFXTextField.Builder("search", "Search").setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 enrollmentsPaginatedTable.setSearch(((MFXTextField) AppModel.scene.lookup("#search")).getText());
                 enrollmentsPaginatedTable.refresh(true);
@@ -140,7 +140,7 @@ public class AdminEnrollmentController extends BaseController {
 
 
         // "order by" select and listen to changes
-        tableHeaderHBox.getChildren().add(new BuilderMFXComboBoxController.Builder("order_by", "Order By", List.of(
+        tableHeaderHBox.getChildren().add(new BuilderMFXComboBox.Builder("order_by", "Order By", List.of(
                 new SelectOption("Default", "-section__section_code,section__course__course_code"),
                 new SelectOption("Section (ascending)", "section__section_code"),
                 new SelectOption("Section (descending)", "-section__section_code"),
@@ -190,13 +190,13 @@ public class AdminEnrollmentController extends BaseController {
         enrollmentSaveBtn.setDisable(false);
 
         enrollmentDetailVBox.getChildren().add(new Label("Enrollment Information"));
-        enrollmentDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setDisable(true).build().get());
+        enrollmentDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("id","ID").setDisable(true).build().get());
 
-        enrollmentDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("user","Student *", userModel.getSelectOptionList("student")).setIsFiltered(true).build().get());
+        enrollmentDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("user","Student *", userModel.getSelectOptionList("student")).setIsFiltered(true).build().get());
 
-        enrollmentDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("final_grade","Final Grade").build().get());
+        enrollmentDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("final_grade","Final Grade").build().get());
 
-        enrollmentDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("section","Section *", sectionModel.getSelectOptionList()).setIsFiltered(true).build().get());
+        enrollmentDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("section","Section *", sectionModel.getSelectOptionList()).setIsFiltered(true).build().get());
 
 
     }

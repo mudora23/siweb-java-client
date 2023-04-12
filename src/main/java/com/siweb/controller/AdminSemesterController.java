@@ -2,13 +2,11 @@ package com.siweb.controller;
 
 import com.siweb.model.AppModel;
 import com.siweb.model.Semester;
-import com.siweb.model.User;
-import com.siweb.model.UserModel;
 import com.siweb.view.SelectOption;
-import com.siweb.view.builder.BuilderMFXComboBoxController;
-import com.siweb.view.builder.BuilderMFXDatePickerController;
-import com.siweb.view.builder.BuilderMFXTextFieldController;
-import com.siweb.view.facade.FacadePaginatedTableController;
+import com.siweb.view.builder.BuilderMFXComboBox;
+import com.siweb.view.builder.BuilderMFXDatePicker;
+import com.siweb.view.builder.BuilderMFXTextField;
+import com.siweb.view.facade.FacadePaginatedTable;
 import io.github.palexdev.materialfx.controls.*;
 import io.github.palexdev.materialfx.enums.FloatMode;
 import javafx.animation.FadeTransition;
@@ -35,7 +33,7 @@ import java.util.ResourceBundle;
  */
 public class AdminSemesterController extends BaseController {
 
-    private FacadePaginatedTableController<Semester> semestersPaginatedTable;
+    private FacadePaginatedTable<Semester> semestersPaginatedTable;
     @FXML
     private TableView<Semester> semestersTable;
     @FXML
@@ -70,7 +68,7 @@ public class AdminSemesterController extends BaseController {
         String defaultOrdering = "-date_end";
 
         // Create a new Facade class to easily manage the tableView with pagination
-        semestersPaginatedTable = new FacadePaginatedTableController.Builder<Semester>(semesterModel, semestersTable, semestersTablePagination, "/academic/semester/", "#resultsCountLabel")
+        semestersPaginatedTable = new FacadePaginatedTable.Builder<Semester>(semesterModel, semestersTable, semestersTablePagination, "/academic/semester/", "#resultsCountLabel")
                 .addColumn(new TableColumn<Semester, String>("Year"), "getYear", 160)
                 .addColumn(new TableColumn<Semester, String>("Semester"), "getSemester", 160)
                 .addColumn(new TableColumn<Semester, String>("Date Start"), "getDateStart", 160)
@@ -107,18 +105,18 @@ public class AdminSemesterController extends BaseController {
 
                 // show basic information
                 semesterDetailVBox.getChildren().add(new Label("Semester Information"));
-                semesterDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setText(newSelection.getId() + "").setDisable(true).build().get());
-                semesterDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("year","Year *").setText(newSelection.getYear()).build().get());
-                semesterDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("semester", "Semester *", List.of(new SelectOption("1"), new SelectOption("2"))).setValText(newSelection.getSemester()).build().get());
-                semesterDetailVBox.getChildren().add(new BuilderMFXDatePickerController.Builder("date_start","Date Start *").setText(newSelection.getDateStart()).build().get());
-                semesterDetailVBox.getChildren().add(new BuilderMFXDatePickerController.Builder("date_end","Date End *").setText(newSelection.getDateEnd()).build().get());
+                semesterDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("id","ID").setText(newSelection.getId() + "").setDisable(true).build().get());
+                semesterDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("year","Year *").setText(newSelection.getYear()).build().get());
+                semesterDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("semester", "Semester *", List.of(new SelectOption("1"), new SelectOption("2"))).setValText(newSelection.getSemester()).build().get());
+                semesterDetailVBox.getChildren().add(new BuilderMFXDatePicker.Builder("date_start","Date Start *").setText(newSelection.getDateStart()).build().get());
+                semesterDetailVBox.getChildren().add(new BuilderMFXDatePicker.Builder("date_end","Date End *").setText(newSelection.getDateEnd()).build().get());
 
             }
         });
 
 
         // "search" button creation and listen to "ENTER" presses
-        tableHeaderHBox.getChildren().add(new BuilderMFXTextFieldController.Builder("search", "Search").setOnKeyPressed(event -> {
+        tableHeaderHBox.getChildren().add(new BuilderMFXTextField.Builder("search", "Search").setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 semestersPaginatedTable.setSearch(((MFXTextField) AppModel.scene.lookup("#search")).getText());
                 semestersPaginatedTable.refresh(true);
@@ -128,7 +126,7 @@ public class AdminSemesterController extends BaseController {
 
 
         // "order by" select and listen to changes
-        tableHeaderHBox.getChildren().add(new BuilderMFXComboBoxController.Builder("order_by", "Order By", List.of(
+        tableHeaderHBox.getChildren().add(new BuilderMFXComboBox.Builder("order_by", "Order By", List.of(
                 new SelectOption("Date end (ascending)", "date_end"),
                 new SelectOption("Date end (descending)", "-date_end"),
                 new SelectOption("Date start (ascending)", "date_start"),
@@ -165,11 +163,11 @@ public class AdminSemesterController extends BaseController {
         semesterSaveBtn.setDisable(false);
 
         semesterDetailVBox.getChildren().add(new Label("Semester Information"));
-        semesterDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setDisable(true).build().get());
-        semesterDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("year","Year *").build().get());
-        semesterDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("semester", "Semester *", List.of(new SelectOption("1"), new SelectOption("2"))).build().get());
-        semesterDetailVBox.getChildren().add(new BuilderMFXDatePickerController.Builder("date_start","Date Start *").build().get());
-        semesterDetailVBox.getChildren().add(new BuilderMFXDatePickerController.Builder("date_end","Date End *").build().get());
+        semesterDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("id","ID").setDisable(true).build().get());
+        semesterDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("year","Year *").build().get());
+        semesterDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("semester", "Semester *", List.of(new SelectOption("1"), new SelectOption("2"))).build().get());
+        semesterDetailVBox.getChildren().add(new BuilderMFXDatePicker.Builder("date_start","Date Start *").build().get());
+        semesterDetailVBox.getChildren().add(new BuilderMFXDatePicker.Builder("date_end","Date End *").build().get());
     }
 
     /***

@@ -13,10 +13,10 @@ import javafx.scene.control.TableView;
 import org.json.JSONObject;
 
 /***
- * FacadePaginatedTableController provides an easy way to use TableView and Pagination with our RESTful API with server-side pagination, sorting, and filtering.
+ * FacadePaginatedTable provides an easy way to use TableView and Pagination with our RESTful API with server-side pagination, sorting, and filtering.
  * @param <S> The data model, ex. User
  */
-public class FacadePaginatedTableController<S> {
+public class FacadePaginatedTable<S> {
 
     protected final UtilityHttpController http = UtilityHttpController.getInstance();
 
@@ -97,13 +97,13 @@ public class FacadePaginatedTableController<S> {
             return this;
         }
 
-        public FacadePaginatedTableController<S> build() {
-            return new FacadePaginatedTableController<S>(this);
+        public FacadePaginatedTable<S> build() {
+            return new FacadePaginatedTable<S>(this);
         }
 
     }
 
-    private FacadePaginatedTableController(Builder<S> builder) {
+    private FacadePaginatedTable(Builder<S> builder) {
         this.tableView = builder.tableView;
         this.pagination = builder.pagination;
         this.apiEndPoint = builder.apiEndPoint;
@@ -152,7 +152,7 @@ public class FacadePaginatedTableController<S> {
      * Refresh the table, request the updated information from the server and store the results in model again.
      * @param isSelectFirstAfter after refreshing, either reselect the first user of the table or the user with the previous selected index
      */
-    public void refresh(Boolean isSelectFirstAfter) {
+    public void refresh(boolean isSelectFirstAfter) {
 
         http.get(apiEndPoint + "?limit="+pageSize+"&offset="+pagination.getCurrentPageIndex()*pageSize + "&ordering="+this.ordering+"&search="+java.net.URLEncoder.encode(this.search), (JSONObject res) -> {
 

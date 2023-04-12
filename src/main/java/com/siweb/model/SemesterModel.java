@@ -15,7 +15,7 @@ public class SemesterModel extends ObservableModel<Semester> {
 
     private SemesterModel(){}
 
-    public Semester add(JSONObject jsonSemester, Boolean isAddToObservableList) {
+    public Semester add(JSONObject jsonSemester, boolean isAddToObservableList) {
         Semester semester = new Semester(jsonSemester);
         modelsMap.put(semester.getId(), semester);
         if(isAddToObservableList)

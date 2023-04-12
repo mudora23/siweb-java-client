@@ -19,7 +19,7 @@ public abstract class ObservableModel<E> {
     protected TreeMap<Integer, E> modelsMap = new TreeMap<Integer, E>();
 
     // add the object type from a JSONArray of JSONObjects
-    public void add(JSONArray jsonArray, Boolean isAddToObservableList) {
+    public void add(JSONArray jsonArray, boolean isAddToObservableList) {
         for(int i = 0; i < jsonArray.length(); i++) {
             add(jsonArray.getJSONObject(i), isAddToObservableList);
         }
@@ -27,7 +27,7 @@ public abstract class ObservableModel<E> {
 
 
     // add the object type from a JSONObject
-    public abstract E add(JSONObject jsonObject, Boolean isAddToObservableList);
+    public abstract E add(JSONObject jsonObject, boolean isAddToObservableList);
 
     // return an unmodifiable observable list
     public ObservableList<E> getObsList() {

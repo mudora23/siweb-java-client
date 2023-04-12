@@ -22,7 +22,7 @@ public class UserModel extends ObservableModel<User> {
 
     private UserModel(){}
 
-    public User add(JSONObject jsonUser, Boolean isAddToObservableList) {
+    public User add(JSONObject jsonUser, boolean isAddToObservableList) {
         User user = new User(jsonUser);
         modelsMap.put(user.getId(), user);
         if(isAddToObservableList)

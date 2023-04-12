@@ -1,23 +1,16 @@
 package com.siweb.view.builder;
 
-import com.siweb.view.SelectOption;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.enums.FloatMode;
 import javafx.beans.value.ChangeListener;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.input.KeyEvent;
-import javafx.util.converter.LocalDateStringConverter;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 /***
- * BuilderMFXTextFieldController provides an easy way to create a MFXTextField using the builder design pattern
+ * BuilderMFXTextField provides an easy way to create a MFXTextField using the builder design pattern
  */
-public class BuilderMFXDatePickerController {
+public class BuilderMFXDatePicker {
 
     private final MFXDatePicker mfxDatePicker;
 
@@ -25,8 +18,8 @@ public class BuilderMFXDatePickerController {
         private final String id;
         private String floatingText = "";
         private FloatMode floatMode = FloatMode.BORDER;
-        private Boolean isAnimated = false;
-        private Boolean isDisable = false;
+        private boolean isAnimated = false;
+        private boolean isDisable = false;
         private String defaultText = "";
         private double prefWidth = Double.MAX_VALUE;
         private Insets padding = new Insets(6,6,6,6);
@@ -46,12 +39,12 @@ public class BuilderMFXDatePickerController {
             this.floatMode = floatMode;
             return this;
         }
-        public Builder setAnimated(Boolean isAnimated) {
+        public Builder setAnimated(boolean isAnimated) {
             this.isAnimated = isAnimated;
             return this;
         }
 
-        public Builder setDisable(Boolean isDisable) {
+        public Builder setDisable(boolean isDisable) {
             this.isDisable = isDisable;
             return this;
         }
@@ -82,14 +75,14 @@ public class BuilderMFXDatePickerController {
             return this;
         }
 
-        public BuilderMFXDatePickerController build() {
-            return new BuilderMFXDatePickerController(this);
+        public BuilderMFXDatePicker build() {
+            return new BuilderMFXDatePicker(this);
         }
 
 
     }
 
-    private BuilderMFXDatePickerController(Builder builder) {
+    private BuilderMFXDatePicker(Builder builder) {
 
         this.mfxDatePicker = new MFXDatePicker();
 

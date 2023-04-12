@@ -2,9 +2,9 @@ package com.siweb.controller;
 
 import com.siweb.model.*;
 import com.siweb.view.SelectOption;
-import com.siweb.view.builder.BuilderMFXComboBoxController;
-import com.siweb.view.builder.BuilderMFXTextFieldController;
-import com.siweb.view.facade.FacadePaginatedTableController;
+import com.siweb.view.builder.BuilderMFXComboBox;
+import com.siweb.view.builder.BuilderMFXTextField;
+import com.siweb.view.facade.FacadePaginatedTable;
 import io.github.palexdev.materialfx.controls.*;
 import io.github.palexdev.materialfx.enums.FloatMode;
 import javafx.animation.FadeTransition;
@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
  */
 public class LecturerEnrollmentController extends BaseController {
 
-    private FacadePaginatedTableController<Enrollment> enrollmentPaginatedTable;
+    private FacadePaginatedTable<Enrollment> enrollmentPaginatedTable;
     @FXML
     private TableView<Enrollment> enrollmentTable;
     @FXML
@@ -65,7 +65,7 @@ public class LecturerEnrollmentController extends BaseController {
         String defaultOrdering = "-section__section_code,section__course__course_code";
 
         // Create a new Facade class to easily manage the tableView with pagination
-        enrollmentPaginatedTable = new FacadePaginatedTableController.Builder<Enrollment>(enrollmentModel, enrollmentTable, enrollmentTablePagination, "/academic/enrollment/", "#resultsCountLabel")
+        enrollmentPaginatedTable = new FacadePaginatedTable.Builder<Enrollment>(enrollmentModel, enrollmentTable, enrollmentTablePagination, "/academic/enrollment/", "#resultsCountLabel")
                 .addColumn(new TableColumn<Enrollment, String>("Section"), "getSection", 200)
                 .addColumn(new TableColumn<Enrollment, String>("Course Name"), "getCourseName", 200)
                 .addColumn(new TableColumn<Enrollment, String>("Student"), "getStudentFullName", 220)
@@ -99,20 +99,20 @@ public class LecturerEnrollmentController extends BaseController {
 
                 // show basic information
                 enrollmentDetailVBox.getChildren().add(new Label("Enrollment Information"));
-                enrollmentDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setText(newSelection.getId() + "").setDisable(true).build().get());
+                enrollmentDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("id","ID").setText(newSelection.getId() + "").setDisable(true).build().get());
 
-                enrollmentDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("user","Student *", userModel.getSelectOptionList("student")).setIsFiltered(true).setDisable(true).setValText(newSelection.getUser()).build().get());
+                enrollmentDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("user","Student *", userModel.getSelectOptionList("student")).setIsFiltered(true).setDisable(true).setValText(newSelection.getUser()).build().get());
+                enrollmentDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("section","Section *", sectionModel.getSelectOptionList()).setIsFiltered(true).setDisable(true).setValText(newSelection.getSection()).build().get());
+                enrollmentDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("final_grade","Final Grade").setText(newSelection.getFinalGrade()).build().get());
 
-                enrollmentDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("final_grade","Final Grade").setText(newSelection.getFinalGrade()).build().get());
 
-                enrollmentDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("section","Section *", sectionModel.getSelectOptionList()).setIsFiltered(true).setDisable(true).setValText(newSelection.getSection()).build().get());
 
             }
         });
 
 
         // "search" button creation and listen to "ENTER" presses
-        tableHeaderHBox.getChildren().add(new BuilderMFXTextFieldController.Builder("search", "Search").setOnKeyPressed(event -> {
+        tableHeaderHBox.getChildren().add(new BuilderMFXTextField.Builder("search", "Search").setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 enrollmentPaginatedTable.setSearch(((MFXTextField) AppModel.scene.lookup("#search")).getText());
                 enrollmentPaginatedTable.refresh(true);
@@ -121,7 +121,7 @@ public class LecturerEnrollmentController extends BaseController {
 
 
         // "order by" select and listen to changes
-        tableHeaderHBox.getChildren().add(new BuilderMFXComboBoxController.Builder("order_by", "Order By", List.of(
+        tableHeaderHBox.getChildren().add(new BuilderMFXComboBox.Builder("order_by", "Order By", List.of(
                 new SelectOption("Default", "-section__section_code,section__course__course_code"),
                 new SelectOption("Section Code (ascending)", "section__section_code"),
                 new SelectOption("Section Code (descending)", "-section__section_code"),

@@ -14,7 +14,7 @@ public class SectionModel extends ObservableModel<Section> {
 
     private SectionModel(){}
 
-    public Section add(JSONObject jsonSection, Boolean isAddToObservableList) {
+    public Section add(JSONObject jsonSection, boolean isAddToObservableList) {
         Section section = new Section(jsonSection);
         modelsMap.put(section.getId(), section);
         if(isAddToObservableList)

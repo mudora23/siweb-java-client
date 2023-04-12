@@ -1,8 +1,14 @@
 package com.siweb;
 
+import com.siweb.controller.utility.UtilityNotificationController;
+
 import com.siweb.model.AppModel;
 import com.siweb.model.User;
+import io.github.palexdev.materialfx.notifications.MFXNotificationCenterSystem;
+import io.github.palexdev.materialfx.notifications.MFXNotificationSystem;
 import javafx.application.Application; // Application class from which JavaFX applications extend. https://docs.oracle.com/javase/8/javafx/api/javafx/application/Application.html
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 // FXML introduction: http://fxexperience.com/2011/10/fxml-why-it-rocks-and-the-next-phase/
 // Scene Builder Download: https://gluonhq.com/products/scene-builder/#download
@@ -10,14 +16,48 @@ import javafx.fxml.FXMLLoader;
 
 import javafx.scene.Parent; // The base class for all nodes that have children in the scene graph. https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Parent.html
 import javafx.scene.Scene; // The container for all content in a scene graph. https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage; // The top level JavaFX container. https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html
+import javafx.scene.layout.TilePane;
+import javafx.stage.*;
 
 import javafx.scene.image.Image;
 import javafx.scene.SceneAntialiasing; // Specifies the level of anti-aliasing desired. https://docs.oracle.com/javase/8/javafx/api/javafx/scene/SceneAntialiasing.html
 
 import java.io.IOException;
 import java.net.URL;
+
+
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+
+
+
+
+
 
 public class App extends Application {
     private static Stage stage;
@@ -35,11 +75,20 @@ public class App extends Application {
         AppModel.stage = stage;
         AppModel.scene = scene;
 
+
+
         stage.setTitle(String.format("%s (Ver. %s) - %s", AppModel.APP_NAME, AppModel.APP_VERSION, AppModel.APP_DESC));
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+
+
+        // init.
+        UtilityNotificationController.getInstance().init();
+
+
     }
+
 
     public static void setRoot(String fxml) {
         try {

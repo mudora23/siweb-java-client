@@ -2,13 +2,10 @@ package com.siweb.controller;
 
 import com.siweb.model.AppModel;
 import com.siweb.model.Course;
-import com.siweb.model.Semester;
-import com.siweb.model.SemesterModel;
 import com.siweb.view.SelectOption;
-import com.siweb.view.builder.BuilderMFXComboBoxController;
-import com.siweb.view.builder.BuilderMFXDatePickerController;
-import com.siweb.view.builder.BuilderMFXTextFieldController;
-import com.siweb.view.facade.FacadePaginatedTableController;
+import com.siweb.view.builder.BuilderMFXComboBox;
+import com.siweb.view.builder.BuilderMFXTextField;
+import com.siweb.view.facade.FacadePaginatedTable;
 import io.github.palexdev.materialfx.controls.*;
 import io.github.palexdev.materialfx.enums.FloatMode;
 import javafx.animation.FadeTransition;
@@ -24,8 +21,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -36,7 +31,7 @@ import java.util.ResourceBundle;
  */
 public class AdminCourseController extends BaseController {
 
-    private FacadePaginatedTableController<Course> coursesPaginatedTable;
+    private FacadePaginatedTable<Course> coursesPaginatedTable;
     @FXML
     private TableView<Course> coursesTable;
     @FXML
@@ -79,7 +74,7 @@ public class AdminCourseController extends BaseController {
         String defaultOrdering = "course_code";
 
         // Create a new Facade class to easily manage the tableView with pagination
-        coursesPaginatedTable = new FacadePaginatedTableController.Builder<Course>(courseModel, coursesTable, coursesTablePagination, "/academic/course/", "#resultsCountLabel")
+        coursesPaginatedTable = new FacadePaginatedTable.Builder<Course>(courseModel, coursesTable, coursesTablePagination, "/academic/course/", "#resultsCountLabel")
                 .addColumn(new TableColumn<Course, String>("Code"), "getCode", 160)
                 .addColumn(new TableColumn<Course, String>("Name"), "getName", 300)
                 .addColumn(new TableColumn<Course, String>("Credit"), "getCredit", 120)
@@ -116,18 +111,18 @@ public class AdminCourseController extends BaseController {
 
                 // show basic information
                 courseDetailVBox.getChildren().add(new Label("Course Information"));
-                courseDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setText(newSelection.getId() + "").setDisable(true).build().get());
-                courseDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("code","Code *").setText(newSelection.getCode()).build().get());
-                courseDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("name","Name *").setText(newSelection.getName()).build().get());
-                courseDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("credit", "Credit *").setText(newSelection.getCredit()).build().get());
-                courseDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("semester","Semester *", semesterModel.getSelectOptionList()).setValText(newSelection.getSemester()).build().get());
+                courseDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("id","ID").setText(newSelection.getId() + "").setDisable(true).build().get());
+                courseDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("code","Code *").setText(newSelection.getCode()).build().get());
+                courseDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("name","Name *").setText(newSelection.getName()).build().get());
+                courseDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("credit", "Credit *").setText(newSelection.getCredit()).build().get());
+                courseDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("semester","Semester *", semesterModel.getSelectOptionList()).setValText(newSelection.getSemester()).build().get());
 
             }
         });
 
 
         // "search" button creation and listen to "ENTER" presses
-        tableHeaderHBox.getChildren().add(new BuilderMFXTextFieldController.Builder("search", "Search").setOnKeyPressed(event -> {
+        tableHeaderHBox.getChildren().add(new BuilderMFXTextField.Builder("search", "Search").setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 coursesPaginatedTable.setSearch(((MFXTextField) AppModel.scene.lookup("#search")).getText());
                 coursesPaginatedTable.refresh(true);
@@ -136,7 +131,7 @@ public class AdminCourseController extends BaseController {
 
 
         // "order by" select and listen to changes
-        tableHeaderHBox.getChildren().add(new BuilderMFXComboBoxController.Builder("order_by", "Order By", List.of(
+        tableHeaderHBox.getChildren().add(new BuilderMFXComboBox.Builder("order_by", "Order By", List.of(
                 new SelectOption("Code (ascending)", "course_code"),
                 new SelectOption("Code (descending)", "-course_code"),
                 new SelectOption("Name (ascending)", "course_name"),
@@ -173,11 +168,11 @@ public class AdminCourseController extends BaseController {
         courseSaveBtn.setDisable(false);
 
         courseDetailVBox.getChildren().add(new Label("Course Information"));
-        courseDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("id","ID").setDisable(true).build().get());
-        courseDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("code","Code *").build().get());
-        courseDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("name","Name *").build().get());
-        courseDetailVBox.getChildren().add(new BuilderMFXTextFieldController.Builder("credit", "Credit *").build().get());
-        courseDetailVBox.getChildren().add(new BuilderMFXComboBoxController.Builder("semester","Semester *", semesterModel.getSelectOptionList()).build().get());
+        courseDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("id","ID").setDisable(true).build().get());
+        courseDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("code","Code *").build().get());
+        courseDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("name","Name *").build().get());
+        courseDetailVBox.getChildren().add(new BuilderMFXTextField.Builder("credit", "Credit *").build().get());
+        courseDetailVBox.getChildren().add(new BuilderMFXComboBox.Builder("semester","Semester *", semesterModel.getSelectOptionList()).build().get());
 
 
     }

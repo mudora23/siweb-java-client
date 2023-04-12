@@ -7,9 +7,9 @@ import javafx.geometry.Insets;
 import javafx.scene.input.KeyEvent;
 
 /***
- * BuilderMFXTextFieldController provides an easy way to create a MFXTextField using the builder design pattern
+ * BuilderMFXTextField provides an easy way to create a MFXTextField using the builder design pattern
  */
-public class BuilderMFXTextFieldController {
+public class BuilderMFXTextField {
 
     private final MFXTextField mfxTextField;
 
@@ -17,8 +17,8 @@ public class BuilderMFXTextFieldController {
         private final String id;
         private String floatingText = "";
         private FloatMode floatMode = FloatMode.BORDER;
-        private Boolean isAnimated = false;
-        private Boolean isDisable = false;
+        private boolean isAnimated = false;
+        private boolean isDisable = false;
         private String defaultText = "";
         private double prefWidth = Double.MAX_VALUE;
         private Insets padding = new Insets(6,6,6,6);
@@ -38,12 +38,12 @@ public class BuilderMFXTextFieldController {
             this.floatMode = floatMode;
             return this;
         }
-        public Builder setAnimated(Boolean isAnimated) {
+        public Builder setAnimated(boolean isAnimated) {
             this.isAnimated = isAnimated;
             return this;
         }
 
-        public Builder setDisable(Boolean isDisable) {
+        public Builder setDisable(boolean isDisable) {
             this.isDisable = isDisable;
             return this;
         }
@@ -85,14 +85,14 @@ public class BuilderMFXTextFieldController {
             return this;
         }
 
-        public BuilderMFXTextFieldController build() {
-            return new BuilderMFXTextFieldController(this);
+        public BuilderMFXTextField build() {
+            return new BuilderMFXTextField(this);
         }
 
 
     }
 
-    private BuilderMFXTextFieldController(Builder builder) {
+    private BuilderMFXTextField(Builder builder) {
 
         this.mfxTextField = new MFXTextField();
 

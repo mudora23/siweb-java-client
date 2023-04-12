@@ -14,7 +14,7 @@ public class TimeSlotModel extends ObservableModel<TimeSlot> {
 
     private TimeSlotModel(){}
 
-    public TimeSlot add(JSONObject jsonTimeSlot, Boolean isAddToObservableList) {
+    public TimeSlot add(JSONObject jsonTimeSlot, boolean isAddToObservableList) {
         TimeSlot timeSlot = new TimeSlot(jsonTimeSlot);
         modelsMap.put(timeSlot.getId(), timeSlot);
         if(isAddToObservableList)
