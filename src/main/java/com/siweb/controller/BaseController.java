@@ -4,10 +4,7 @@ import com.siweb.controller.utility.UtilityHttpController;
 import com.siweb.controller.utility.UtilityNotificationController;
 import com.siweb.model.*;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
-import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
 import io.github.palexdev.materialfx.controls.MFXRectangleToggleNode;
-import io.github.palexdev.materialfx.notifications.MFXNotificationCenterSystem;
-import io.github.palexdev.materialfx.notifications.MFXNotificationSystem;
 import io.github.palexdev.materialfx.utils.ToggleButtonsUtil;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -64,8 +61,6 @@ public class BaseController implements Initializable {
 
                 // clear user information in Model when logging out...
                 Platform.runLater(() -> {
-
-                    notification.showSuccessMessage("Success", "Logged out successfully!");
 
                     // remove all data in the models when logging out...
                     courseModel.clearAll();

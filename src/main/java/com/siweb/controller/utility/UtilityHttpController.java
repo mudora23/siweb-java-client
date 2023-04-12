@@ -29,6 +29,7 @@ import java.util.function.*;
 public class UtilityHttpController {
 
     // Declares variables
+    protected final UtilityNotificationController notification = UtilityNotificationController.getInstance();
     private static final UtilityHttpController instance = new UtilityHttpController();
     private final HttpClient client = HttpClient.newHttpClient();
     private String accessToken = "";
@@ -70,6 +71,9 @@ public class UtilityHttpController {
 
             // It's important to wait for the main thread before logging out
             Platform.runLater(()-> listener.accept(res));
+
+            notification.showSuccessMessage("Success", "You have successfully logged out.");
+
         });
     }
 
@@ -215,6 +219,15 @@ public class UtilityHttpController {
 
         if(res.statusCode() >= 200 && res.statusCode() < 300)
         {
+
+            // create / update successful message
+            if (reqMethod.equals("PUT") || reqMethod.equals("PATCH"))
+                notification.showSuccessMessage("Success", "Record updated successfully.");
+            else if (reqMethod.equals("POST") && !uri.startsWith("/auth"))
+                notification.showSuccessMessage("Success", "Record created successfully.");
+            else if (reqMethod.equals("DELETE"))
+                notification.showSuccessMessage("Success", "Record deleted successfully.");
+
             // if the request is successful, parse the json and call the listener
             try
             {
@@ -249,6 +262,7 @@ public class UtilityHttpController {
         }
         else {
             // error, show popup notifications
+            notification.showErrorMessage("Error (" + res.statusCode() + ")", res.body().toString());
         }
     }
 

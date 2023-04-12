@@ -50,3 +50,11 @@
 	-mfx-auto-clip: true;
 	-mfx-ripple-color: derive(#7a0ed9, 125%);
 }
+
+
+.mfx-icon-wrapper .mfx-font-icon {
+	-mfx-color: -background-color;
+	-mfx-main: -background-color;
+}
+
+

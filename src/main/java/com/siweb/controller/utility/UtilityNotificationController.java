@@ -2,12 +2,13 @@ package com.siweb.controller.utility;
 
 import com.siweb.App;
 import com.siweb.model.AppModel;
+import com.siweb.model.TimeSlotModel;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import io.github.palexdev.materialfx.controls.MFXSimpleNotification;
 import io.github.palexdev.materialfx.enums.NotificationPos;
 import io.github.palexdev.materialfx.factories.InsetsFactory;
 import io.github.palexdev.materialfx.notifications.MFXNotificationSystem;
-import io.github.palexdev.materialfx.notifications.base.INotification;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,6 +17,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 import javafx.util.Duration;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.function.Consumer;
 
 
 public class UtilityNotificationController {
@@ -47,13 +52,40 @@ public class UtilityNotificationController {
 
     private void _showMessage(String title, String description, boolean isErrorMessage) {
 
-        MFXNotificationSystem.instance()
-                .initOwner(AppModel.stage)
-                //.delaySetPosition(NotificationPos.TOP_RIGHT)
-                .setPosition(NotificationPos.TOP_LEFT)
-                .setSpacing(new Insets(AppModel.stage.getY() + 50,0,0,AppModel.stage.getX() + AppModel.stage.getWidth() - 440))
-                .setCloseAfter(Duration.seconds(5))
-                .publish(new MyNotification(title, description, isErrorMessage));
+        Platform.runLater(() -> {
+            MFXNotificationSystem.instance()
+                    .initOwner(AppModel.stage)
+                    //.delaySetPosition(NotificationPos.TOP_RIGHT)
+                    .setPosition(NotificationPos.TOP_LEFT)
+                    .setSpacing(new Insets(AppModel.stage.getY() + 50,0,0,AppModel.stage.getX() + AppModel.stage.getWidth() - 440))
+                    .setCloseAfter(Duration.seconds(2))
+                    .publish(new MyNotification(title, _getReadableString(description), isErrorMessage));
+
+        });
+    }
+
+    private String _getReadableString(String str) {
+
+        try {
+            // check if it's a JSON with the structure "{...}"
+            JSONObject resJSON = new JSONObject(str);
+            return resJSON.toString(4);
+        } catch (Exception e) {
+            try
+            {
+                JSONArray resJSON = new JSONArray(str);
+                return resJSON.toString(4);
+            }
+            catch (Exception e2)
+            {
+                // JSON not valid or listener is wrong
+                //e.printStackTrace();
+                int index = str.indexOf("Request Method"); // remove details
+                if (index != -1) str = str.substring(0, index);
+
+                return str;
+            }
+        }
     }
 
     private class MyNotification extends MFXSimpleNotification {
@@ -73,7 +105,6 @@ public class UtilityNotificationController {
             }
 
             MFXIconWrapper icon = new MFXIconWrapper(iconDescription, 30, 60); // mfx-variant7-mark
-            icon.getStyleClass().add("icon");
 
             Label headerLabel = new Label();
             headerLabel.getStyleClass().add("headerLabel");
