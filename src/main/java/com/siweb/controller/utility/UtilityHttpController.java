@@ -262,7 +262,10 @@ public class UtilityHttpController {
         }
         else {
             // error, show popup notifications
-            notification.showErrorMessage("Error (" + res.statusCode() + ")", res.body().toString());
+            if(res.body().toString().contains("IntegrityError") || res.body().toString().contains("Server Error (500)")) // TODO: hotfix live server not returning the IntegrityError message
+                notification.showErrorMessage("Error (" + res.statusCode() + ")", "Integrity Error : do we have duplicated keys?");
+            else
+                notification.showErrorMessage("Error (" + res.statusCode() + ")", res.body().toString());
         }
     }
 
