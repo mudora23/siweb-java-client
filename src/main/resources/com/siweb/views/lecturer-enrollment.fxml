@@ -15,7 +15,7 @@
         <TableView id="coursesTable" fx:id="enrollmentTable" fixedCellSize="0.0" layoutX="65.0" layoutY="81.0" prefHeight="682.0" prefWidth="755.0" />
         <Pagination id="coursesTablePagination" fx:id="enrollmentTablePagination" layoutX="330.0" layoutY="769.0" prefHeight="26.0" prefWidth="225.0" />
         <MFXButton id="courseSaveBtn" fx:id="enrollmentSaveBtn" buttonType="RAISED" depthLevel="LEVEL1" disable="true" layoutX="1195.0" layoutY="774.0" onAction="#enrollmentSave" prefHeight="32.0" prefWidth="90.0" styleClass="success-button" text="Save" />
-        <MFXScrollPane id="courseDetailPane" fx:id="enrollmentDetailPane" layoutX="854.0" layoutY="82.0" prefHeight="677.0" prefWidth="433.0">
+        <MFXScrollPane id="courseDetailPane" fx:id="enrollmentDetailPane" hbarPolicy="NEVER" layoutX="854.0" layoutY="82.0" prefHeight="677.0" prefWidth="433.0">
             <content>
                 <VBox id="courseDetailVBox" fx:id="enrollmentDetailVBox" prefHeight="672.0" prefWidth="419.0" spacing="20.0">
                     <padding>

@@ -17,7 +17,7 @@
       <MFXButton id="enrollmentNewBtn" fx:id="enrollmentNewBtn" buttonType="RAISED" depthLevel="LEVEL1" layoutX="65.0" layoutY="27.0" onAction="#enrollmentNew" prefHeight="41.0" prefWidth="169.0" text="Add new enrollment" />
       <MFXButton id="enrollmentDeleteBtn" fx:id="enrollmentDeleteBtn" buttonType="RAISED" depthLevel="LEVEL1" disable="true" layoutX="854.0" layoutY="774.0" onAction="#enrollmentDelete" prefHeight="32.0" prefWidth="90.0" styleClass="delete-button" text="Delete" textFill="WHITE" />
       <MFXButton id="enrollmentSaveBtn" fx:id="enrollmentSaveBtn" buttonType="RAISED" depthLevel="LEVEL1" disable="true" layoutX="1195.0" layoutY="774.0" onAction="#enrollmentSave" prefHeight="32.0" prefWidth="90.0" styleClass="success-button" text="Save" />
-      <MFXScrollPane id="enrollmentDetailPane" fx:id="enrollmentDetailPane" layoutX="854.0" layoutY="82.0" prefHeight="677.0" prefWidth="433.0">
+      <MFXScrollPane id="enrollmentDetailPane" fx:id="enrollmentDetailPane" hbarPolicy="NEVER" layoutX="854.0" layoutY="82.0" prefHeight="677.0" prefWidth="433.0">
          <content>
             <VBox id="enrollmentDetailVBox" fx:id="enrollmentDetailVBox" prefHeight="672.0" prefWidth="419.0" spacing="20.0">
                <padding>

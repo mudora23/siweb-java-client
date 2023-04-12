@@ -17,7 +17,7 @@
       <MFXButton id="userNewBtn" fx:id="userNewBtn" buttonType="RAISED" depthLevel="LEVEL1" layoutX="65.0" layoutY="27.0" onAction="#userNew" prefHeight="41.0" prefWidth="169.0" text="Add new user" />
       <MFXButton id="userDeleteBtn" fx:id="userDeleteBtn" buttonType="RAISED" depthLevel="LEVEL1" disable="true" layoutX="854.0" layoutY="774.0" onAction="#userDelete" prefHeight="32.0" prefWidth="90.0" styleClass="delete-button" text="Delete" textFill="WHITE" />
       <MFXButton id="userSaveBtn" fx:id="userSaveBtn" buttonType="RAISED" depthLevel="LEVEL1" disable="true" layoutX="1195.0" layoutY="774.0" onAction="#userSave" prefHeight="32.0" prefWidth="90.0" styleClass="success-button" text="Save" />
-      <MFXScrollPane id="userDetailPane" fx:id="userDetailPane" layoutX="854.0" layoutY="82.0" prefHeight="677.0" prefWidth="433.0">
+      <MFXScrollPane id="userDetailPane" fx:id="userDetailPane" hbarPolicy="NEVER" layoutX="854.0" layoutY="82.0" prefHeight="677.0" prefWidth="433.0">
          <content>
             <VBox id="userDetailVBox" fx:id="userDetailVBox" prefHeight="672.0" prefWidth="419.0" spacing="20.0">
                <padding>

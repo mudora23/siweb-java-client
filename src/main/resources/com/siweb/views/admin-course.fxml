@@ -17,7 +17,7 @@
       <MFXButton id="courseNewBtn" fx:id="courseNewBtn" buttonType="RAISED" depthLevel="LEVEL1" layoutX="65.0" layoutY="27.0" onAction="#courseNew" prefHeight="41.0" prefWidth="169.0" text="Add new course" />
       <MFXButton id="courseDeleteBtn" fx:id="courseDeleteBtn" buttonType="RAISED" depthLevel="LEVEL1" disable="true" layoutX="854.0" layoutY="774.0" onAction="#courseDelete" prefHeight="32.0" prefWidth="90.0" styleClass="delete-button" text="Delete" textFill="WHITE" />
       <MFXButton id="courseSaveBtn" fx:id="courseSaveBtn" buttonType="RAISED" depthLevel="LEVEL1" disable="true" layoutX="1195.0" layoutY="774.0" onAction="#courseSave" prefHeight="32.0" prefWidth="90.0" styleClass="success-button" text="Save" />
-      <MFXScrollPane id="courseDetailPane" fx:id="courseDetailPane" layoutX="854.0" layoutY="82.0" prefHeight="677.0" prefWidth="433.0">
+      <MFXScrollPane id="courseDetailPane" fx:id="courseDetailPane" hbarPolicy="NEVER" layoutX="854.0" layoutY="82.0" prefHeight="677.0" prefWidth="433.0">
          <content>
             <VBox id="courseDetailVBox" fx:id="courseDetailVBox" prefHeight="672.0" prefWidth="419.0" spacing="20.0">
                <padding>

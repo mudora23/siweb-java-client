@@ -112,6 +112,14 @@ public class FacadePaginatedTable<S> {
         this.observableModel = builder.observableModel;
         this.resultsCountLabelId = builder.resultsCountLabelId;
 
+
+        // Set row height
+        tableView.setRowFactory(tv -> {
+            javafx.scene.control.TableRow<S> row = new javafx.scene.control.TableRow<>();
+            row.setPrefHeight((double) 640 / this.pageSize);
+            return row;
+        });
+
         // Update table when changing pages
         pagination.setPageFactory(pageIndex -> {
 
