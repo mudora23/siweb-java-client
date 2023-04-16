@@ -9,9 +9,10 @@
 ![SIWeb+ Java Client Screenshot](https://static.legendarytechnology.net/doc/others/siwebplus.png)
 *<p style="text-align: center;">Screenshot of the administrator area</p>*
 ## Software Development Process
-We adopted **Scrum - an Agile project management and product development framework**. It helped the team to deliver high-quality application more efficiently. We broke down the project into smaller, manageable tasks and iterative progress.
+We adopted **Scrum - an Agile project management and product development framework**. We broke down the project into smaller, manageable tasks and iterative progress. It helped the team to a deliver high-quality application more efficiently by focusing on a small set of features at any given time. Moreover, Agile (Scrum) allows us to give the top priority to our stakeholders (Students, Lecturers, and Administrators), starting from the very first step of the software development life cycle.
 
-Our target market is small to medium education authority which has obsolete or non-functional student management system.
+Our target market is small to medium education authorities which have obsolete or non-functional student management systems.
+
 
 ## Software Development Plan
 
