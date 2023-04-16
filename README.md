@@ -79,7 +79,7 @@ A cross-functional group. Responsible for delivering the Sprint and possibly rel
 
 ### Algorithm
 - **Requirement**
-    - Gathering, analyzing, and documenting the requirements of students, teachers, and administrators.
+    - Gathering, analyzing, and documenting the requirements of students, lecturers, and administrators.
     - Will form interviews and surveys to collect information.
 - **Design**
     - System and design elements are created on the requirements above.
