@@ -1,6 +1,7 @@
 package com.siweb.controller;
 
 import com.siweb.App;
+import com.siweb.model.AppModel;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -16,7 +17,7 @@ public class AdminBaseController extends BaseController {
     public void initialize(URL location, ResourceBundle resources) {
 
         // App Logo
-        Label menuLabel = new Label("SI Web");
+        Label menuLabel = new Label(AppModel.APP_NAME);
         menuLabel.setPadding(new Insets(8));
         this.mainMenu.getChildren().add(menuLabel);
 
