@@ -1,40 +1,39 @@
 # SIWeb+ Java Client
 **SIWeb+ Java Client** is the client side of our brand new SIWeb+ application.
 
-**SIWeb+** is a fully featured student management system and student portal for administrators, lecturers, and students. SIWeb+ provides students with a centralized location to access all the information and resources they need.
+**SIWeb+** is a fully featured and comprehensive student management system for students, lecturers, and administrators. It features a modern, visually appealing UX/UI and an intuitive interface that results in an excellent user experience.
+
+Another primary feature that SIWeb+ offers is providing students with a centralized location to access all the information and resources they need. With easier access to learning materials and streamlined communication with lecturers, this application is designed to propel students towards success.
 
 ## Screenshot
 ![SIWeb+ Java Client Screenshot](https://static.legendarytechnology.net/doc/others/siwebplus.png)
 *<p style="text-align: center;">Screenshot of the administrator area<br><small>(Administrators manage all users, enrollments, semesters, courses, sections etc.)</small></p>*
 ## Software Development Process
-We adopted **Scrum - an Agile project management and product development framework**. We broke down the project into smaller, manageable tasks and iterative progress. It helped the team to a deliver high-quality application more efficiently by focusing on a small set of features at any given time. Moreover, Agile (Scrum) allows us to give the top priority to our stakeholders (Students, Lecturers, and Administrators), starting from the very first step of the software development life cycle.
+We adopted **Scrum - an Agile project management and product development framework** to break down the project into smaller, manageable tasks and facilitate iterative progress. This approach enabled the team to deliver a high-quality application more efficiently by focusing on a limited set of features at any given time. Moreover, Agile (Scrum) allows us to prioritize the needs of our stakeholders (students, lecturers, and administrators) from the very beginning of the software development life cycle.
 
-Our target market is small to medium education authorities which have obsolete or non-functional student management systems.
-
-### Purpose
-The main purpose of this software is to help teachers and students communicate better, so that students can receive feedback from the teacher in time, find homework assigned by the teacher, avoid forgetting homework, provide the date of homework submission, and some learning materials. Teachers can also manage students' learning more easily, upload required learning materials to students, set quizzes, and provide feedback and grades for students' homework.
+Our target market consists of small to medium-sized educational institutions that currently have outdated or non-functional student management systems.
 
 ## Software Development Plan
 
 ### Development Process
 
 1. **Requirement analysis**
-Product Owner gathers and understands the key requirements from students, lecturers, and administrators. Create a list of features required and put them to the product backlog.
+    Product Owner gathers and understands the key requirements from students, lecturers, and administrators. Create a list of features required and put them to the product backlog.
 
 2. **Sprint Planning**
-Select items from the product backlog (work for 2 - 4 weeks) for the upcoming sprint. 
+    Select items from the product backlog (work for 2 - 4 weeks) for the upcoming sprint. 
 
 3. **Daily standups**
-Daily standups meetings to update each other on progress and identify any issues.
+    Daily standups meetings to update each other on progress and identify any issues.
 
 4. **Sprint Execution**
-Develop the items from the sprint planning.
+    Develop the items from the sprint planning.
 
 5. **Sprint Review and retrospective**
-Demonstrate the completed work to students, lecturers, administrators. Gather feedback and discuss with the team for the improvements needed.
+    Demonstrate the completed work to students, lecturers, administrators. Gather feedback and discuss with the team for the improvements needed.
 
 6. **Repeat**
-Move on the next sprint with improved processes.
+    Move on the next sprint with improved processes.
 
 ### Members (Roles & Responsibilities)
 - **Product Owner**
@@ -61,14 +60,13 @@ A cross-functional group. Responsible for delivering the Sprint and possibly rel
     - Day 25-26: Sprint Review
     - Day 27: Sprint Retrospective
 - **July, 2023** - Sprint #5
-    - TBD
 - **August, 2023** - Sprint #6
-    - TBD
 - **September, 2023** - Sprint #7
-    - TBD
 - **October, 2023** - Sprint #8
-    - TBD
-- **Q4 2023** - Advertizing starts.
+- **Q4 2023** - Beta release
+- **TBD** - Sprint #9
+- **Q1 2024** - Advertizing starts.
+- **TBD** - Sprint #10
 
 #### Upcoming planned features
 - Student / Lecturer calendar view (Q2 2023)
@@ -103,13 +101,13 @@ A cross-functional group. Responsible for delivering the Sprint and possibly rel
 ### Current Status
 - **Finished two sprints:**
     1. Initial Server-side coding and server-side setup.
-    2. Implements the first round of features according to our [Schedule](#Schedule) above.
+    2. Implemented the first round of features.
 - **Overall process:**
     - 35% done (updated on 2023-04-16)
 
 ### Future Plan
-- Launches the beta version of SIWeb+ in Q3 2023 according to our [Schedule](#Schedule) above.
-- Advertizing plan starts Q4 2023.
+- Launches the beta version of SIWeb+ in Q4 2023 according to our [Schedule](#Schedule) above.
+- Advertizing plan starts Q1 2024.
 
 ## Demo
 - Demonstration video: https://youtu.be/Dg64YjcQk2M (updated on 2023-04-16)
@@ -123,7 +121,7 @@ A cross-functional group. Responsible for delivering the Sprint and possibly rel
     - Linux (Ubuntu 8.04 LTE or newer)
 > Java 19 and JavaFX 19 (or above) are required to run the application but may be bundled in the distribution if allowed.
 
-[JavaFX Software and System Requirements](https://www.oracle.com/java/technologies/javafx/system-requirements.html)
+[JavaFX Release notes](https://github.com/openjdk/jfx/tree/jfx20/doc-files)
 
 ## Declaration
 - 3rd Party Libraries:
