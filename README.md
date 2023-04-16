@@ -1,5 +1,3 @@
-# siweb-java-client
-### A client of [SIWeb REST API](https://github.com/mudora23/siweb)
 # SIWeb+ Java Client
 **SIWeb+ Java Client** is the client side of our brand new SIWeb+ application.
 
@@ -78,6 +76,8 @@ A cross-functional group. Responsible to delivering the Sprint and possibly rele
 - Autogrades programing assignments (Auto-compile and compare outputs of the test cases) (TBD)
 - Private and group real time chatting (TBD)
 - iOS and Android App client with push notifications (TBD)
+# Purpose
+The main purpose of this software is to help teachers and students communicate better, so that students can receive feedback from the teacher in time, find homework assigned by the teacher, avoid forgetting homework, provide the date of homework submission, and some learning materials. Teachers can also manage students' learning more easily, upload required learning materials to students, set quizzes, and provide feedback and grades for students' homework.
 
 ### Algorithm
 - **Requirement**
