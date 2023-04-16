@@ -112,7 +112,7 @@ The main purpose of this software is to help teachers and students communicate b
 - Advertizing plan starts Q4 2023.
 
 ## Demo
-- Demonstration video: https://youtube.com (updated on 2023-04-16)
+- Demonstration video: https://youtu.be/Dg64YjcQk2M (updated on 2023-04-16)
 
 ## Environements
 - Programming language: Java 19 or above
