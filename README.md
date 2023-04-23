@@ -14,9 +14,6 @@ We adopted **Scrum - an Agile project management and product development framewo
 Our target market consists of small to medium-sized educational institutions that currently have outdated or non-functional student management systems.
 
 ## Software Development Plan
-## Development Planning
-There are 10 members are involved.
-
 
 ### Development Process
 
@@ -135,4 +132,3 @@ A cross-functional group. Responsible for delivering the Sprint and possibly rel
 - Sample University logo & background:
     - [Sample University logo (shutterstock)](https://www.shutterstock.com/image-vector/university-academy-school-course-logo-design-1594746943)
     - [Sample University background (shutterstock)](https://www.shutterstock.com/image-photo/college-campus-spring-131270519)
-
