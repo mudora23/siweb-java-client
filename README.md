@@ -1,5 +1,5 @@
-# SIWeb+ Java Client
-**SIWeb+ Java Client** is the client side of our brand new SIWeb+ application.
+# SIWeb Java Client
+**SIWeb Java Client** is the client side of our brand new SIWeb+ application.
 
 **SIWeb+** is a fully featured and comprehensive student management system for students, lecturers, and administrators. It features a modern, visually appealing UX/UI and an intuitive interface that results in an excellent user experience.
 
