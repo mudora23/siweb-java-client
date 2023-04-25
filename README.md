@@ -22,16 +22,16 @@ The development plan focused primarily on the student user experiences. The aim 
 - Cost of labors: $1000 X 12 months X 4 members = USD 48,000
 - Cost of computers: $700 X 4 computers = USD 2,800
 - Total cost: USD 50,800 (before official release)
-- Basic maintaince costs are expected to be 20% of the licensing Prices in production
+- Basic maintenance costs are expected to be 20% of the licensing Prices in production
 
 **Licensing Prices:**
 
 - Price of basic software (per educational institution per year): USD 10,000
-- Adminstrator accounts (No additional costs)
+- Administrator accounts (No additional costs)
 - Lecturer accounts (per account per year): USD 5
 - Student accounts (per account per year): USD 2
 
-Assuming on average, each educational institutions have 100 lecturers and 2000 students (with 20% maintaince costs):
+Assuming on average, each educational institutions have 100 lecturers and 2000 students (with 20% maintenance costs):
 (10000 + 100 X 5 + 2000 X 2) * 0.8 = USD 11,600
 
 To break even in the first year, we will need 4 ~ 5 educational institutions to license our software in the first year.
@@ -61,7 +61,7 @@ We adopted **Scrum - an Agile project management and product development framewo
 
 ### Members (Roles & Responsibilities)
 - **Product Owner** (Ronald, Kevin)
-Defines and prioritizes the product backlog, gather requirements from students, lecturers, administrators.
+Defines and prioritizes the product backlog, gathering requirements from students, lecturers, administrators.
 - **Scrum Master** (Sam, Aaron)
 Helps the team to stick with the Scrum practices, solves issues and ensures the team is continuously improving its processes.
 - **Development Team** (Ronald, Kevin, Sam, Aaron)
@@ -69,10 +69,10 @@ A cross-functional group. Responsible for delivering the Sprint and possibly rel
 
 ### Requirements / Planned Features / Product Backlog
 - ~~REQ - Gather requirements from stakeholders (Feb 2023)~~ **Done**
-- ~~S-D - (Server-side) Database design, code structure desgin, Models setup~~ **Done**
+- ~~S-D - (Server-side) Database design, code structure design, Models setup~~ **Done**
 - ~~S-AUTH - (Server-side) JWT authentication and role (students, admin, lecturers) authorization setup~~ **Done**
 - ~~S-CRUD - (Server-side) Writing basic CRUD operation endpoints of the models for RESTful HTTP requests from the client-side~~ **Done**
-- ~~C-D - (Client-side) Code structure desgin, Models setup~~ **Done**
+- ~~C-D - (Client-side) Code structure design, Models setup~~ **Done**
 - ~~C-AUTH - (Client-side) JWT authentication and role (students, admin, lecturers) authorization setup~~ **Done**
 - ~~C-CRUD - (Client-side) Writing HTTP requests for basic CRUD operation of the models~~ **Done**
 - ~~DEMO - Testing and Demo release~~ **Done**
@@ -82,6 +82,7 @@ A cross-functional group. Responsible for delivering the Sprint and possibly rel
 - C-ASST - Lecturers can create courses assignments to students with deadlines (Q2 2023)
 - C-QUIZ - Lecturers can create quizzes with auto-grading features. (Q3 2023)
 - BETA - Testing and Close beta release (Q4 2023)
+- VHAN - Visual Enhancements (TBD)
 - C-EMAIL - Integrated email client (TBD)
 - C-AUTOG - Auto-grades programing assignments (Auto-compile and compare outputs of the test cases) (TBD)
 - RELEASE - Official release (Q1 2024)
@@ -94,7 +95,7 @@ A cross-functional group. Responsible for delivering the Sprint and possibly rel
 > `Day 1-25: Development`
 > `Day 25-26: Sprint Review`
 > `Day 27: Sprint Retrospective`
-- **Febrary, 2023 (Sprint #1)** - REQ, S-AUTH, S-D (Ronald, Kevin), S-CRUD (Sam, Aaron)
+- **February, 2023 (Sprint #1)** - REQ, S-AUTH, S-D (Ronald, Kevin), S-CRUD (Sam, Aaron)
 - **March, 2023 (Sprint #2)** - C-D, C-AUTH (Ronald, Kevin), C-CRUD (Sam, Aaron)
 - **April, 2023 (Sprint #3)** - DEMO (Ronald, Kevin, Sam, Aaron)
 - **May, 2023 (Sprint #4)** - C-LCV (Ronald, Kevin), C-SCV (Sam, Aaron)
