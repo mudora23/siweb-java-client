@@ -31,8 +31,8 @@ The development plan focused primarily on the student user experiences. The aim 
 - Lecturer accounts (per account per year): USD 5
 - Student accounts (per account per year): USD 2
 
-Assuming on average, each educational institutions have 5 admin adminstrators, 2000 students, 100 lecturers (with 20% maintaince costs):
-(10000 + 2000 X 2 + 100 X 5) * 0.8 = USD 11,600
+Assuming on average, each educational institutions have 100 lecturers and 2000 students (with 20% maintaince costs):
+(10000 + 100 X 5 + 2000 X 2) * 0.8 = USD 11,600
 
 To break even in the first year, we will need 4 ~ 5 educational institutions to license our software in the first year.
 
