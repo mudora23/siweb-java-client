@@ -45,7 +45,7 @@ We adopted **Scrum - an Agile project management and product development framewo
     Product Owner gathers and understands the key requirements from students, lecturers, and administrators. Create a list of features required and put them to the product backlog.
 
 2. **Sprint Planning**
-    Select items from the product backlog (work for 2 - 4 weeks) for the upcoming sprint. 
+    Select items from the product backlog (work for 3 - 4 weeks) for the upcoming sprint. 
 
 3. **Daily standups**
     Daily standups meetings to update each other on progress and identify any issues.
@@ -67,7 +67,7 @@ Helps the team to stick with the Scrum practices, solves issues and ensures the 
 - **Development Team** (Ronald, Kevin, Sam, Aaron)
 A cross-functional group. Responsible for delivering the Sprint and possibly releasing the incremental changes.
 
-### Requirements / Product Backlog
+### Requirements / Planned Features / Product Backlog
 - ~~REQ - Gather requirements from stakeholders (Feb 2023)~~ **Done**
 - ~~S-D - (Server-side) Database design, code structure desgin, Models setup~~ **Done**
 - ~~S-AUTH - (Server-side) JWT authentication and role (students, admin, lecturers) authorization setup~~ **Done**
@@ -75,13 +75,13 @@ A cross-functional group. Responsible for delivering the Sprint and possibly rel
 - ~~C-D - (Client-side) Code structure desgin, Models setup~~ **Done**
 - ~~C-AUTH - (Client-side) JWT authentication and role (students, admin, lecturers) authorization setup~~ **Done**
 - ~~C-CRUD - (Client-side) Writing HTTP requests for basic CRUD operation of the models~~ **Done**
-- ~~DEMO - Demo release~~ **Done**
+- ~~DEMO - Testing and Demo release~~ **Done**
 - C-SCV - Student calendar view (Q2 2023)
 - C-LCV - Lecturer calendar view (Q2 2023)
 - C-CONT - Lecturers can upload and share courses content to students (Q2 2023)
 - C-ASST - Lecturers can create courses assignments to students with deadlines (Q2 2023)
 - C-QUIZ - Lecturers can create quizzes with auto-grading features. (Q3 2023)
-- BETA - Close beta release (Q4 2023)
+- BETA - Testing and Close beta release (Q4 2023)
 - C-EMAIL - Integrated email client (TBD)
 - C-AUTOG - Auto-grades programing assignments (Auto-compile and compare outputs of the test cases) (TBD)
 - RELEASE - Official release (Q1 2024)
@@ -90,10 +90,10 @@ A cross-functional group. Responsible for delivering the Sprint and possibly rel
 
 ### <a id="Schedule"></a>Schedule
 > A Sprint Cycle contains:
-> Day 1: Sprint Planning
-> Day 1-25: Development
-> Day 25-26: Sprint Review
-> Day 27: Sprint Retrospective
+> `Day 1: Sprint Planning`
+> `Day 1-25: Development`
+> `Day 25-26: Sprint Review`
+> `Day 27: Sprint Retrospective`
 - **Febrary, 2023 (Sprint #1)** - REQ, S-AUTH, S-D (Ronald, Kevin), S-CRUD (Sam, Aaron)
 - **March, 2023 (Sprint #2)** - C-D, C-AUTH (Ronald, Kevin), C-CRUD (Sam, Aaron)
 - **April, 2023 (Sprint #3)** - DEMO (Ronald, Kevin, Sam, Aaron)
@@ -130,7 +130,7 @@ A cross-functional group. Responsible for delivering the Sprint and possibly rel
     - After each deployment. Closely monitors the bugs and errors, and addresses user feedback.
 
 ### Current Status
-- **Finished two sprints and released the demo**
+- **Finished three sprints and released the demo**
 - **Overall process:**
     - 25% done (updated on 2023-04-16)
 
